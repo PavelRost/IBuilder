@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">IBuilder</string>
+    <!-- Главный экран (MainActivity.kt)   -->
+    <string name="button_save_name">Сохранить игру</string>
+    <string name="button_load_name">Загрузить игру</string>
+    <string name="header_indicators">Экономические показатели:</string>
+    <string name="header_indicators_resources">Ресурсы:</string>
+    <string name="header_indicators_citizens">Население:</string>
+    <string name="header_indicators_buildings">Постройки:</string>
+    <string name="header_notice">Игровые события:</string>
+    <string name="textview_notice">Журнал последних игровых событий - пуст.</string>
+    <string name="button_buildings">Постройки</string>
+    <string name="button_resources">Ресурсы</string>
+    <string name="button_move_next">След. ход</string>
+
+    <!-- Экран Постройки (BuildingMainActivity.kt)   -->
+    <string name="textview_radio_building">Здание не выбрано</string>
+    <string name="building_gold">Золотой рудник</string>
+    <string name="building_stone">Каменный рудник</string>
+    <string name="building_wood">Лесопилка</string>
+    <string name="building_food">Ферма</string>
+    <string name="building_house_workers">Жилище работников</string>
+    <string name="button_construction">Построить здание</string>
+    <string name="button_status_construction">Прогресс строительства</string>
+    <string name="button_working_buildings">Работающие производства</string>
+    <string name="button_add_workers">Распределить рабочих</string>
+    <string name="button_remove_workers">Снять рабочих</string>
+
+    <!-- Экран покупки / продажи ресурсов (BuildingMainActivity.kt)   -->
+    <string name="button_buy_resources">Купить</string>
+    <string name="button_sell_resources">Продать</string>
+
+
+</resources>

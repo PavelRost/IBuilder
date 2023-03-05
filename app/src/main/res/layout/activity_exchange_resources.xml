@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".BuildingMainActivity">
+
+        <LinearLayout
+            android:id="@+id/header_notice_building"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/header_notice"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_notice_building"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_notice_building"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:text="@string/textview_notice"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_radio_building"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/textView_radio_building"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:textSize="20sp"-->
+            <!--            android:layout_marginBottom="10dp"-->
+            <!--            android:textStyle="bold"-->
+            <!--            android:gravity="center_horizontal"-->
+            <!--            android:text="@string/textview_radio_building"-->
+            <!--            />-->
+
+            <RadioGroup
+                android:id="@+id/radios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_notice_building">
+
+                <RadioButton android:id="@+id/radiobutton_gold"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:onClick="selectTypeBuilding"
+                    android:text="@string/building_gold" />
+
+                <RadioButton android:id="@+id/radiobutton_stone"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:onClick="selectTypeBuilding"
+                    android:text="@string/building_stone" />
+
+                <RadioButton android:id="@+id/radiobutton_wood"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:onClick="selectTypeBuilding"
+                    android:text="@string/building_wood" />
+
+                <RadioButton android:id="@+id/radiobutton_food"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:onClick="selectTypeBuilding"
+                    android:text="@string/building_food" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_buy_resources"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:onClick="addWorkersInBuilding"
+                android:text="@string/button_buy_resources" />
+
+            <Button
+                android:id="@+id/button_sell_resources"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:onClick="removeWorkersInBuilding"
+                android:text="@string/button_sell_resources" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</ScrollView>

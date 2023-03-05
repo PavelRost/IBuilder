@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/layout_save_load"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:onClick="saveProgress"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/button_save_name" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:onClick="loadProgress"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/button_load_name" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/header_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_save_load"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="@string/header_notice"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_notice"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_notice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:text="@string/textview_notice"
+            />
+
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/header_indicators"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_below="@+id/layout_notice"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:textSize="25sp"-->
+<!--            android:gravity="center"-->
+<!--            android:textStyle="bold"-->
+<!--            android:text="@string/header_indicators" />-->
+
+<!--    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/layout_header_indicators"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/layout_notice"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:gravity="left"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="@string/header_indicators_resources"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="@string/header_indicators_citizens"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="@string/header_indicators_buildings"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_number_indicators"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_header_indicators"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_count_resources"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:gravity="left"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text=""
+            />
+
+        <TextView
+            android:id="@+id/textView_count_citizens"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:text=""
+            />
+
+        <TextView
+            android:id="@+id/textView_count_built"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:text=""
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_construction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:onClick="switchActivity"
+            android:textSize="10sp"
+            android:text="@string/button_buildings" />
+
+
+        <Button
+            android:id="@+id/button_resources"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="updateIndicatorsPlayer"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:text="@string/button_resources" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="startNextMove"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:text="@string/button_move_next" />
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
