@@ -29,6 +29,13 @@
     <!-- Экран покупки / продажи ресурсов (BuildingMainActivity.kt)   -->
     <string name="button_buy_resources">Купить</string>
     <string name="button_sell_resources">Продать</string>
+    <string name="resource_gold">Золото</string>
+    <string name="resource_wood">Лес</string>
+    <string name="resource_food">Продовольствие</string>
+    <string name="resource_stone">Камень</string>
+    <string name="header_buy">Цена покупки:</string>
+    <string name="currency">зол.</string>
+    <string name="header_cell">Цена продажи:</string>
 
 
 </resources>

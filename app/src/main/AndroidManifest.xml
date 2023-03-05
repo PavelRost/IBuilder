@@ -25,6 +25,11 @@
             android:parentActivityName=".MainActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".ExchangeResourcesActivity"
+            android:parentActivityName=".MainActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
