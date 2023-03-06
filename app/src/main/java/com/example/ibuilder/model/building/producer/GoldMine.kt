@@ -15,6 +15,6 @@ data class GoldMine(
 ): AbstractBuilding() {
 
     override fun createResources() {
-        resource.gold = profit
+        resource.allResources[typeResources] = resource.allResources[typeResources]!! + profit
     }
 }

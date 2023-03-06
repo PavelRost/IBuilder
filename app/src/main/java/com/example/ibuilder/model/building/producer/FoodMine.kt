@@ -15,6 +15,6 @@ data class FoodMine(
 ): AbstractBuilding() {
 
     override fun createResources() {
-        resource.food = profit
+        resource.allResources[typeResources] = resource.allResources[typeResources]!! + profit
     }
 }

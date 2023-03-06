@@ -15,6 +15,6 @@ data class WoodMine(
 ): AbstractBuilding() {
 
     override fun createResources() {
-        resource.wood = profit
+        resource.allResources[typeResources] = resource.allResources[typeResources]!! + profit
     }
 }

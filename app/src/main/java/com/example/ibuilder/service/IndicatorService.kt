@@ -24,11 +24,11 @@ object IndicatorService {
 
     fun deleteResources() {
         if (human.totalWorkers > 0) {
-            if (resources.food < human.totalWorkers * human.useFood) {
-                var workersForRemove = if (resources.food == 0) {
+            if (resources.allResources[TypeResources.FOOD]!! < human.totalWorkers * human.useFood) {
+                var workersForRemove = if (resources.allResources[TypeResources.FOOD]!! == 0) {
                     human.totalWorkers
                 } else {
-                    (human.totalWorkers * human.useFood - resources.food) / human.useFood
+                    (human.totalWorkers * human.useFood - resources.allResources[TypeResources.FOOD]!!) / human.useFood
                 }
                 while (human.freeWorkers < workersForRemove) {
                     buildingSer.getAllBuildingsBuilt().filter { it.hiredWorkers > 0 }[0].removeWorkers()
@@ -47,11 +47,11 @@ object IndicatorService {
                         }
                     }
             }
-            if (resources.food - human.useFood * human.totalWorkers == 0) {
-                resources.food = -resources.food
+            if (resources.allResources[TypeResources.FOOD]!! - human.useFood * human.totalWorkers == 0) {
+                resources.allResources[TypeResources.FOOD] = resources.allResources[TypeResources.FOOD]!! - resources.allResources[TypeResources.FOOD]!! // TODO = 0 достаточно просто указать 0
                 return
             }
-            resources.food = -(human.useFood * human.totalWorkers)
+            resources.allResources[TypeResources.FOOD] = resources.allResources[TypeResources.FOOD]!! - (human.useFood * human.totalWorkers)
         }
     }
 
@@ -60,29 +60,29 @@ object IndicatorService {
         for (resource in mapCost?.keys!!) {
             when(resource) {
                 TypeResources.WOOD -> {
-                    if (resources.wood - mapCost[resource]!! >= 0) {
-                        resources.wood = -mapCost[resource]!!
+                    if (resources.allResources[TypeResources.WOOD]!! - mapCost[resource]!! >= 0) {
+                        resources.allResources[TypeResources.WOOD] = resources.allResources[TypeResources.WOOD]!! - mapCost[resource]!!
                         return true
                     }
                     break
                 }
                 TypeResources.FOOD -> {
-                    if (resources.food - mapCost[resource]!! >= 0) {
-                        resources.food = -mapCost[resource]!!
+                    if (resources.allResources[TypeResources.FOOD]!! - mapCost[resource]!! >= 0) {
+                        resources.allResources[TypeResources.FOOD] = resources.allResources[TypeResources.FOOD]!! - mapCost[resource]!!
                         return true
                     }
                     break
                 }
                 TypeResources.GOLD -> {
-                    if (resources.gold - mapCost[resource]!! >= 0) {
-                        resources.gold = -mapCost[resource]!!
+                    if (resources.allResources[TypeResources.GOLD]!! - mapCost[resource]!! >= 0) {
+                        resources.allResources[TypeResources.GOLD] = resources.allResources[TypeResources.GOLD]!! - mapCost[resource]!!
                         return true
                     }
                     break
                 }
                 TypeResources.STONE -> {
-                    if (resources.stone - mapCost[resource]!! >= 0) {
-                        resources.stone = -mapCost[resource]!!
+                    if (resources.allResources[TypeResources.STONE]!! - mapCost[resource]!! >= 0) {
+                        resources.allResources[TypeResources.STONE] = resources.allResources[TypeResources.STONE]!! - mapCost[resource]!!
                         return true
                     }
                     break
@@ -103,10 +103,10 @@ object IndicatorService {
     }
 
     fun showDisplayResources() =
-        "Еда: ${Resource.food}\n" +
-                "Золото: ${Resource.gold}\n" +
-                "Камень: ${Resource.stone}\n" +
-                "Древесина: ${Resource.wood}"
+        "Еда: ${Resource.allResources[TypeResources.FOOD]}\n" +
+                "Золото: ${Resource.allResources[TypeResources.GOLD]}\n" +
+                "Камень: ${Resource.allResources[TypeResources.STONE]}\n" +
+                "Древесина: ${Resource.allResources[TypeResources.WOOD]}"
 
     fun showDisplayCitizens() =
         "Всего рабочих: ${Human.totalWorkers}\n" +
