@@ -1,23 +1,8 @@
-package model.indicatorsDB
+package com.example.ibuilder.model.indicatorsDB
+
+import model.indicatorsDB.TypeResources
 
 object Resource {
-
-    var gold: Int = 20
-        set(value) {
-            field += value
-        }
-    var food: Int = 20
-        set(value) {
-            field += value
-        }
-    var wood: Int = 10
-        set(value) {
-            field += value
-        }
-    var stone: Int = 0
-        set(value) {
-            field += value
-        }
 
     val allResources = mutableMapOf(
         TypeResources.GOLD to 20,

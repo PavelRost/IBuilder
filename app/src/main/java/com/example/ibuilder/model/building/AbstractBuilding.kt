@@ -1,8 +1,8 @@
 package com.example.ibuilder.model.building
 
+import com.example.ibuilder.model.indicatorsDB.Resource
 import model.building.TypeBuilding
 import model.indicatorsDB.Human
-import model.indicatorsDB.Resource
 import model.indicatorsDB.TypeResources
 
 abstract class AbstractBuilding {

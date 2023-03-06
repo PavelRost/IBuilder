@@ -1,11 +1,10 @@
 package service
 
 import com.example.ibuilder.model.indicatorsDB.CostConstruction
-import com.example.ibuilder.model.indicatorsDB.OtherIndicators
+import com.example.ibuilder.model.indicatorsDB.Resource
 import model.building.TypeBuilding
 import model.building.producer.HouseWorker
 import model.indicatorsDB.Human
-import model.indicatorsDB.Resource
 import model.indicatorsDB.TypeResources
 
 object IndicatorService {
@@ -93,14 +92,14 @@ object IndicatorService {
         return false
     }
 
-    fun resetValueIndicators() {
-        Human.totalWorkers = -Human.totalWorkers
-        Resource.gold = -Resource.gold
-        Resource.food = -Resource.food
-        Resource.wood = -Resource.wood
-        Resource.stone = -Resource.stone
-        OtherIndicators.currentDay = -OtherIndicators.currentDay
-    }
+//    fun resetValueIndicators() {
+//        Human.totalWorkers = -Human.totalWorkers
+//        Resource.gold = -Resource.gold
+//        Resource.food = -Resource.food
+//        Resource.wood = -Resource.wood
+//        Resource.stone = -Resource.stone
+//        OtherIndicators.currentDay = -OtherIndicators.currentDay
+//    }
 
     fun showDisplayResources() =
         "Еда: ${Resource.allResources[TypeResources.FOOD]}\n" +

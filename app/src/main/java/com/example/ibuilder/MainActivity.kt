@@ -4,18 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ibuilder.model.indicatorsDB.OtherIndicators
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.io.Files
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import model.indicatorsDB.Human
-import model.indicatorsDB.Resource
 import service.BuildingService
 import service.IndicatorService
-import java.io.File
-import java.nio.charset.StandardCharsets
 
 class MainActivity : AppCompatActivity() {
 
@@ -70,63 +64,63 @@ class MainActivity : AppCompatActivity() {
         textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
     }
 
-    fun saveProgress(view: View) {
-        val resourceJson = ResourceJson(
-            gold = Resource.gold,
-            food = Resource.food,
-            wood = Resource.wood,
-            stone = Resource.stone
-        )
-        val humanJson = HumanJson(
-            totalWorkers = Human.totalWorkers,
-            hiredWorkers = Human.hiredWorkers,
-            freeWorkers = Human.freeWorkers
-        )
-        val otherIndicators = OtherIndicators(
-            currentDay = OtherIndicators.currentDay
-        )
-        try {
-            openFileOutput(fileNameSaveHuman, MODE_PRIVATE).write(gson.toJson(humanJson).toByteArray())
-            openFileOutput(fileNameSaveResources, MODE_PRIVATE).write(gson.toJson(resourceJson).toByteArray())
-            openFileOutput(fileNameSaveOtherIndicators, MODE_PRIVATE).write(gson.toJson(otherIndicators).toByteArray())
-            Toast.makeText(this, "Игра успешно сохранена!", Toast.LENGTH_SHORT).show()
-        } catch (ex: Exception) {
-            Toast.makeText(this, "Ошибка при сохранении данных, попробуйте снова!", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    fun saveProgress(view: View) {
+//        val resourceJson = ResourceJson(
+//            gold = Resource.gold,
+//            food = Resource.food,
+//            wood = Resource.wood,
+//            stone = Resource.stone
+//        )
+//        val humanJson = HumanJson(
+//            totalWorkers = Human.totalWorkers,
+//            hiredWorkers = Human.hiredWorkers,
+//            freeWorkers = Human.freeWorkers
+//        )
+//        val otherIndicators = OtherIndicators(
+//            currentDay = OtherIndicators.currentDay
+//        )
+//        try {
+//            openFileOutput(fileNameSaveHuman, MODE_PRIVATE).write(gson.toJson(humanJson).toByteArray())
+//            openFileOutput(fileNameSaveResources, MODE_PRIVATE).write(gson.toJson(resourceJson).toByteArray())
+//            openFileOutput(fileNameSaveOtherIndicators, MODE_PRIVATE).write(gson.toJson(otherIndicators).toByteArray())
+//            Toast.makeText(this, "Игра успешно сохранена!", Toast.LENGTH_SHORT).show()
+//        } catch (ex: Exception) {
+//            Toast.makeText(this, "Ошибка при сохранении данных, попробуйте снова!", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
-    fun loadProgress(view: View) {
-        if (fileList().size != 3) {
-            Toast.makeText(this, "Сохранения прогресса отсутствуют!", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val path = applicationContext.filesDir
-        val fileHuman = File(path, fileNameSaveHuman)
-        val fileResources = File(path, fileNameSaveResources)
-        val fileIndicators = File(path, fileNameSaveOtherIndicators)
-
-        try {
-            println(Files.toString(fileIndicators, StandardCharsets.UTF_8))
-            val humanData = gson.fromJson(Files.toString(fileHuman, StandardCharsets.UTF_8), HumanJson::class.java)
-            val resourcesData = gson.fromJson(Files.toString(fileResources, StandardCharsets.UTF_8), ResourceJson::class.java)
-            val otherIndicators = gson.fromJson(Files.toString(fileIndicators, StandardCharsets.UTF_8), com.example.ibuilder.OtherIndicators::class.java)
-
-            IndicatorService.resetValueIndicators()
-
-            Human.totalWorkers = humanData.totalWorkers
-            Human.hiredWorkers = humanData.hiredWorkers
-            Human.freeWorkers = humanData.freeWorkers
-            Resource.gold = resourcesData.gold
-            Resource.food = resourcesData.food
-            Resource.stone = resourcesData.stone
-            Resource.wood = resourcesData.wood
-            OtherIndicators.currentDay = otherIndicators.currentDay
-
-        } catch (ex: Exception) {
-            Toast.makeText(this, "Ошибка при загрузке данных, попробуйте снова!", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    fun loadProgress(view: View) {
+//        if (fileList().size != 3) {
+//            Toast.makeText(this, "Сохранения прогресса отсутствуют!", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+//
+//        val path = applicationContext.filesDir
+//        val fileHuman = File(path, fileNameSaveHuman)
+//        val fileResources = File(path, fileNameSaveResources)
+//        val fileIndicators = File(path, fileNameSaveOtherIndicators)
+//
+//        try {
+//            println(Files.toString(fileIndicators, StandardCharsets.UTF_8))
+//            val humanData = gson.fromJson(Files.toString(fileHuman, StandardCharsets.UTF_8), HumanJson::class.java)
+//            val resourcesData = gson.fromJson(Files.toString(fileResources, StandardCharsets.UTF_8), ResourceJson::class.java)
+//            val otherIndicators = gson.fromJson(Files.toString(fileIndicators, StandardCharsets.UTF_8), com.example.ibuilder.OtherIndicators::class.java)
+//
+//            IndicatorService.resetValueIndicators()
+//
+//            Human.totalWorkers = humanData.totalWorkers
+//            Human.hiredWorkers = humanData.hiredWorkers
+//            Human.freeWorkers = humanData.freeWorkers
+//            Resource.gold = resourcesData.gold
+//            Resource.food = resourcesData.food
+//            Resource.stone = resourcesData.stone
+//            Resource.wood = resourcesData.wood
+//            OtherIndicators.currentDay = otherIndicators.currentDay
+//
+//        } catch (ex: Exception) {
+//            Toast.makeText(this, "Ошибка при загрузке данных, попробуйте снова!", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
 }
 

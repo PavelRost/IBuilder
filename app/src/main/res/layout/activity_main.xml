@@ -6,38 +6,37 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/layout_main_save_load"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout_main_save_load"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:orientation="horizontal">-->
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:onClick="saveProgress"
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/button_save_name" />
+<!--        <Button-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:onClick="saveProgress"-->
+<!--            style="?android:attr/buttonBarButtonStyle"-->
+<!--            android:text="@string/button_save_name" />-->
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:onClick="loadProgress"
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/button_load_name" />
+<!--        <Button-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:onClick="loadProgress"-->
+<!--            style="?android:attr/buttonBarButtonStyle"-->
+<!--            android:text="@string/button_load_name" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/header_main_notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_main_save_load"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
@@ -195,14 +194,14 @@
 
 
         <Button
-            android:id="@+id/button_main_resources"
+            android:id="@+id/button_main_exchange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:onClick="updateIndicatorsPlayer"
+            android:onClick="switchActivityToExchangeResources"
             android:layout_weight="1"
             android:textSize="10sp"
-            android:text="@string/button_resources" />
+            android:text="@string/button_exchange_resources" />
 
         <Button
             android:layout_width="wrap_content"
@@ -215,45 +214,45 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layout_main_buttons2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/layout_main_buttons"
-        android:orientation="horizontal">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout_main_buttons2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_above="@+id/layout_main_buttons"-->
+<!--        android:orientation="horizontal">-->
 
-        <Button
-            android:id="@+id/button_main_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:onClick="switchActivityToBuilding"
-            android:textSize="10sp"
-            android:text="------" />
+<!--        <Button-->
+<!--            android:id="@+id/button_main_1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:onClick="switchActivityToBuilding"-->
+<!--            android:textSize="10sp"-->
+<!--            android:text="&#45;&#45;&#45;&#45;&#45;&#45;" />-->
 
 
-        <Button
-            android:id="@+id/button_main_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:onClick="updateIndicatorsPlayer"
-            android:layout_weight="1"
-            android:textSize="10sp"
-            android:text="------" />
+<!--        <Button-->
+<!--            android:id="@+id/button_main_2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:onClick="updateIndicatorsPlayer"-->
+<!--            android:layout_weight="1"-->
+<!--            android:textSize="10sp"-->
+<!--            android:text="&#45;&#45;&#45;&#45;&#45;&#45;" />-->
 
-        <Button
-            android:id="@+id/button_main_exchange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:onClick="switchActivityToExchangeResources"
-            android:layout_weight="1"
-            android:textSize="10sp"
-            android:text="@string/button_exchange_resources" />
+<!--        <Button-->
+<!--            android:id="@+id/button_main_exchange"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:onClick="switchActivityToExchangeResources"-->
+<!--            android:layout_weight="1"-->
+<!--            android:textSize="10sp"-->
+<!--            android:text="@string/button_exchange_resources" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
 
 
