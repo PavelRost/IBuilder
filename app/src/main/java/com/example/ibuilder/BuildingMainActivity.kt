@@ -18,34 +18,34 @@ class BuildingMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_building_main)
-        findViewById<RadioGroup>(R.id.radios).clearCheck()
-        textViewNoticeBuilding = findViewById(R.id.textView_notice_building)
+        findViewById<RadioGroup>(R.id.radios_building).clearCheck()
+        textViewNoticeBuilding = findViewById(R.id.textView_building_notice)
     }
 
     fun selectTypeBuilding(view: View) {
         val isChecked = (view as RadioButton).isChecked
         when(view.id) {
-            R.id.radiobutton_gold -> {
+            R.id.radiobutton_building_gold -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_GOLD
                 }
             }
-            R.id.radiobutton_stone -> {
+            R.id.radiobutton_building_stone -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_STONE
                 }
             }
-            R.id.radiobutton_wood -> {
+            R.id.radiobutton_building_wood -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_WOOD
                 }
             }
-            R.id.radiobutton_food -> {
+            R.id.radiobutton_building_food -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_FOOD
                 }
             }
-            R.id.radiobutton_house -> {
+            R.id.radiobutton_building_house -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_WORKER
                 }

@@ -12,6 +12,7 @@
     <string name="button_buildings">Постройки</string>
     <string name="button_resources">Ресурсы</string>
     <string name="button_move_next">След. ход</string>
+    <string name="button_exchange_resources">Обмен ресурсов</string>
 
     <!-- Экран Постройки (BuildingMainActivity.kt)   -->
     <string name="textview_radio_building">Здание не выбрано</string>

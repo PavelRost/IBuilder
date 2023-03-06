@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/layout_save_load"
+        android:id="@+id/layout_main_save_load"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -34,10 +34,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/header_notice"
+        android:id="@+id/header_main_notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_save_load"
+        android:layout_below="@+id/layout_main_save_load"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
@@ -53,16 +53,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_notice"
+        android:id="@+id/layout_main_notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header_notice"
+        android:layout_below="@+id/header_main_notice"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView_notice"
+            android:id="@+id/textView_main_notice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -92,11 +92,11 @@
 <!--    </LinearLayout>-->
 
     <LinearLayout
-        android:id="@+id/layout_header_indicators"
+        android:id="@+id/layout_main_header_indicators"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/layout_notice"
+        android:layout_below="@+id/layout_main_notice"
         android:orientation="horizontal">
 
         <TextView
@@ -135,14 +135,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_number_indicators"
+        android:id="@+id/layout_main_number_indicators"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_header_indicators"
+        android:layout_below="@+id/layout_main_header_indicators"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView_count_resources"
+            android:id="@+id/textView_main_count_resources"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="11sp"
@@ -153,7 +153,7 @@
             />
 
         <TextView
-            android:id="@+id/textView_count_citizens"
+            android:id="@+id/textView_main_count_citizens"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="11sp"
@@ -164,7 +164,7 @@
             />
 
         <TextView
-            android:id="@+id/textView_count_built"
+            android:id="@+id/textView_main_count_built"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="11sp"
@@ -177,25 +177,25 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_buttons"
+        android:id="@+id/layout_main_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_construction"
+            android:id="@+id/button_main_construction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:onClick="switchActivity"
+            android:onClick="switchActivityToBuilding"
             android:textSize="10sp"
             android:text="@string/button_buildings" />
 
 
         <Button
-            android:id="@+id/button_resources"
+            android:id="@+id/button_main_resources"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -212,6 +212,46 @@
             android:layout_weight="1"
             android:textSize="10sp"
             android:text="@string/button_move_next" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_main_buttons2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout_main_buttons"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_main_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:onClick="switchActivityToBuilding"
+            android:textSize="10sp"
+            android:text="------" />
+
+
+        <Button
+            android:id="@+id/button_main_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="updateIndicatorsPlayer"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:text="------" />
+
+        <Button
+            android:id="@+id/button_main_exchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="switchActivityToExchangeResources"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:text="@string/button_exchange_resources" />
 
     </LinearLayout>
 

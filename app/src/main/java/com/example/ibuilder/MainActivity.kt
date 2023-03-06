@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateIndicatorsPlayer(view: View) {
-        val textViewCountResources = findViewById<TextView>(R.id.textView_count_resources)
-        val textViewCountCitizens = findViewById<TextView>(R.id.textView_count_citizens)
-        val textViewCountBuilt = findViewById<TextView>(R.id.textView_count_built)
+        val textViewCountResources = findViewById<TextView>(R.id.textView_main_count_resources)
+        val textViewCountCitizens = findViewById<TextView>(R.id.textView_main_count_citizens)
+        val textViewCountBuilt = findViewById<TextView>(R.id.textView_main_count_built)
         textViewCountResources.text = IndicatorService.showDisplayResources()
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
         textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     fun startNextMove(view: View) {
         OtherIndicators.currentDay = 1
         val rsl = StringBuilder("Наступил ${OtherIndicators.currentDay} день!\n")
-        val textViewNotice = findViewById<TextView>(R.id.textView_notice)
+        val textViewNotice = findViewById<TextView>(R.id.textView_main_notice)
         rsl.append(BuildingService.continueBuild())
         IndicatorService.addResources()
         IndicatorService.deleteResources()
@@ -51,15 +51,20 @@ class MainActivity : AppCompatActivity() {
         updateIndicatorsPlayer(view)
     }
 
-    fun switchActivity(view: View) {
+    fun switchActivityToBuilding(view: View) {
         val intent = Intent(this@MainActivity, BuildingMainActivity::class.java)
         startActivity(intent)
     }
 
+    fun switchActivityToExchangeResources(view: View) {
+        val intent = Intent(this@MainActivity, ExchangeResourcesActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun updateIndicatorsWithoutView() {
-        val textViewCountResources = findViewById<TextView>(R.id.textView_count_resources)
-        val textViewCountCitizens = findViewById<TextView>(R.id.textView_count_citizens)
-        val textViewCountBuilt = findViewById<TextView>(R.id.textView_count_built)
+        val textViewCountResources = findViewById<TextView>(R.id.textView_main_count_resources)
+        val textViewCountCitizens = findViewById<TextView>(R.id.textView_main_count_citizens)
+        val textViewCountBuilt = findViewById<TextView>(R.id.textView_main_count_built)
         textViewCountResources.text = IndicatorService.showDisplayResources()
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
         textViewCountBuilt.text = IndicatorService.showDisplayBuilt()

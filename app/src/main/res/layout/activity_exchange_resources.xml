@@ -13,7 +13,7 @@
         tools:context=".ExchangeResourcesActivity">
 
         <LinearLayout
-            android:id="@+id/header_notice_exchange"
+            android:id="@+id/header_exchange_notice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -31,14 +31,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_notice_exchange"
+            android:id="@+id/layout_exchange_notice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView_notice_exchange"
+                android:id="@+id/textView_exchange_notice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -50,14 +50,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_buy"
+            android:id="@+id/layout_exchange_buy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView_header_buy"
+                android:id="@+id/textView_exchange_header_buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -67,7 +67,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView_buy_price"
+                android:id="@+id/textView_exchange_buy_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -88,14 +88,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_sell"
+            android:id="@+id/layout_exchange_sell"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView_header_sell"
+                android:id="@+id/textView_exchange_header_sell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -105,7 +105,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView_sell_price"
+                android:id="@+id/textView_exchange_sell_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -126,7 +126,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_radio_exchange"
+            android:id="@+id/layout_exchange_radios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -141,28 +141,22 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_notice_building">
 
-                <RadioButton android:id="@+id/radiobutton_gold_exchange"
+                <RadioButton android:id="@+id/radiobutton_exchange_stone"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:onClick="selectTypeBuilding"
-                    android:text="@string/resource_gold" />
-
-                <RadioButton android:id="@+id/radiobutton_stone_exchange"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:onClick="selectTypeBuilding"
+                    android:onClick="selectTypeResources"
                     android:text="@string/resource_stone" />
 
-                <RadioButton android:id="@+id/radiobutton_wood_exchange"
+                <RadioButton android:id="@+id/radiobutton_exchange_wood"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:onClick="selectTypeBuilding"
+                    android:onClick="selectTypeResources"
                     android:text="@string/resource_wood" />
 
-                <RadioButton android:id="@+id/radiobutton_food_exchange"
+                <RadioButton android:id="@+id/radiobutton_exchange_food"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:onClick="selectTypeBuilding"
+                    android:onClick="selectTypeResources"
                     android:text="@string/resource_food" />
 
             </RadioGroup>
@@ -170,27 +164,64 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_buttons_resources"
+            android:id="@+id/layout_exchange_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button_buy_resources"
+                android:id="@+id/button_exchange_decrement_quantity"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
-                android:onClick="addWorkersInBuilding"
+                android:onClick="decrementQuantity"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/textView_exchange_quantity"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="1"
+                />
+
+            <Button
+                android:id="@+id/button_exchange_increment_quantity"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:onClick="incrementQuantity"
+                android:text="+" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_exchange_buttons_resources"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_exchange_buy_resources"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:onClick="buyResources"
                 android:text="@string/button_buy_resources" />
 
             <Button
-                android:id="@+id/button_sell_resources"
+                android:id="@+id/button_exchange_sell_resources"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
-                android:onClick="removeWorkersInBuilding"
+                android:onClick="sellResources"
                 android:text="@string/button_sell_resources" />
 
         </LinearLayout>
