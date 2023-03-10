@@ -46,8 +46,8 @@ object IndicatorService {
                         }
                     }
             }
-            if (resources.allResources[TypeResources.FOOD]!! - human.useFood * human.totalWorkers == 0) {
-                resources.allResources[TypeResources.FOOD] = resources.allResources[TypeResources.FOOD]!! - resources.allResources[TypeResources.FOOD]!! // TODO = 0 достаточно просто указать 0
+            if (resources.allResources[TypeResources.FOOD]!! - human.useFood * human.totalWorkers <= 0) {
+                resources.allResources[TypeResources.FOOD] = 0
                 return
             }
             resources.allResources[TypeResources.FOOD] = resources.allResources[TypeResources.FOOD]!! - (human.useFood * human.totalWorkers)
