@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:gravity="center"
             android:textStyle="bold"
             android:text="@string/header_notice"
@@ -195,7 +195,7 @@
             android:onClick="switchActivityToExchangeResources"
             android:layout_weight="1"
             android:textSize="10sp"
-            android:text="@string/button_exchange_resources" />
+            android:text="@string/button_resources" />
 
         <Button
             android:layout_width="wrap_content"
