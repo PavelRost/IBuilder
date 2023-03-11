@@ -9,17 +9,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import model.building.TypeBuilding
 import service.BuildingService
+import service.IndicatorService
 
 class BuildingMainActivity : AppCompatActivity() {
 
     private var typeBuilding: TypeBuilding? = null
-    private lateinit var textViewNoticeBuilding: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_building_main)
         findViewById<RadioGroup>(R.id.radios_building).clearCheck()
-        textViewNoticeBuilding = findViewById(R.id.textView_building_notice)
+        showCountBuildings()
     }
 
     fun selectTypeBuilding(view: View) {
@@ -55,30 +55,37 @@ class BuildingMainActivity : AppCompatActivity() {
 
     fun beginConstruction(view: View) {
         if(isInitTypeBuilding(view)) {
-            textViewNoticeBuilding.text = BuildingService.createBuilding(typeBuilding!!)
+            Toast.makeText(this, BuildingService.createBuilding(typeBuilding!!), Toast.LENGTH_SHORT).show()
         }
     }
 
     fun checkStatusConstruction(view: View) {
         if(isInitTypeBuilding(view)) {
-            textViewNoticeBuilding.text = BuildingService.checkStatusConstruction(typeBuilding!!)
+            Toast.makeText(this, BuildingService.checkStatusConstruction(typeBuilding!!), Toast.LENGTH_SHORT).show()
         }
     }
 
     fun addWorkersInBuilding(view: View) {
         if(isInitTypeBuilding(view)) {
-            textViewNoticeBuilding.text = BuildingService.addWorkersInBuilding(typeBuilding!!)
+            Toast.makeText(this, BuildingService.addWorkersInBuilding(typeBuilding!!), Toast.LENGTH_SHORT).show()
         }
     }
 
     fun removeWorkersInBuilding(view: View) {
         if(isInitTypeBuilding(view)) {
-            textViewNoticeBuilding.text = BuildingService.removeWorkersInBuilding(typeBuilding!!)
+            Toast.makeText(this, BuildingService.removeWorkersInBuilding(typeBuilding!!), Toast.LENGTH_SHORT).show()
         }
     }
 
     fun getAllWorkingBuildings(view: View) {
-        textViewNoticeBuilding.text = BuildingService.getAllWorkingBuildings()
+        Toast.makeText(this, BuildingService.getAllWorkingBuildings(), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showCountBuildings() {
+        val textViewCountProducer = findViewById<TextView>(R.id.textView_building_producing_buildings)
+        val textViewCountConsumer = findViewById<TextView>(R.id.textView_building_consuming_buildings)
+        val textViewCountDecorative = findViewById<TextView>(R.id.textView_building_decorative_buildings)
+        textViewCountProducer.text = IndicatorService.showDisplayBuilt()
     }
 
     private fun isInitTypeBuilding(view: View) : Boolean {

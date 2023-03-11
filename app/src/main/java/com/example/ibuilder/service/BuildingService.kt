@@ -57,7 +57,7 @@ object BuildingService {
     fun addWorkersInBuilding(typeBuildings: TypeBuilding): String {
         val allBuildingsByType = getAllBuildingByType(typeBuildings)!!.filter { it.hiredWorkers == 0 && it.constructionTime == 0 }.toMutableList()
         if (allBuildingsByType.isEmpty()) {
-            return "Постройки данного типа отсутствуют или полностью укомплектованы рабочим персоналом"
+            return "Постройки данного типа отсутствуют или полностью укомплектованы"
         }
         return allBuildingsByType[0].addWorkers()
     }
