@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.ibuilder.model.indicatorsDB.ExchangeIndicators
 import com.example.ibuilder.service.ExchangeResourcesService
 import model.indicatorsDB.TypeResources
+import service.IndicatorService
 
 class ExchangeResourcesActivity : AppCompatActivity() {
 
-    private lateinit var textViewNoticeResources: TextView
     private var typeResource: TypeResources? = null
     private var quantity = 1
 
@@ -21,7 +21,7 @@ class ExchangeResourcesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exchange_resources)
         findViewById<RadioGroup>(R.id.radios_exchange).clearCheck()
-        textViewNoticeResources = findViewById(R.id.textView_exchange_notice)
+        showCountResources()
     }
 
     fun selectTypeResources(view: View) {
@@ -74,6 +74,7 @@ class ExchangeResourcesActivity : AppCompatActivity() {
                 return
             }
             ExchangeResourcesService.buyResources(typeResource!!, quantity)
+            showCountResources()
             Toast.makeText(this, "Сделка завершена успешно!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -85,8 +86,14 @@ class ExchangeResourcesActivity : AppCompatActivity() {
                 return
             }
             ExchangeResourcesService.sellResource(typeResource!!, quantity)
+            showCountResources()
             Toast.makeText(this, "Сделка завершена успешно!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showCountResources() {
+        val textViewCountResources = findViewById<TextView>(R.id.textView_exchange_count_resources)
+        textViewCountResources.text = IndicatorService.showDisplayResources()
     }
 
     private fun isInitTypeResource(view: View) : Boolean {
