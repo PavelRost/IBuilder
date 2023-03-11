@@ -38,7 +38,7 @@
     <string name="resource_food">Продовольствие</string>
     <string name="resource_stone">Камень</string>
     <string name="header_buy">Цена покупки:</string>
-    <string name="currency">зол.</string>
+    <string name="currency">золотых</string>
     <string name="header_cell">Цена продажи:</string>
 
 
