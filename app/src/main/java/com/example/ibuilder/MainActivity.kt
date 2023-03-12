@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ibuilder.model.indicatorsDB.OtherIndicators
 import com.example.ibuilder.service.ExchangeResourcesService
+import com.example.ibuilder.service.IndicatorService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import service.BuildingService
-import service.IndicatorService
 
 class MainActivity : AppCompatActivity() {
 

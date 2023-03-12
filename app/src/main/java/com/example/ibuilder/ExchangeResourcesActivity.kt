@@ -8,9 +8,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ibuilder.model.indicatorsDB.ExchangeIndicators
+import com.example.ibuilder.model.indicatorsDB.TypeResources
 import com.example.ibuilder.service.ExchangeResourcesService
-import model.indicatorsDB.TypeResources
-import service.IndicatorService
+import com.example.ibuilder.service.IndicatorService
 
 class ExchangeResourcesActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package model.indicatorsDB
+package com.example.ibuilder.model.indicatorsDB
 
 object Human {
 

@@ -1,7 +1,5 @@
 package com.example.ibuilder.model.indicatorsDB
 
-import model.indicatorsDB.TypeResources
-
 object Resource {
 
     val allResources = mutableMapOf(

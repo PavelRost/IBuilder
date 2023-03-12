@@ -1,11 +1,12 @@
-package service
+package com.example.ibuilder.service
 
+import com.example.ibuilder.model.building.TypeBuilding
+import com.example.ibuilder.model.building.producer.HouseWorker
 import com.example.ibuilder.model.indicatorsDB.CostConstruction
+import com.example.ibuilder.model.indicatorsDB.Human
 import com.example.ibuilder.model.indicatorsDB.Resource
-import model.building.TypeBuilding
-import model.building.producer.HouseWorker
-import model.indicatorsDB.Human
-import model.indicatorsDB.TypeResources
+import com.example.ibuilder.model.indicatorsDB.TypeResources
+import service.BuildingService
 
 object IndicatorService {
 
@@ -16,7 +17,7 @@ object IndicatorService {
 
 
     fun addResources() {
-        buildingSer.getAllBuildingsBuilt()
+        BuildingService.getAllBuildingsBuilt()
             .filter { it.hiredWorkers > 0 || it.typeBuild == TypeBuilding.PRODUCER_WORKER }
             .forEach { it.createResources() }
     }
@@ -30,13 +31,14 @@ object IndicatorService {
                     (human.totalWorkers * human.useFood - resources.allResources[TypeResources.FOOD]!!) / human.useFood
                 }
                 while (human.freeWorkers < workersForRemove) {
-                    buildingSer.getAllBuildingsBuilt().filter { it.hiredWorkers > 0 }[0].removeWorkers()
+                    BuildingService.getAllBuildingsBuilt()
+                        .filter { it.hiredWorkers > 0 }[0].removeWorkers()
                 }
                 human.totalWorkers = -workersForRemove
                 human.freeWorkers = -workersForRemove
 
                 // изменяем показатель заполненности дома работниками
-                (buildingSer.getAllBuildingsBuilt()
+                (BuildingService.getAllBuildingsBuilt()
                     .filterIsInstance<HouseWorker>())
                     .filter { it.getCapacityHouse() != 2 }
                     .forEach {
@@ -111,15 +113,33 @@ object IndicatorService {
         "Всего рабочих: ${Human.totalWorkers}\n" +
                 "Своб. рабочих: ${Human.freeWorkers}\n" +
                 "Зан. рабочих: ${Human.hiredWorkers}\n" +
-                "Cвоб. мест: ${buildingSer.getRealCapacityHouse()}\n" +
-                "Всего мест: ${(buildingSer.getAllBuildingsBuilt().filterIsInstance<HouseWorker>().size * 2)}"
+                "Cвоб. мест: ${BuildingService.getRealCapacityHouse()}\n" +
+                "Всего мест: ${
+                    (BuildingService.getAllBuildingsBuilt()
+                        .filterIsInstance<HouseWorker>().size * 2)
+                }"
 
     fun showDisplayBuilt() =
-        "Золотой рудник: ${buildingSer.getAllBuildingByType(TypeBuilding.PRODUCER_GOLD)?.filter { it.constructionTime == 0 }?.size}\n" +
-                "Камен. рудник: ${buildingSer.getAllBuildingByType(TypeBuilding.PRODUCER_STONE)?.filter { it.constructionTime == 0 }?.size}\n" +
-                "Лесопилка: ${buildingSer.getAllBuildingByType(TypeBuilding.PRODUCER_WOOD)?.filter { it.constructionTime == 0 }?.size}\n" +
-                "Ферма: ${buildingSer.getAllBuildingByType(TypeBuilding.PRODUCER_FOOD)?.filter { it.constructionTime == 0 }?.size}\n" +
-                "Дома рабочих: ${buildingSer.getAllBuildingByType(TypeBuilding.PRODUCER_WORKER)?.filter { it.constructionTime == 0 }?.size}"
+        "Золотой рудник: ${
+            BuildingService.getAllBuildingByType(TypeBuilding.PRODUCER_GOLD)
+                ?.filter { it.constructionTime == 0 }?.size
+        }\n" +
+                "Камен. рудник: ${
+                    BuildingService.getAllBuildingByType(TypeBuilding.PRODUCER_STONE)
+                        ?.filter { it.constructionTime == 0 }?.size
+                }\n" +
+                "Лесопилка: ${
+                    BuildingService.getAllBuildingByType(TypeBuilding.PRODUCER_WOOD)
+                        ?.filter { it.constructionTime == 0 }?.size
+                }\n" +
+                "Ферма: ${
+                    BuildingService.getAllBuildingByType(TypeBuilding.PRODUCER_FOOD)
+                        ?.filter { it.constructionTime == 0 }?.size
+                }\n" +
+                "Дома рабочих: ${
+                    BuildingService.getAllBuildingByType(TypeBuilding.PRODUCER_WORKER)
+                        ?.filter { it.constructionTime == 0 }?.size
+                }"
 
 
 

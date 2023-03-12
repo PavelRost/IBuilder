@@ -1,8 +1,9 @@
 package service
 
 import com.example.ibuilder.model.building.AbstractBuilding
-import model.building.TypeBuilding
-import model.building.producer.*
+import com.example.ibuilder.model.building.TypeBuilding
+import com.example.ibuilder.model.building.producer.*
+import com.example.ibuilder.service.IndicatorService
 
 object BuildingService {
 

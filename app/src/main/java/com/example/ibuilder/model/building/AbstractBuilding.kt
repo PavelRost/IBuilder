@@ -1,9 +1,8 @@
 package com.example.ibuilder.model.building
 
+import com.example.ibuilder.model.indicatorsDB.Human
 import com.example.ibuilder.model.indicatorsDB.Resource
-import model.building.TypeBuilding
-import model.indicatorsDB.Human
-import model.indicatorsDB.TypeResources
+import com.example.ibuilder.model.indicatorsDB.TypeResources
 
 abstract class AbstractBuilding {
     abstract val name: String

@@ -1,8 +1,8 @@
-package model.building.producer
+package com.example.ibuilder.model.building.producer
 
 import com.example.ibuilder.model.building.AbstractBuilding
-import model.building.TypeBuilding
-import model.indicatorsDB.TypeResources
+import com.example.ibuilder.model.building.TypeBuilding
+import com.example.ibuilder.model.indicatorsDB.TypeResources
 
 data class StoneMine(
     override var name: String = "Каменный рудник",

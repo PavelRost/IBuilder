@@ -2,7 +2,7 @@ package com.example.ibuilder.service
 
 import com.example.ibuilder.model.indicatorsDB.ExchangeIndicators
 import com.example.ibuilder.model.indicatorsDB.Resource
-import model.indicatorsDB.TypeResources
+import com.example.ibuilder.model.indicatorsDB.TypeResources
 
 object ExchangeResourcesService {
 

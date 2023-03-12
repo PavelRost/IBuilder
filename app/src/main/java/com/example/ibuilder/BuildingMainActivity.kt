@@ -7,9 +7,9 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import model.building.TypeBuilding
+import com.example.ibuilder.model.building.TypeBuilding
+import com.example.ibuilder.service.IndicatorService
 import service.BuildingService
-import service.IndicatorService
 
 class BuildingMainActivity : AppCompatActivity() {
 

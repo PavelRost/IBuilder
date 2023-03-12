@@ -1,4 +1,4 @@
-package model.building
+package com.example.ibuilder.model.building
 
 enum class TypeBuilding {
     PRODUCER_FOOD,

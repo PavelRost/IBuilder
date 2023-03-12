@@ -1,7 +1,6 @@
 package com.example.ibuilder.model.indicatorsDB
 
-import model.building.TypeBuilding
-import model.indicatorsDB.TypeResources
+import com.example.ibuilder.model.building.TypeBuilding
 
 object CostConstruction {
 
