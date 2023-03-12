@@ -40,6 +40,7 @@
     <string name="header_buy">Цена покупки:</string>
     <string name="currency">золотых</string>
     <string name="header_cell">Цена продажи:</string>
+    <string name="header_count_operations_exchange">Количество доступных операций:</string>
 
 
 </resources>

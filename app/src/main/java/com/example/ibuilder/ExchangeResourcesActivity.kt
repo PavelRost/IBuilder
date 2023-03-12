@@ -21,6 +21,7 @@ class ExchangeResourcesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exchange_resources)
         findViewById<RadioGroup>(R.id.radios_exchange).clearCheck()
+        findViewById<TextView>(R.id.textView_exchange_resource_operations).text = ExchangeIndicators.availableCountOperations.toString()
         showCountResources()
     }
 

@@ -21,4 +21,7 @@ object ExchangeResourcesService {
 
     fun isEnoughResourceForSell(typeResource: TypeResources, quantity: Int) =
         Resource.allResources[typeResource]!! - quantity >= 0
+//
+//    private fun isAvailableExchangeOperations() = ExchangeIndicators.availableCountOperations > 0
+//    }
 }
