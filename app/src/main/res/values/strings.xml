@@ -9,9 +9,10 @@
     <string name="header_indicators_buildings">Постройки:</string>
     <string name="header_notice">Игровые события:</string>
     <string name="textview_notice">Журнал последних игровых событий - пуст.</string>
-    <string name="button_buildings">Здания</string>
+    <string name="button_buildings">Постройки</string>
     <string name="button_resources">Ресурсы</string>
-    <string name="button_move_next">След. ход</string>
+    <string name="button_citizen">Население</string>
+    <string name="button_move_next">Следующий ход</string>
     <string name="button_exchange_resources">Обмен ресурсов</string>
 
     <!-- Экран Постройки (BuildingMainActivity.kt)   -->
@@ -41,6 +42,13 @@
     <string name="currency">золотых</string>
     <string name="header_cell">Цена продажи:</string>
     <string name="header_count_operations_exchange">Количество доступных операций:</string>
+
+    <!-- Экран Население (CitizensActivity.kt)   -->
+    <string name="header_total_workers">Всего рабочих:</string>
+    <string name="header_tax_rate">Ставка налога:</string>
+    <string name="header_total_tax">Итоговый доход:</string>
+    <string name="header_satisfaction_citizens">Рейтинг удовлетворенности граждан:</string>
+    <string name="button_update_tax_rate">Обновить налоговую ставку</string>
 
 
 </resources>

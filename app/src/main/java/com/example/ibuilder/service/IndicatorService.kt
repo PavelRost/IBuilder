@@ -2,10 +2,7 @@ package com.example.ibuilder.service
 
 import com.example.ibuilder.model.building.TypeBuilding
 import com.example.ibuilder.model.building.producer.HouseWorker
-import com.example.ibuilder.model.indicatorsDB.CostConstruction
-import com.example.ibuilder.model.indicatorsDB.Human
-import com.example.ibuilder.model.indicatorsDB.Resource
-import com.example.ibuilder.model.indicatorsDB.TypeResources
+import com.example.ibuilder.model.indicatorsDB.*
 import service.BuildingService
 
 object IndicatorService {
@@ -20,6 +17,8 @@ object IndicatorService {
         BuildingService.getAllBuildingsBuilt()
             .filter { it.hiredWorkers > 0 || it.typeBuild == TypeBuilding.PRODUCER_WORKER }
             .forEach { it.createResources() }
+        Resource.allResources[TypeResources.GOLD] =
+            Resource.allResources[TypeResources.GOLD]!! + OtherIndicators.taxRate * Human.totalWorkers
     }
 
     fun deleteResources() {

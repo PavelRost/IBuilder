@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ibuilder.model.indicatorsDB.ExchangeIndicators
 import com.example.ibuilder.model.indicatorsDB.OtherIndicators
 import com.example.ibuilder.service.ExchangeResourcesService
 import com.example.ibuilder.service.IndicatorService
+import com.example.ibuilder.service.TaxService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import service.BuildingService
@@ -42,7 +44,12 @@ class MainActivity : AppCompatActivity() {
         rsl.append(BuildingService.continueBuild())
         IndicatorService.addResources()
         IndicatorService.deleteResources()
-        ExchangeResourcesService.incrementCountOperations()
+        if (ExchangeIndicators.availableCountOperations == 0) {
+            ExchangeResourcesService.incrementCountOperations()
+        }
+        if (OtherIndicators.availableUpdateTaxRate == 0) {
+            TaxService.incrementCountUpdateTaxRate()
+        }
         textViewNotice.text = rsl
         updateIndicatorsPlayer(view)
     }
@@ -54,6 +61,11 @@ class MainActivity : AppCompatActivity() {
 
     fun switchActivityToExchangeResources(view: View) {
         val intent = Intent(this@MainActivity, ExchangeResourcesActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun switchActivityCitizens(view: View) {
+        val intent = Intent(this@MainActivity, CitizensActivity::class.java)
         startActivity(intent)
     }
 

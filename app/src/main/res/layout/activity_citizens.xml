@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical">
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".ExchangeResourcesActivity">
+        tools:context=".CitizensActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,97 +23,34 @@
                 android:textSize="20sp"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:text="@string/header_indicators_resources"
-                />
+                android:text="@string/header_indicators_citizens" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView_exchange_count_resources"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/header_total_workers"
                 android:textSize="15sp"
-                android:gravity="center_horizontal"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_citizens_count_workers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:text=""
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_exchange_buy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView_exchange_header_buy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/header_buy"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView_exchange_buy_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="-"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/currency"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_exchange_sell"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView_exchange_header_sell"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/header_cell"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView_exchange_sell_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="-"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/currency"
-                android:textSize="15sp"
-                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -129,12 +65,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/header_count_operations_exchange"
+                android:text="@string/header_tax_rate"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView_exchange_resource_operations"
+                android:id="@+id/textView_citizens_tax_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -145,45 +81,59 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_exchange_radios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="5dp"
-            android:orientation="vertical">
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
 
-            <RadioGroup
-                android:id="@+id/radios_exchange"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="parent">
+                android:text="@string/header_total_tax"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-                <RadioButton android:id="@+id/radiobutton_exchange_stone"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:onClick="selectTypeResources"
-                    android:text="@string/resource_stone" />
-
-                <RadioButton android:id="@+id/radiobutton_exchange_wood"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:onClick="selectTypeResources"
-                    android:text="@string/resource_wood" />
-
-                <RadioButton android:id="@+id/radiobutton_exchange_food"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:onClick="selectTypeResources"
-                    android:text="@string/resource_food" />
-
-            </RadioGroup>
+            <TextView
+                android:id="@+id/textView_citizens_total_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text=""
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_exchange_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_satisfaction_citizens"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_citizens_satisfaction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text=""
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -192,36 +142,34 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button_exchange_decrement_quantity"
+                android:id="@+id/button_citizens_decrement_tax"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="decrementQuantity"
+                android:onClick="decrementTaxRate"
                 android:text="-" />
 
             <TextView
-                android:id="@+id/textView_exchange_quantity"
+                android:id="@+id/textView_citizens_tax"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:textSize="20sp"
-                android:text="1"
-                />
+                android:text="" />
 
             <Button
-                android:id="@+id/button_exchange_increment_quantity"
+                android:id="@+id/button_citizens_increment_tax"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="incrementQuantity"
+                android:onClick="incrementTaxRate"
                 android:text="+" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_exchange_buttons_resources"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -230,25 +178,14 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button_exchange_buy_resources"
+                android:id="@+id/button_citizens_change_tax"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:onClick="buyResources"
-                android:text="@string/button_buy_resources" />
-
-            <Button
-                android:id="@+id/button_exchange_sell_resources"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:onClick="sellResources"
-                android:text="@string/button_sell_resources" />
+                android:onClick="updateTaxRate"
+                android:text="@string/button_update_tax_rate" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>
