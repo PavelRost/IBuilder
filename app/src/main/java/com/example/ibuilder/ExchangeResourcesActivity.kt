@@ -69,6 +69,10 @@ class ExchangeResourcesActivity : AppCompatActivity() {
     }
 
     fun buyResources(view: View) {
+        if (!ExchangeResourcesService.isAvailableExchangeOperations()) {
+            Toast.makeText(this, "Исчерпаны доступные на данном ходу операции купли-продажи", Toast.LENGTH_SHORT).show()
+            return
+        }
         if (isInitTypeResource(view)) {
             if (!ExchangeResourcesService.isEnoughGold(typeResource!!, quantity)) {
                 Toast.makeText(this, "У вас не хватает золота!", Toast.LENGTH_SHORT).show()
@@ -76,11 +80,17 @@ class ExchangeResourcesActivity : AppCompatActivity() {
             }
             ExchangeResourcesService.buyResources(typeResource!!, quantity)
             showCountResources()
+            ExchangeResourcesService.decrementCountOperations()
+            findViewById<TextView>(R.id.textView_exchange_resource_operations).text = ExchangeIndicators.availableCountOperations.toString()
             Toast.makeText(this, "Сделка завершена успешно!", Toast.LENGTH_SHORT).show()
         }
     }
 
     fun sellResources(view: View) {
+        if (!ExchangeResourcesService.isAvailableExchangeOperations()) {
+            Toast.makeText(this, "Исчерпаны доступные на данном ходу операции купли-продажи", Toast.LENGTH_SHORT).show()
+            return
+        }
         if (isInitTypeResource(view)) {
             if (!ExchangeResourcesService.isEnoughResourceForSell(typeResource!!, quantity)) {
                 Toast.makeText(this, "У вас не хватает выбранного ресурса для продажи!", Toast.LENGTH_SHORT).show()
@@ -88,6 +98,8 @@ class ExchangeResourcesActivity : AppCompatActivity() {
             }
             ExchangeResourcesService.sellResource(typeResource!!, quantity)
             showCountResources()
+            ExchangeResourcesService.decrementCountOperations()
+            findViewById<TextView>(R.id.textView_exchange_resource_operations).text = ExchangeIndicators.availableCountOperations.toString()
             Toast.makeText(this, "Сделка завершена успешно!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -104,5 +116,4 @@ class ExchangeResourcesActivity : AppCompatActivity() {
         }
         return true
     }
-
 }

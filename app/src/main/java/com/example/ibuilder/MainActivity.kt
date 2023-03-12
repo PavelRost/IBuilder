@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ibuilder.model.indicatorsDB.OtherIndicators
+import com.example.ibuilder.service.ExchangeResourcesService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import service.BuildingService
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         rsl.append(BuildingService.continueBuild())
         IndicatorService.addResources()
         IndicatorService.deleteResources()
+        ExchangeResourcesService.incrementCountOperations()
         textViewNotice.text = rsl
         updateIndicatorsPlayer(view)
     }
