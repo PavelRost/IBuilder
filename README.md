@@ -26,6 +26,10 @@
 ___
 #### Скриншоты:
 
+![Главный экран](https://user-images.githubusercontent.com/92044501/226719341-db1b0bc8-660d-460d-bca9-21a35e32329a.jpg)
+
 ![Экран Ресурсы игрока](https://user-images.githubusercontent.com/92044501/224481360-be86636c-797f-4021-b3d6-34338838f4a4.jpg)
+
+![Экран Управление населением](https://user-images.githubusercontent.com/92044501/226719365-54291165-1951-4a5f-b15c-a6290b55b1e1.jpg)
 
 ![Экран Постройки игрока](https://user-images.githubusercontent.com/92044501/224481362-ca63187f-5503-4ef6-a0ac-24bd6dd0d87b.jpg)
