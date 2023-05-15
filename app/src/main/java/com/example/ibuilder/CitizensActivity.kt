@@ -47,12 +47,17 @@ class CitizensActivity : AppCompatActivity() {
     }
 
     fun updateTaxRate(view: View) {
+        if (OtherIndicators.taxRate == taxRate) {
+            Toast.makeText(this, "Сначала измените налоговую ставку", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
         if (OtherIndicators.availableUpdateTaxRate == 0) {
             Toast.makeText(this, "Ставку можно обновить только 1 раз за ход", Toast.LENGTH_SHORT)
                 .show()
             findViewById<TextView>(R.id.textView_citizens_tax).text =
                 OtherIndicators.taxRate.toString()
-            taxRate = OtherIndicators.taxRate
+            //taxRate = OtherIndicators.taxRate
             return
         }
         TaxService.decrementCountUpdateTaxRate()

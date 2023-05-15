@@ -17,11 +17,17 @@ object IndicatorService {
         BuildingService.getAllBuildingsBuilt()
             .filter { it.hiredWorkers > 0 || it.typeBuild == TypeBuilding.PRODUCER_WORKER }
             .forEach { it.createResources() }
-        Resource.allResources[TypeResources.GOLD] =
-            Resource.allResources[TypeResources.GOLD]!! + OtherIndicators.taxRate * Human.totalWorkers
+
+        // налоги
+        if (OtherIndicators.taxRate > 0) {
+            Resource.allResources[TypeResources.GOLD] =
+                Resource.allResources[TypeResources.GOLD]!! + TaxService.getTotalTax()
+        }
     }
 
     fun deleteResources() {
+
+        // Работники и еда
         if (human.totalWorkers > 0) {
             if (resources.allResources[TypeResources.FOOD]!! < human.totalWorkers * human.useFood) {
                 var workersForRemove = if (resources.allResources[TypeResources.FOOD]!! == 0) {
