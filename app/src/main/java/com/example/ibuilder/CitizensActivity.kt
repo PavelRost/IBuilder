@@ -57,16 +57,17 @@ class CitizensActivity : AppCompatActivity() {
                 .show()
             findViewById<TextView>(R.id.textView_citizens_tax).text =
                 OtherIndicators.taxRate.toString()
-            //taxRate = OtherIndicators.taxRate
+            taxRate = OtherIndicators.taxRate
             return
         }
         TaxService.decrementCountUpdateTaxRate()
+        TaxService.updateSatisfaction(taxRate)
         OtherIndicators.taxRate = taxRate
         findViewById<TextView>(R.id.textView_citizens_tax_rate).text =
             OtherIndicators.taxRate.toString()
         findViewById<TextView>(R.id.textView_citizens_total_rate).text =
             TaxService.getTotalTax().toString()
+        findViewById<TextView>(R.id.textView_citizens_satisfaction).text =
+            OtherIndicators.satisfactionCitizens.toString()
     }
-
-
 }

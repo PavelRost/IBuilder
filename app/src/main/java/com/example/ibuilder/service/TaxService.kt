@@ -15,5 +15,11 @@ object TaxService {
 
     fun getTotalTax() = OtherIndicators.taxRate * Human.totalWorkers
 
-
+    fun updateSatisfaction(newTaxRate: Int) {
+        if (newTaxRate > OtherIndicators.taxRate) {
+            OtherIndicators.satisfactionCitizens = -(newTaxRate - OtherIndicators.taxRate)
+        } else {
+            OtherIndicators.satisfactionCitizens = OtherIndicators.taxRate - newTaxRate
+        }
+    }
 }

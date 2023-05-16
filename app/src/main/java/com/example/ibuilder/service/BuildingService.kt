@@ -3,12 +3,14 @@ package service
 import com.example.ibuilder.model.building.AbstractBuilding
 import com.example.ibuilder.model.building.TypeBuilding
 import com.example.ibuilder.model.building.producer.*
+import com.example.ibuilder.model.indicatorsDB.Human
 import com.example.ibuilder.service.IndicatorService
 
 object BuildingService {
 
     private val building = mutableMapOf<TypeBuilding, ArrayList<AbstractBuilding>>()
     private val indicatorService = IndicatorService
+    private val human = Human
 
     init {
         building[TypeBuilding.PRODUCER_GOLD] = ArrayList()
@@ -162,5 +164,26 @@ object BuildingService {
         return rsl
     }
 
+    fun changeCapacityHouse(workersForRemove: Int) {
+        var workers = workersForRemove
+        (BuildingService.getAllBuildingsBuilt()
+            .filterIsInstance<HouseWorker>())
+            .filter { it.getCapacityHouse() != 2 }
+            .forEach {
+                while (it.getCapacityHouse() != 2 && workers != 0) {
+                    it.addCapacity()
+                    workers--
+                }
+            }
+    }
 
+    fun convertHiredInFreeWorkers(needConvertWorkers: Int) {
+        if (human.freeWorkers >= needConvertWorkers) return
+        val workingBuildings = getAllBuildingsBuilt().filter { it.hiredWorkers > 0 }
+        if (workingBuildings.isEmpty()) return
+        workingBuildings.forEach {
+            if (human.freeWorkers >= needConvertWorkers) return
+            it.removeWorkers()
+        }
+    }
 }

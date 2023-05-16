@@ -4,6 +4,7 @@ import com.example.ibuilder.model.building.TypeBuilding
 import com.example.ibuilder.model.building.producer.HouseWorker
 import com.example.ibuilder.model.indicatorsDB.*
 import service.BuildingService
+import kotlin.math.abs
 
 object IndicatorService {
 
@@ -26,32 +27,31 @@ object IndicatorService {
     }
 
     fun deleteResources() {
-
-        // Работники и еда
         if (human.totalWorkers > 0) {
+            if (OtherIndicators.satisfactionCitizens < 0 && human.freeWorkers > 0) {
+                val workersForRemove = abs(OtherIndicators.satisfactionCitizens)
+                buildingSer.convertHiredInFreeWorkers(workersForRemove)
+                if (workersForRemove > human.freeWorkers) {
+                    val currentFreeWorkers = human.freeWorkers
+                    human.totalWorkers = -currentFreeWorkers
+                    human.freeWorkers = -currentFreeWorkers
+                    BuildingService.changeCapacityHouse(currentFreeWorkers)
+                } else {
+                    human.totalWorkers = -workersForRemove
+                    human.freeWorkers = -workersForRemove
+                    BuildingService.changeCapacityHouse(workersForRemove)
+                }
+            }
             if (resources.allResources[TypeResources.FOOD]!! < human.totalWorkers * human.useFood) {
-                var workersForRemove = if (resources.allResources[TypeResources.FOOD]!! == 0) {
+                val workersForRemove = if (resources.allResources[TypeResources.FOOD]!! == 0) {
                     human.totalWorkers
                 } else {
                     (human.totalWorkers * human.useFood - resources.allResources[TypeResources.FOOD]!!) / human.useFood
                 }
-                while (human.freeWorkers < workersForRemove) {
-                    BuildingService.getAllBuildingsBuilt()
-                        .filter { it.hiredWorkers > 0 }[0].removeWorkers()
-                }
+                buildingSer.convertHiredInFreeWorkers(workersForRemove)
                 human.totalWorkers = -workersForRemove
                 human.freeWorkers = -workersForRemove
-
-                // изменяем показатель заполненности дома работниками
-                (BuildingService.getAllBuildingsBuilt()
-                    .filterIsInstance<HouseWorker>())
-                    .filter { it.getCapacityHouse() != 2 }
-                    .forEach {
-                        while(it.getCapacityHouse() != 2 && workersForRemove != 0) {
-                            it.addCapacity()
-                            workersForRemove--
-                        }
-                    }
+                buildingSer.changeCapacityHouse(workersForRemove)
             }
             if (resources.allResources[TypeResources.FOOD]!! - human.useFood * human.totalWorkers <= 0) {
                 resources.allResources[TypeResources.FOOD] = 0
@@ -99,15 +99,6 @@ object IndicatorService {
         return false
     }
 
-//    fun resetValueIndicators() {
-//        Human.totalWorkers = -Human.totalWorkers
-//        Resource.gold = -Resource.gold
-//        Resource.food = -Resource.food
-//        Resource.wood = -Resource.wood
-//        Resource.stone = -Resource.stone
-//        OtherIndicators.currentDay = -OtherIndicators.currentDay
-//    }
-
     fun showDisplayResources() =
         "Еда: ${Resource.allResources[TypeResources.FOOD]}\n" +
                 "Золото: ${Resource.allResources[TypeResources.GOLD]}\n" +
@@ -145,8 +136,4 @@ object IndicatorService {
                     BuildingService.getAllBuildingByType(TypeBuilding.PRODUCER_WORKER)
                         ?.filter { it.constructionTime == 0 }?.size
                 }"
-
-
-
-
 }

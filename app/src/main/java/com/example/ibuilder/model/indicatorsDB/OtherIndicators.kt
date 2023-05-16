@@ -12,12 +12,10 @@ object OtherIndicators {
             field += value
         }
 
-    var taxRate: Int = 1
+    var taxRate: Int = 0
 
     var satisfactionCitizens: Int = 2
         set(value) {
             field += value
         }
-
-
 }
