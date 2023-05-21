@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ibuilder.model.indicatorsDB.ExchangeIndicators
 import com.example.ibuilder.model.indicatorsDB.OtherIndicators
+import com.example.ibuilder.service.EraService
 import com.example.ibuilder.service.ExchangeResourcesService
 import com.example.ibuilder.service.IndicatorService
 import com.example.ibuilder.service.TaxService
@@ -32,9 +33,11 @@ class MainActivity : AppCompatActivity() {
         val textViewCountResources = findViewById<TextView>(R.id.textView_main_count_resources)
         val textViewCountCitizens = findViewById<TextView>(R.id.textView_main_count_citizens)
         val textViewCountBuilt = findViewById<TextView>(R.id.textView_main_count_built)
+        val textViewCurrentEra = findViewById<TextView>(R.id.textView_main_current_era)
         textViewCountResources.text = IndicatorService.showDisplayResources()
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
         textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
+        textViewCurrentEra.text = EraService.showCurrentEra()
     }
 
     fun startNextMove(view: View) {
@@ -52,6 +55,22 @@ class MainActivity : AppCompatActivity() {
         }
         textViewNotice.text = rsl
         updateIndicatorsPlayer(view)
+    }
+
+    fun updateEra(view: View) {
+        val textViewNotice = findViewById<TextView>(R.id.textView_main_notice)
+        if (EraService.showCurrentEra() == "3") {
+            textViewNotice.text = "Достигнута максимальная технологическая эпоха!"
+            return
+        }
+        if (EraService.isAvailableNextEra()) {
+            EraService.deleteResourcesForUpdateEra()
+            EraService.updateEra()
+            updateIndicatorsPlayer(view)
+            textViewNotice.text = "Наступила новая эпоха, поздравляем!"
+            return
+        }
+        textViewNotice.text = "Недостаточно средств для перехода в следующую эпоху"
     }
 
     fun switchActivityToBuilding(view: View) {
@@ -73,9 +92,11 @@ class MainActivity : AppCompatActivity() {
         val textViewCountResources = findViewById<TextView>(R.id.textView_main_count_resources)
         val textViewCountCitizens = findViewById<TextView>(R.id.textView_main_count_citizens)
         val textViewCountBuilt = findViewById<TextView>(R.id.textView_main_count_built)
+        val textViewCurrentEra = findViewById<TextView>(R.id.textView_main_current_era)
         textViewCountResources.text = IndicatorService.showDisplayResources()
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
         textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
+        textViewCurrentEra.text = EraService.showCurrentEra()
     }
 
 //    fun saveProgress(view: View) {

@@ -225,6 +225,44 @@
         android:layout_marginEnd="10dp"
         android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="@string/header_current_era" />
+
+        <TextView
+            android:id="@+id/textView_main_current_era"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text=""
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="updateEra"
+            android:text="@string/button_next_era" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal">
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

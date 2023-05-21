@@ -14,6 +14,8 @@
     <string name="button_citizen">Население</string>
     <string name="button_move_next">Следующий ход</string>
     <string name="button_exchange_resources">Обмен ресурсов</string>
+    <string name="button_next_era">Переход в следующую эпоху</string>
+    <string name="header_current_era">Текущая эпоха:</string>
 
     <!-- Экран Постройки (BuildingMainActivity.kt)   -->
     <string name="textview_radio_building">Здание не выбрано</string>
