@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ibuilder.model.building.TypeBuilding
-import com.example.ibuilder.service.IndicatorService
 import service.BuildingService
 
 class BuildingMainActivity : AppCompatActivity() {
@@ -19,7 +18,8 @@ class BuildingMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_building_main)
         findViewById<RadioGroup>(R.id.radios_building).clearCheck()
-        showCountBuildings()
+        findViewById<RadioGroup>(R.id.radios_building1).clearCheck()
+        showWorkingBuildings()
     }
 
     fun selectTypeBuilding(view: View) {
@@ -50,6 +50,21 @@ class BuildingMainActivity : AppCompatActivity() {
                     typeBuilding = TypeBuilding.PRODUCER_WORKER
                 }
             }
+            R.id.radiobutton_building_tavern -> {
+                if (isChecked) {
+                    typeBuilding = TypeBuilding.CONSUMER_TAVERN
+                }
+            }
+            R.id.radiobutton_building_circus -> {
+                if (isChecked) {
+                    typeBuilding = TypeBuilding.CONSUMER_CIRCUS
+                }
+            }
+            R.id.radiobutton_building_church -> {
+                if (isChecked) {
+                    typeBuilding = TypeBuilding.CONSUMER_CHURCH
+                }
+            }
         }
     }
 
@@ -77,15 +92,13 @@ class BuildingMainActivity : AppCompatActivity() {
         }
     }
 
-    fun getAllWorkingBuildings(view: View) {
-        Toast.makeText(this, BuildingService.getAllWorkingBuildings(), Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showCountBuildings() {
-        val textViewCountProducer = findViewById<TextView>(R.id.textView_building_producing_buildings)
-        val textViewCountConsumer = findViewById<TextView>(R.id.textView_building_consuming_buildings)
-        val textViewCountDecorative = findViewById<TextView>(R.id.textView_building_decorative_buildings)
-        textViewCountProducer.text = IndicatorService.showDisplayBuilt()
+    private fun showWorkingBuildings() {
+        val textViewCountProducer =
+            findViewById<TextView>(R.id.textView_building_producing_buildings)
+        val textViewCountConsumer =
+            findViewById<TextView>(R.id.textView_building_consuming_buildings)
+        textViewCountProducer.text = BuildingService.showWorkingProducerBuilding()
+        textViewCountConsumer.text = BuildingService.showWorkingConsumerBuilding()
     }
 
     private fun isInitTypeBuilding(view: View) : Boolean {

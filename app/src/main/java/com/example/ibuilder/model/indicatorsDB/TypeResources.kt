@@ -5,5 +5,6 @@ enum class TypeResources {
     STONE,
     GOLD,
     WOOD,
-    WORKER
+    WORKER,
+    SATISFACTION
 }

@@ -1,6 +1,7 @@
 package com.example.ibuilder.model.building
 
 import com.example.ibuilder.model.indicatorsDB.Human
+import com.example.ibuilder.model.indicatorsDB.OtherIndicators
 import com.example.ibuilder.model.indicatorsDB.Resource
 import com.example.ibuilder.model.indicatorsDB.TypeResources
 
@@ -12,6 +13,7 @@ abstract class AbstractBuilding {
     open var profit: Int = 0
     open var needWorkers: Int = 0
     open var hiredWorkers: Int = 0
+    open var isProfitActivate: Boolean = false
     abstract val typeResources: TypeResources
     val resource = Resource
     val human = Human
@@ -46,6 +48,8 @@ abstract class AbstractBuilding {
         hiredWorkers = 0
         human.freeWorkers = needWorkers
         human.hiredWorkers = -needWorkers
+        OtherIndicators.satisfactionCitizens = -profit
+        isProfitActivate = false
         return "$name №$serialNumber не производит ресурсов, рабочие распущены по домам"
     }
 }

@@ -29,9 +29,10 @@
     <string name="button_working_buildings">Работающие производства</string>
     <string name="button_add_workers">Распределить рабочих</string>
     <string name="button_remove_workers">Снять рабочих</string>
-    <string name="header_producer_buildings">Производ.:</string>
-    <string name="header_consumer_buildings">Потребл.:</string>
-    <string name="header_decorative_buildings">Декоратив.:</string>
+    <string name="header_producer_buildings">Работающие постройки:</string>
+    <string name="building_tavern">Таверна</string>
+    <string name="building_circus">Цирк</string>
+    <string name="building_church">Церковь</string>
 
     <!-- Экран покупки / продажи ресурсов (BuildingMainActivity.kt)   -->
     <string name="button_buy_resources">Купить</string>

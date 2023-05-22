@@ -10,6 +10,10 @@ object EraService {
         return Era.currentEra.toString()
     }
 
+    fun getCurrentEra(): Int {
+        return Era.currentEra
+    }
+
     fun updateEra() {
         Era.currentEra = 1
     }
@@ -44,6 +48,4 @@ object EraService {
             }
         }
     }
-
-
 }

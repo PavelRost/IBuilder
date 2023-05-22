@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         val textViewCurrentEra = findViewById<TextView>(R.id.textView_main_current_era)
         textViewCountResources.text = IndicatorService.showDisplayResources()
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
-        textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
+        textViewCountBuilt.text =
+            "${IndicatorService.showDisplayBuiltProducer()}\n${IndicatorService.showDisplayBuiltConsumer()}"
         textViewCurrentEra.text = EraService.showCurrentEra()
     }
 
@@ -95,7 +96,8 @@ class MainActivity : AppCompatActivity() {
         val textViewCurrentEra = findViewById<TextView>(R.id.textView_main_current_era)
         textViewCountResources.text = IndicatorService.showDisplayResources()
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
-        textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
+        textViewCountBuilt.text =
+            "${IndicatorService.showDisplayBuiltProducer()}\n${IndicatorService.showDisplayBuiltConsumer()}"
         textViewCurrentEra.text = EraService.showCurrentEra()
     }
 

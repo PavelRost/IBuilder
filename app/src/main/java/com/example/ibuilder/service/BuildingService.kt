@@ -2,8 +2,13 @@ package service
 
 import com.example.ibuilder.model.building.AbstractBuilding
 import com.example.ibuilder.model.building.TypeBuilding
+import com.example.ibuilder.model.building.consumer.Church
+import com.example.ibuilder.model.building.consumer.Circus
+import com.example.ibuilder.model.building.consumer.Tavern
 import com.example.ibuilder.model.building.producer.*
 import com.example.ibuilder.model.indicatorsDB.Human
+import com.example.ibuilder.model.indicatorsDB.TypeResources
+import com.example.ibuilder.service.EraService
 import com.example.ibuilder.service.IndicatorService
 
 object BuildingService {
@@ -18,9 +23,13 @@ object BuildingService {
         building[TypeBuilding.PRODUCER_STONE] = ArrayList()
         building[TypeBuilding.PRODUCER_FOOD] = ArrayList()
         building[TypeBuilding.PRODUCER_WORKER] = ArrayList()
+        building[TypeBuilding.CONSUMER_TAVERN] = ArrayList()
+        building[TypeBuilding.CONSUMER_CIRCUS] = ArrayList()
+        building[TypeBuilding.CONSUMER_CHURCH] = ArrayList()
     }
 
     fun createBuilding(typeBuildings: TypeBuilding): String {
+        if (typeBuildings.requiredEra > EraService.getCurrentEra()) return "Недоступно в текущей эпохе"
         var rsl = "Недостаточно ресурсов для постройки здания"
         if (indicatorService.checkResourceBeforeConstruction(typeBuildings)) {
             val numberBuildings = building[typeBuildings]?.size?.plus(1)
@@ -51,7 +60,21 @@ object BuildingService {
                     building[TypeBuilding.PRODUCER_WORKER]?.add(buildingNew)
                     rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
                 }
-                else -> {}
+                TypeBuilding.CONSUMER_TAVERN -> {
+                    buildingNew = Tavern(serialNumber = numberBuildings!!)
+                    building[TypeBuilding.CONSUMER_TAVERN]?.add(buildingNew)
+                    rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
+                }
+                TypeBuilding.CONSUMER_CIRCUS -> {
+                    buildingNew = Circus(serialNumber = numberBuildings!!)
+                    building[TypeBuilding.CONSUMER_CIRCUS]?.add(buildingNew)
+                    rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
+                }
+                TypeBuilding.CONSUMER_CHURCH -> {
+                    buildingNew = Church(serialNumber = numberBuildings!!)
+                    building[TypeBuilding.CONSUMER_CHURCH]?.add(buildingNew)
+                    rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
+                }
             }
         }
         return rsl
@@ -78,18 +101,6 @@ object BuildingService {
         return building[typeBuildings]
     }
 
-    private fun getAllBuildingsUnderConstructionByType(typeBuildings: TypeBuilding): String {
-        val rsl: StringBuilder = StringBuilder("")
-        val allBuildingsByType = getAllBuildingByType(typeBuildings)!!.filter { it.constructionTime > 0 }.toMutableList()
-        if (allBuildingsByType.isEmpty()) {
-            return "Постройки данного типа отсутствуют, возможно, строительство было завершено"
-        }
-        allBuildingsByType.forEach {
-            rsl.append(it.constructionStatus()).append("\n") // TODO лишний переход на новую строку
-        }
-        return rsl.toString()
-    }
-
     private fun getAllBuildingsUnderConstruction(): MutableList<AbstractBuilding> {
         val rsl = mutableListOf<AbstractBuilding>()
         for (buildingsSameType in building.values) {
@@ -114,14 +125,12 @@ object BuildingService {
         return rsl
     }
 
-    fun getAllWorkingBuildings(): String {
-        val rsl: StringBuilder = StringBuilder("Работающие производства отсутствуют")
-        getAllBuildingsBuilt()
-            .filter { it.hiredWorkers > 0 }
-            .forEach {
-                rsl.append("${it.name} №${it.serialNumber}").append("\n")
-            }
-        return rsl.toString()
+    fun getAllWorkingConsumerBuilding(): List<AbstractBuilding> {
+        return getAllBuildingsBuilt().filter { it.hiredWorkers > 0 && it.typeResources == TypeResources.SATISFACTION }
+    }
+
+    fun getAllWorkingProducerBuilding(): List<AbstractBuilding> {
+        return getAllBuildingsBuilt().filter { it.hiredWorkers > 0 && it.typeResources != TypeResources.SATISFACTION }
     }
 
     // Получить количество свободных мест во всех домах в городе
@@ -142,26 +151,16 @@ object BuildingService {
     }
 
     fun checkStatusConstruction(typeBuildings: TypeBuilding): String {
-        var rsl = "Постройки данного типа отсутствуют, возможно, строительство было завершено"
-        when(typeBuildings) {
-            TypeBuilding.PRODUCER_GOLD -> {
-                rsl = getAllBuildingsUnderConstructionByType(TypeBuilding.PRODUCER_GOLD)
-            }
-            TypeBuilding.PRODUCER_STONE -> {
-                rsl = getAllBuildingsUnderConstructionByType(TypeBuilding.PRODUCER_STONE)
-            }
-            TypeBuilding.PRODUCER_WOOD -> {
-                rsl = getAllBuildingsUnderConstructionByType(TypeBuilding.PRODUCER_WOOD)
-            }
-            TypeBuilding.PRODUCER_FOOD -> {
-                rsl = getAllBuildingsUnderConstructionByType(TypeBuilding.PRODUCER_FOOD)
-            }
-            TypeBuilding.PRODUCER_WORKER -> {
-                rsl = getAllBuildingsUnderConstructionByType(TypeBuilding.PRODUCER_WORKER)
-            }
-            else -> {}
+        val rsl: StringBuilder = StringBuilder("")
+        val allBuildingsByType =
+            getAllBuildingByType(typeBuildings)!!.filter { it.constructionTime > 0 }.toMutableList()
+        if (allBuildingsByType.isEmpty()) {
+            return "Постройки данного типа отсутствуют, возможно, строительство было завершено"
         }
-        return rsl
+        allBuildingsByType.forEach {
+            rsl.append(it.constructionStatus()).append("\n") // TODO лишний переход на новую строку
+        }
+        return rsl.toString()
     }
 
     fun changeCapacityHouse(workersForRemove: Int) {
@@ -186,4 +185,29 @@ object BuildingService {
             it.removeWorkers()
         }
     }
+
+    fun showWorkingProducerBuilding() =
+        "Золотой рудник: ${
+            getAllWorkingProducerBuilding().filter { it.typeBuild == TypeBuilding.PRODUCER_GOLD }.size
+        }\n" +
+                "Камен. рудник: ${
+                    getAllWorkingProducerBuilding().filter { it.typeBuild == TypeBuilding.PRODUCER_STONE }.size
+                }\n" +
+                "Лесопилка: ${
+                    getAllWorkingProducerBuilding().filter { it.typeBuild == TypeBuilding.PRODUCER_WOOD }.size
+                }\n" +
+                "Ферма: ${
+                    getAllWorkingProducerBuilding().filter { it.typeBuild == TypeBuilding.PRODUCER_FOOD }.size
+                }"
+
+    fun showWorkingConsumerBuilding() =
+        "Таверна: ${
+            getAllWorkingConsumerBuilding().filter { it.typeBuild == TypeBuilding.CONSUMER_TAVERN }.size
+        }\n" +
+                "Цирк: ${
+                    getAllWorkingConsumerBuilding().filter { it.typeBuild == TypeBuilding.CONSUMER_CIRCUS }.size
+                }\n" +
+                "Церковь: ${
+                    getAllWorkingConsumerBuilding().filter { it.typeBuild == TypeBuilding.CONSUMER_CHURCH }.size
+                }"
 }

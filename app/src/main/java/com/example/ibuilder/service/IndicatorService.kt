@@ -11,7 +11,7 @@ object IndicatorService {
     private val buildingSer = BuildingService
     private val resources = Resource
     private val human = Human
-    private val costConstruction = CostConstruction
+    private val costConstruction = Building
 
 
     fun addResources() {
@@ -57,46 +57,71 @@ object IndicatorService {
                 resources.allResources[TypeResources.FOOD] = 0
                 return
             }
-            resources.allResources[TypeResources.FOOD] = resources.allResources[TypeResources.FOOD]!! - (human.useFood * human.totalWorkers)
+            resources.allResources[TypeResources.FOOD] =
+                resources.allResources[TypeResources.FOOD]!! - (human.useFood * human.totalWorkers)
+        }
+
+        val workingConsBuilding = BuildingService.getAllWorkingConsumerBuilding()
+        if (workingConsBuilding.isNotEmpty()) {
+            workingConsBuilding.forEach {
+                val costWork = Building.costWork[it.typeBuild]
+                for (resource in costWork?.keys!!) {
+                    when (resource) {
+                        TypeResources.GOLD -> {
+                            if (resources.allResources[TypeResources.GOLD]!! >= costWork[resource]!!) {
+                                resources.allResources[TypeResources.GOLD] =
+                                    resources.allResources[TypeResources.GOLD]!! - costWork[resource]!!
+                            } else {
+                                resources.allResources[TypeResources.GOLD] = 0
+                                it.removeWorkers()
+                            }
+                        }
+                        TypeResources.WOOD -> {
+                            if (resources.allResources[TypeResources.WOOD]!! >= costWork[resource]!!) {
+                                resources.allResources[TypeResources.WOOD] =
+                                    resources.allResources[TypeResources.WOOD]!! - costWork[resource]!!
+                            } else {
+                                resources.allResources[TypeResources.WOOD] = 0
+                                it.removeWorkers()
+                            }
+                        }
+                        TypeResources.FOOD -> {
+                            if (resources.allResources[TypeResources.FOOD]!! >= costWork[resource]!!) {
+                                resources.allResources[TypeResources.FOOD] =
+                                    resources.allResources[TypeResources.FOOD]!! - costWork[resource]!!
+                            } else {
+                                resources.allResources[TypeResources.FOOD] = 0
+                                it.removeWorkers()
+                            }
+                        }
+                        TypeResources.STONE -> {
+                            if (resources.allResources[TypeResources.STONE]!! >= costWork[resource]!!) {
+                                resources.allResources[TypeResources.STONE] =
+                                    resources.allResources[TypeResources.STONE]!! - costWork[resource]!!
+                            } else {
+                                resources.allResources[TypeResources.STONE] = 0
+                                it.removeWorkers()
+                            }
+                        }
+                        else -> {}
+                    }
+                }
+            }
         }
     }
 
     fun checkResourceBeforeConstruction(typeBuildings: TypeBuilding): Boolean {
         val mapCost = costConstruction.costConstruction[typeBuildings]
         for (resource in mapCost?.keys!!) {
-            when(resource) {
-                TypeResources.WOOD -> {
-                    if (resources.allResources[TypeResources.WOOD]!! - mapCost[resource]!! >= 0) {
-                        resources.allResources[TypeResources.WOOD] = resources.allResources[TypeResources.WOOD]!! - mapCost[resource]!!
-                        return true
-                    }
-                    break
-                }
-                TypeResources.FOOD -> {
-                    if (resources.allResources[TypeResources.FOOD]!! - mapCost[resource]!! >= 0) {
-                        resources.allResources[TypeResources.FOOD] = resources.allResources[TypeResources.FOOD]!! - mapCost[resource]!!
-                        return true
-                    }
-                    break
-                }
-                TypeResources.GOLD -> {
-                    if (resources.allResources[TypeResources.GOLD]!! - mapCost[resource]!! >= 0) {
-                        resources.allResources[TypeResources.GOLD] = resources.allResources[TypeResources.GOLD]!! - mapCost[resource]!!
-                        return true
-                    }
-                    break
-                }
-                TypeResources.STONE -> {
-                    if (resources.allResources[TypeResources.STONE]!! - mapCost[resource]!! >= 0) {
-                        resources.allResources[TypeResources.STONE] = resources.allResources[TypeResources.STONE]!! - mapCost[resource]!!
-                        return true
-                    }
-                    break
-                }
+            when (resource) {
+                TypeResources.WOOD -> if (resources.allResources[TypeResources.WOOD]!! < mapCost[resource]!!) return false
+                TypeResources.FOOD -> if (resources.allResources[TypeResources.FOOD]!! < mapCost[resource]!!) return false
+                TypeResources.GOLD -> if (resources.allResources[TypeResources.GOLD]!! < mapCost[resource]!!) return false
+                TypeResources.STONE -> if (resources.allResources[TypeResources.STONE]!! < mapCost[resource]!!) return false
                 else -> {}
             }
         }
-        return false
+        return true
     }
 
     fun showDisplayResources() =
@@ -115,7 +140,7 @@ object IndicatorService {
                         .filterIsInstance<HouseWorker>().size * 2)
                 }"
 
-    fun showDisplayBuilt() =
+    fun showDisplayBuiltProducer() =
         "Золотой рудник: ${
             BuildingService.getAllBuildingByType(TypeBuilding.PRODUCER_GOLD)
                 ?.filter { it.constructionTime == 0 }?.size
@@ -134,6 +159,20 @@ object IndicatorService {
                 }\n" +
                 "Дома рабочих: ${
                     BuildingService.getAllBuildingByType(TypeBuilding.PRODUCER_WORKER)
+                        ?.filter { it.constructionTime == 0 }?.size
+                }"
+
+    fun showDisplayBuiltConsumer() =
+        "Таверна: ${
+            BuildingService.getAllBuildingByType(TypeBuilding.CONSUMER_TAVERN)
+                ?.filter { it.constructionTime == 0 }?.size
+        }\n" +
+                "Цирк: ${
+                    BuildingService.getAllBuildingByType(TypeBuilding.CONSUMER_CIRCUS)
+                        ?.filter { it.constructionTime == 0 }?.size
+                }\n" +
+                "Церковь: ${
+                    BuildingService.getAllBuildingByType(TypeBuilding.CONSUMER_CHURCH)
                         ?.filter { it.constructionTime == 0 }?.size
                 }"
 }
