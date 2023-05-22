@@ -18,7 +18,7 @@ class BuildingMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_building_main)
         findViewById<RadioGroup>(R.id.radios_building).clearCheck()
-        findViewById<RadioGroup>(R.id.radios_building1).clearCheck()
+        findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
         showWorkingBuildings()
     }
 
@@ -28,41 +28,49 @@ class BuildingMainActivity : AppCompatActivity() {
             R.id.radiobutton_building_gold -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_GOLD
+                    findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
                 }
             }
             R.id.radiobutton_building_stone -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_STONE
+                    findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
                 }
             }
             R.id.radiobutton_building_wood -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_WOOD
+                    findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
                 }
             }
             R.id.radiobutton_building_food -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_FOOD
+                    findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
                 }
             }
             R.id.radiobutton_building_house -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_WORKER
+                    findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
                 }
             }
             R.id.radiobutton_building_tavern -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.CONSUMER_TAVERN
+                    findViewById<RadioGroup>(R.id.radios_building).clearCheck()
                 }
             }
             R.id.radiobutton_building_circus -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.CONSUMER_CIRCUS
+                    findViewById<RadioGroup>(R.id.radios_building).clearCheck()
                 }
             }
             R.id.radiobutton_building_church -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.CONSUMER_CHURCH
+                    findViewById<RadioGroup>(R.id.radios_building).clearCheck()
                 }
             }
         }

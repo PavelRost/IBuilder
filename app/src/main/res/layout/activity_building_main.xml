@@ -131,7 +131,7 @@
         </RadioGroup>
 
         <RadioGroup
-            android:id="@+id/radios_building1"
+            android:id="@+id/radios_consumer_buildings"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
