@@ -52,6 +52,8 @@
     <string name="header_total_tax">Итоговый доход:</string>
     <string name="header_satisfaction_citizens">Рейтинг удовлетворенности граждан:</string>
     <string name="button_update_tax_rate">Обновить налоговую ставку</string>
+    <string name="decrement">-</string>
+    <string name="increment">+</string>
 
 
 </resources>
