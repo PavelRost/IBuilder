@@ -16,6 +16,9 @@ class CitizensActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_citizens)
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
         findViewById<TextView>(R.id.textView_citizens_tax).text = taxRate.toString()
         findViewById<TextView>(R.id.textView_citizens_count_workers).text =
             Human.totalWorkers.toString()

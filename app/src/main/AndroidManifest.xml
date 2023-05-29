@@ -23,15 +23,15 @@
         <activity
             android:name=".BuildingMainActivity"
             android:parentActivityName=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ExchangeResourcesActivity"
             android:parentActivityName=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".CitizensActivity"
             android:parentActivityName=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

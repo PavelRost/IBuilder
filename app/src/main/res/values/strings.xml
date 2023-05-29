@@ -19,20 +19,21 @@
 
     <!-- Экран Постройки (BuildingMainActivity.kt)   -->
     <string name="textview_radio_building">Здание не выбрано</string>
-    <string name="building_gold">Золотой рудник</string>
-    <string name="building_stone">Каменный рудник</string>
-    <string name="building_wood">Лесопилка</string>
-    <string name="building_food">Ферма</string>
-    <string name="building_house_workers">Жилище работников</string>
+    <string name="building_gold">Золотой рудник\n(5 золота)</string>
+    <string name="building_stone">Каменный рудник\n(3 золота)</string>
+    <string name="building_wood">Лесопилка\n(3 леса)</string>
+    <string name="building_food">Ферма\n(2 леса)</string>
+    <string name="building_house_workers">Жилище работников\n(2 леса)</string>
+    <string name="building_tavern">Таверна\n(15 леса)</string>
+    <string name="building_circus">Цирк\n(20 камня)</string>
+    <string name="building_church">Церковь\n(40 леса)</string>
     <string name="button_construction">Построить здание</string>
     <string name="button_status_construction">Прогресс строительства</string>
     <string name="button_working_buildings">Работающие производства</string>
     <string name="button_add_workers">Распределить рабочих</string>
     <string name="button_remove_workers">Снять рабочих</string>
     <string name="header_producer_buildings">Работающие постройки:</string>
-    <string name="building_tavern">Таверна</string>
-    <string name="building_circus">Цирк</string>
-    <string name="building_church">Церковь</string>
+    <string name="button_building_information">Дополнительная информация о здании</string>
 
     <!-- Экран покупки / продажи ресурсов (BuildingMainActivity.kt)   -->
     <string name="button_buy_resources">Купить</string>

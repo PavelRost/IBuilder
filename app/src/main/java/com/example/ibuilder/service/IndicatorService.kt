@@ -28,6 +28,8 @@ object IndicatorService {
 
     fun deleteResources() {
         if (human.totalWorkers > 0) {
+
+            // При низком уровне удовлетворенности жители поселения уходят
             if (OtherIndicators.satisfactionCitizens < 0 && human.freeWorkers > 0) {
                 val workersForRemove = abs(OtherIndicators.satisfactionCitizens)
                 buildingSer.convertHiredInFreeWorkers(workersForRemove)
@@ -42,6 +44,8 @@ object IndicatorService {
                     BuildingService.changeCapacityHouse(workersForRemove)
                 }
             }
+
+            // При недостатке еды уходит такое количество, которое мы не способны прокормить
             if (resources.allResources[TypeResources.FOOD]!! < human.totalWorkers * human.useFood) {
                 val workersForRemove = if (resources.allResources[TypeResources.FOOD]!! == 0) {
                     human.totalWorkers
@@ -53,12 +57,14 @@ object IndicatorService {
                 human.freeWorkers = -workersForRemove
                 buildingSer.changeCapacityHouse(workersForRemove)
             }
+
+            // Изменение количества еды с учетом оставшихся жителей
             if (resources.allResources[TypeResources.FOOD]!! - human.useFood * human.totalWorkers <= 0) {
                 resources.allResources[TypeResources.FOOD] = 0
-                return
+            } else {
+                resources.allResources[TypeResources.FOOD] =
+                    resources.allResources[TypeResources.FOOD]!! - (human.useFood * human.totalWorkers)
             }
-            resources.allResources[TypeResources.FOOD] =
-                resources.allResources[TypeResources.FOOD]!! - (human.useFood * human.totalWorkers)
         }
 
         val workingConsBuilding = BuildingService.getAllWorkingConsumerBuilding()
