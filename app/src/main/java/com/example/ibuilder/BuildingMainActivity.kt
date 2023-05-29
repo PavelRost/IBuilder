@@ -1,5 +1,7 @@
 package com.example.ibuilder
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
@@ -14,67 +16,91 @@ import service.BuildingService
 class BuildingMainActivity : AppCompatActivity() {
 
     private var typeBuilding: TypeBuilding? = null
+    private lateinit var radiosBuilding: RadioGroup
+    private lateinit var radiosConsumerBuildings: RadioGroup
+    private lateinit var textViewCountProducer: TextView
+    private lateinit var textViewCountConsumer: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_building_main)
-        if (supportActionBar != null) {
-            supportActionBar!!.hide()
-        }
-        findViewById<RadioGroup>(R.id.radios_building).clearCheck()
-        findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
+        initViews()
+        if (supportActionBar != null) supportActionBar!!.hide()
+        clearProducerBuilding()
+        clearConsumerBuilding()
         showWorkingBuildings()
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, BuildingMainActivity::class.java)
+        }
+    }
+
+    private fun initViews() {
+        radiosBuilding = findViewById(R.id.radios_building)
+        radiosConsumerBuildings = findViewById(R.id.radios_consumer_buildings)
+        textViewCountProducer = findViewById(R.id.textView_building_producing_buildings)
+        textViewCountConsumer = findViewById(R.id.textView_building_consuming_buildings)
+    }
+
+    private fun clearProducerBuilding() {
+        radiosBuilding.clearCheck()
+    }
+
+    private fun clearConsumerBuilding() {
+        radiosConsumerBuildings.clearCheck()
     }
 
     fun selectTypeBuilding(view: View) {
         val isChecked = (view as RadioButton).isChecked
-        when(view.id) {
+        when (view.id) {
             R.id.radiobutton_building_gold -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_GOLD
-                    findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
+                    clearConsumerBuilding()
                 }
             }
             R.id.radiobutton_building_stone -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_STONE
-                    findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
+                    clearConsumerBuilding()
                 }
             }
             R.id.radiobutton_building_wood -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_WOOD
-                    findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
+                    clearConsumerBuilding()
                 }
             }
             R.id.radiobutton_building_food -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_FOOD
-                    findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
+                    clearConsumerBuilding()
                 }
             }
             R.id.radiobutton_building_house -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.PRODUCER_WORKER
-                    findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
+                    clearConsumerBuilding()
                 }
             }
             R.id.radiobutton_building_tavern -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.CONSUMER_TAVERN
-                    findViewById<RadioGroup>(R.id.radios_building).clearCheck()
+                    clearProducerBuilding()
                 }
             }
             R.id.radiobutton_building_circus -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.CONSUMER_CIRCUS
-                    findViewById<RadioGroup>(R.id.radios_building).clearCheck()
+                    clearProducerBuilding()
                 }
             }
             R.id.radiobutton_building_church -> {
                 if (isChecked) {
                     typeBuilding = TypeBuilding.CONSUMER_CHURCH
-                    findViewById<RadioGroup>(R.id.radios_building).clearCheck()
+                    clearProducerBuilding()
                 }
             }
         }
@@ -124,10 +150,6 @@ class BuildingMainActivity : AppCompatActivity() {
     }
 
     private fun showWorkingBuildings() {
-        val textViewCountProducer =
-            findViewById<TextView>(R.id.textView_building_producing_buildings)
-        val textViewCountConsumer =
-            findViewById<TextView>(R.id.textView_building_consuming_buildings)
         textViewCountProducer.text = BuildingService.showWorkingProducerBuilding()
         textViewCountConsumer.text = BuildingService.showWorkingConsumerBuilding()
     }

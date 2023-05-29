@@ -146,7 +146,7 @@ object IndicatorService {
                         .filterIsInstance<HouseWorker>().size * 2)
                 }"
 
-    fun showDisplayBuiltProducer() =
+    fun showDisplayBuilt() =
         "Золотой рудник: ${
             BuildingService.getAllBuildingByType(TypeBuilding.PRODUCER_GOLD)
                 ?.filter { it.constructionTime == 0 }?.size
@@ -166,13 +166,11 @@ object IndicatorService {
                 "Дома рабочих: ${
                     BuildingService.getAllBuildingByType(TypeBuilding.PRODUCER_WORKER)
                         ?.filter { it.constructionTime == 0 }?.size
-                }"
-
-    fun showDisplayBuiltConsumer() =
-        "Таверна: ${
-            BuildingService.getAllBuildingByType(TypeBuilding.CONSUMER_TAVERN)
-                ?.filter { it.constructionTime == 0 }?.size
-        }\n" +
+                }\n" +
+                "Таверна: ${
+                    BuildingService.getAllBuildingByType(TypeBuilding.CONSUMER_TAVERN)
+                        ?.filter { it.constructionTime == 0 }?.size
+                }\n" +
                 "Цирк: ${
                     BuildingService.getAllBuildingByType(TypeBuilding.CONSUMER_CIRCUS)
                         ?.filter { it.constructionTime == 0 }?.size

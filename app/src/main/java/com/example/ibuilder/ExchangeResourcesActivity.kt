@@ -1,5 +1,7 @@
 package com.example.ibuilder
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
@@ -14,24 +16,41 @@ import com.example.ibuilder.service.IndicatorService
 
 class ExchangeResourcesActivity : AppCompatActivity() {
 
+    private lateinit var textViewExchangeOperations: TextView
+    private lateinit var textViewExchangeBuyPrice: TextView
+    private lateinit var textViewExchangeSellPrice: TextView
+    private lateinit var textViewExchangeQuantity: TextView
+    private lateinit var textViewExchangeCountResources: TextView
     private var typeResource: TypeResources? = null
     private var quantity = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exchange_resources)
-        if (supportActionBar != null) {
-            supportActionBar!!.hide()
-        }
+        initViews()
+        if (supportActionBar != null) supportActionBar!!.hide()
         findViewById<RadioGroup>(R.id.radios_exchange).clearCheck()
-        findViewById<TextView>(R.id.textView_exchange_resource_operations).text =
-            ExchangeIndicators.availableCountOperations.toString()
+        textViewExchangeOperations.text = ExchangeIndicators.availableCountOperations.toString()
         showCountResources()
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, ExchangeResourcesActivity::class.java)
+        }
+    }
+
+    private fun initViews() {
+        textViewExchangeOperations = findViewById(R.id.textView_exchange_resource_operations)
+        textViewExchangeBuyPrice = findViewById(R.id.textView_exchange_buy_price)
+        textViewExchangeSellPrice = findViewById(R.id.textView_exchange_sell_price)
+        textViewExchangeQuantity = findViewById(R.id.textView_exchange_quantity)
+        textViewExchangeCountResources = findViewById(R.id.textView_exchange_count_resources)
     }
 
     fun selectTypeResources(view: View) {
         val isChecked = (view as RadioButton).isChecked
-        when(view.id) {
+        when (view.id) {
             R.id.radiobutton_exchange_stone -> {
                 if (isChecked) {
                     typeResource = TypeResources.STONE
@@ -48,8 +67,10 @@ class ExchangeResourcesActivity : AppCompatActivity() {
                 }
             }
         }
-        findViewById<TextView>(R.id.textView_exchange_buy_price).text = ExchangeIndicators.exchangeRate[typeResource]!!["buy"].toString()
-        findViewById<TextView>(R.id.textView_exchange_sell_price).text = ExchangeIndicators.exchangeRate[typeResource]!!["sell"].toString()
+        textViewExchangeBuyPrice.text =
+            ExchangeIndicators.exchangeRate[typeResource]!!["buy"].toString()
+        textViewExchangeSellPrice.text =
+            ExchangeIndicators.exchangeRate[typeResource]!!["sell"].toString()
     }
 
     fun incrementQuantity(view: View) {
@@ -68,8 +89,7 @@ class ExchangeResourcesActivity : AppCompatActivity() {
     }
 
     private fun displayQuantity() {
-        val quantityTextView = findViewById<TextView>(R.id.textView_exchange_quantity)
-        quantityTextView.text = quantity.toString()
+        textViewExchangeQuantity.text = quantity.toString()
     }
 
     fun buyResources(view: View) {
@@ -85,7 +105,7 @@ class ExchangeResourcesActivity : AppCompatActivity() {
             ExchangeResourcesService.buyResources(typeResource!!, quantity)
             showCountResources()
             ExchangeResourcesService.decrementCountOperations()
-            findViewById<TextView>(R.id.textView_exchange_resource_operations).text = ExchangeIndicators.availableCountOperations.toString()
+            textViewExchangeOperations.text = ExchangeIndicators.availableCountOperations.toString()
             Toast.makeText(this, "Сделка завершена успешно!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -103,14 +123,13 @@ class ExchangeResourcesActivity : AppCompatActivity() {
             ExchangeResourcesService.sellResource(typeResource!!, quantity)
             showCountResources()
             ExchangeResourcesService.decrementCountOperations()
-            findViewById<TextView>(R.id.textView_exchange_resource_operations).text = ExchangeIndicators.availableCountOperations.toString()
+            textViewExchangeOperations.text = ExchangeIndicators.availableCountOperations.toString()
             Toast.makeText(this, "Сделка завершена успешно!", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun showCountResources() {
-        val textViewCountResources = findViewById<TextView>(R.id.textView_exchange_count_resources)
-        textViewCountResources.text = IndicatorService.showDisplayResources()
+        textViewExchangeCountResources.text = IndicatorService.showDisplayResources()
     }
 
     private fun isInitTypeResource(view: View) : Boolean {

@@ -1,5 +1,7 @@
 package com.example.ibuilder
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -12,22 +14,36 @@ import com.example.ibuilder.service.TaxService
 class CitizensActivity : AppCompatActivity() {
 
     private var taxRate = OtherIndicators.taxRate
+    private lateinit var textViewCitizensTax: TextView
+    private lateinit var textViewCitizensCountWorkers: TextView
+    private lateinit var textViewCitizensTaxRate: TextView
+    private lateinit var textViewCitizensTotalRate: TextView
+    private lateinit var textViewCitizensSatisfaction: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_citizens)
-        if (supportActionBar != null) {
-            supportActionBar!!.hide()
+        initViews()
+        if (supportActionBar != null) supportActionBar!!.hide()
+        textViewCitizensTax.text = taxRate.toString()
+        textViewCitizensCountWorkers.text = Human.totalWorkers.toString()
+        textViewCitizensTaxRate.text = OtherIndicators.taxRate.toString()
+        textViewCitizensTotalRate.text = (OtherIndicators.taxRate * Human.totalWorkers).toString()
+        textViewCitizensSatisfaction.text = OtherIndicators.satisfactionCitizens.toString()
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, CitizensActivity::class.java)
         }
-        findViewById<TextView>(R.id.textView_citizens_tax).text = taxRate.toString()
-        findViewById<TextView>(R.id.textView_citizens_count_workers).text =
-            Human.totalWorkers.toString()
-        findViewById<TextView>(R.id.textView_citizens_tax_rate).text =
-            OtherIndicators.taxRate.toString()
-        findViewById<TextView>(R.id.textView_citizens_total_rate).text =
-            (OtherIndicators.taxRate * Human.totalWorkers).toString()
-        findViewById<TextView>(R.id.textView_citizens_satisfaction).text =
-            OtherIndicators.satisfactionCitizens.toString()
+    }
+
+    private fun initViews() {
+        textViewCitizensTax = findViewById(R.id.textView_citizens_tax)
+        textViewCitizensCountWorkers = findViewById(R.id.textView_citizens_count_workers)
+        textViewCitizensTaxRate = findViewById(R.id.textView_citizens_tax_rate)
+        textViewCitizensTotalRate = findViewById(R.id.textView_citizens_total_rate)
+        textViewCitizensSatisfaction = findViewById(R.id.textView_citizens_satisfaction)
     }
 
     fun incrementTaxRate(view: View) {
@@ -46,7 +62,7 @@ class CitizensActivity : AppCompatActivity() {
     }
 
     private fun displayTaxRate() {
-        findViewById<TextView>(R.id.textView_citizens_tax).text = taxRate.toString()
+        textViewCitizensTax.text = taxRate.toString()
     }
 
     fun updateTaxRate(view: View) {
@@ -58,19 +74,15 @@ class CitizensActivity : AppCompatActivity() {
         if (OtherIndicators.availableUpdateTaxRate == 0) {
             Toast.makeText(this, "Ставку можно обновить только 1 раз за ход", Toast.LENGTH_SHORT)
                 .show()
-            findViewById<TextView>(R.id.textView_citizens_tax).text =
-                OtherIndicators.taxRate.toString()
+            textViewCitizensTax.text = OtherIndicators.taxRate.toString()
             taxRate = OtherIndicators.taxRate
             return
         }
         TaxService.decrementCountUpdateTaxRate()
         TaxService.updateSatisfaction(taxRate)
         OtherIndicators.taxRate = taxRate
-        findViewById<TextView>(R.id.textView_citizens_tax_rate).text =
-            OtherIndicators.taxRate.toString()
-        findViewById<TextView>(R.id.textView_citizens_total_rate).text =
-            TaxService.getTotalTax().toString()
-        findViewById<TextView>(R.id.textView_citizens_satisfaction).text =
-            OtherIndicators.satisfactionCitizens.toString()
+        textViewCitizensTaxRate.text = OtherIndicators.taxRate.toString()
+        textViewCitizensTotalRate.text = TaxService.getTotalTax().toString()
+        textViewCitizensSatisfaction.text = OtherIndicators.satisfactionCitizens.toString()
     }
 }

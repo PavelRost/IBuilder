@@ -1,6 +1,5 @@
 package com.example.ibuilder
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -14,15 +13,17 @@ import service.BuildingService
 class MainActivity : AppCompatActivity() {
 
     private var isShowDescription = false
+    private lateinit var textViewCountResources: TextView
+    private lateinit var textViewCountCitizens: TextView
+    private lateinit var textViewCountBuilt: TextView
+    private lateinit var textViewCurrentEra: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (supportActionBar != null) {
-            supportActionBar!!.hide()
-        }
+        if (supportActionBar != null) supportActionBar!!.hide()
+        initViews()
         updateIndicatorsWithoutView()
-
         if (!isShowDescription) {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Описание игры:")
@@ -37,6 +38,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun initViews() {
+        textViewCountResources = findViewById(R.id.textView_main_count_resources)
+        textViewCountCitizens = findViewById(R.id.textView_main_count_citizens)
+        textViewCountBuilt = findViewById(R.id.textView_main_count_built)
+        textViewCurrentEra = findViewById(R.id.textView_main_current_era)
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean("isShowDescription", isShowDescription)
@@ -47,15 +55,17 @@ class MainActivity : AppCompatActivity() {
         isShowDescription = savedInstanceState.getBoolean("isShowDescription")
     }
 
-    fun updateIndicatorsPlayer(view: View) {
-        val textViewCountResources = findViewById<TextView>(R.id.textView_main_count_resources)
-        val textViewCountCitizens = findViewById<TextView>(R.id.textView_main_count_citizens)
-        val textViewCountBuilt = findViewById<TextView>(R.id.textView_main_count_built)
-        val textViewCurrentEra = findViewById<TextView>(R.id.textView_main_current_era)
+    private fun updateIndicatorsPlayer(view: View) {
         textViewCountResources.text = IndicatorService.showDisplayResources()
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
-        textViewCountBuilt.text =
-            "${IndicatorService.showDisplayBuiltProducer()}\n${IndicatorService.showDisplayBuiltConsumer()}"
+        textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
+        textViewCurrentEra.text = EraService.showCurrentEra()
+    }
+
+    private fun updateIndicatorsWithoutView() {
+        textViewCountResources.text = IndicatorService.showDisplayResources()
+        textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
+        textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
         textViewCurrentEra.text = EraService.showCurrentEra()
     }
 
@@ -74,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             if (tmp == "Игра проиграна!") {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Внимание!")
-                builder.setMessage("Игра проиграна! Можете играть дальше конечно... но лучше начните сначала.")
+                builder.setMessage("Игра проиграна! Можете играть дальше, конечно... но лучше начните сначала.")
                 builder.show()
             }
             rsl.append(tmp)
@@ -106,30 +116,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun switchActivityToBuilding(view: View) {
-        val intent = Intent(this@MainActivity, BuildingMainActivity::class.java)
-        startActivity(intent)
+        startActivity(BuildingMainActivity.newIntent(this@MainActivity))
     }
 
     fun switchActivityToExchangeResources(view: View) {
-        val intent = Intent(this@MainActivity, ExchangeResourcesActivity::class.java)
-        startActivity(intent)
+        startActivity(ExchangeResourcesActivity.newIntent(this@MainActivity))
     }
 
     fun switchActivityCitizens(view: View) {
-        val intent = Intent(this@MainActivity, CitizensActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun updateIndicatorsWithoutView() {
-        val textViewCountResources = findViewById<TextView>(R.id.textView_main_count_resources)
-        val textViewCountCitizens = findViewById<TextView>(R.id.textView_main_count_citizens)
-        val textViewCountBuilt = findViewById<TextView>(R.id.textView_main_count_built)
-        val textViewCurrentEra = findViewById<TextView>(R.id.textView_main_current_era)
-        textViewCountResources.text = IndicatorService.showDisplayResources()
-        textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
-        textViewCountBuilt.text =
-            "${IndicatorService.showDisplayBuiltProducer()}\n${IndicatorService.showDisplayBuiltConsumer()}"
-        textViewCurrentEra.text = EraService.showCurrentEra()
+        startActivity(CitizensActivity.newIntent(this@MainActivity))
     }
 
     fun showDescriptionGame(view: View) {
