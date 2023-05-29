@@ -4,29 +4,47 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ibuilder.model.indicatorsDB.ExchangeIndicators
 import com.example.ibuilder.model.indicatorsDB.OtherIndicators
-import com.example.ibuilder.service.EraService
-import com.example.ibuilder.service.ExchangeResourcesService
-import com.example.ibuilder.service.IndicatorService
-import com.example.ibuilder.service.TaxService
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.example.ibuilder.service.*
 import service.BuildingService
 
 class MainActivity : AppCompatActivity() {
 
-    private val fileNameSaveHuman = "saveHuman.json"
-    private val fileNameSaveResources = "saveResources.json"
-    private val fileNameSaveOtherIndicators = "otherIndicators.json"
-    private val builder = GsonBuilder()
-    private val gson: Gson = builder.create()
+    private var isShowDescription = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
         updateIndicatorsWithoutView()
+
+        if (!isShowDescription) {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Описание игры:")
+            builder.setMessage(
+                "Вы предводитель поселения, которое избрало путь экономического развития. " +
+                        "Вокруг множество кочевников, от которых каждые 10 ходов необходимо откупаться " +
+                        "(начиная с 100 хода откупаться придеться каждые 5 ходов). " +
+                        "Если не заплатить им дань (100 золота), то они уведут половину жителей деревни. " +
+                        "При отсутствии золота и поселенцев - игрок проигрывает."
+            )
+            builder.show()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("isShowDescription", isShowDescription)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        isShowDescription = savedInstanceState.getBoolean("isShowDescription")
     }
 
     fun updateIndicatorsPlayer(view: View) {
@@ -42,12 +60,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startNextMove(view: View) {
-        OtherIndicators.currentDay = 1
+        OtherIndicators.currentDay++
         val rsl = StringBuilder("Наступил ${OtherIndicators.currentDay} день!\n")
         val textViewNotice = findViewById<TextView>(R.id.textView_main_notice)
         rsl.append(BuildingService.continueBuild())
         IndicatorService.addResources()
         IndicatorService.deleteResources()
+        if (OtherIndicators.frequencyAttackNomad != 5 && OtherIndicators.currentDay >= 100) {
+            OtherIndicators.frequencyAttackNomad = 5
+        }
+        if (NomadService.checkDayForAttackNomad()) {
+            val tmp = NomadService.nomadAttack()
+            if (tmp == "Игра проиграна!") {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Внимание!")
+                builder.setMessage("Игра проиграна! Можете играть дальше конечно... но лучше начните сначала.")
+                builder.show()
+            }
+            rsl.append(tmp)
+        }
         if (ExchangeIndicators.availableCountOperations == 0) {
             ExchangeResourcesService.incrementCountOperations()
         }
@@ -101,68 +132,16 @@ class MainActivity : AppCompatActivity() {
         textViewCurrentEra.text = EraService.showCurrentEra()
     }
 
-//    fun saveProgress(view: View) {
-//        val resourceJson = ResourceJson(
-//            gold = Resource.gold,
-//            food = Resource.food,
-//            wood = Resource.wood,
-//            stone = Resource.stone
-//        )
-//        val humanJson = HumanJson(
-//            totalWorkers = Human.totalWorkers,
-//            hiredWorkers = Human.hiredWorkers,
-//            freeWorkers = Human.freeWorkers
-//        )
-//        val otherIndicators = OtherIndicators(
-//            currentDay = OtherIndicators.currentDay
-//        )
-//        try {
-//            openFileOutput(fileNameSaveHuman, MODE_PRIVATE).write(gson.toJson(humanJson).toByteArray())
-//            openFileOutput(fileNameSaveResources, MODE_PRIVATE).write(gson.toJson(resourceJson).toByteArray())
-//            openFileOutput(fileNameSaveOtherIndicators, MODE_PRIVATE).write(gson.toJson(otherIndicators).toByteArray())
-//            Toast.makeText(this, "Игра успешно сохранена!", Toast.LENGTH_SHORT).show()
-//        } catch (ex: Exception) {
-//            Toast.makeText(this, "Ошибка при сохранении данных, попробуйте снова!", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
-//    fun loadProgress(view: View) {
-//        if (fileList().size != 3) {
-//            Toast.makeText(this, "Сохранения прогресса отсутствуют!", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        val path = applicationContext.filesDir
-//        val fileHuman = File(path, fileNameSaveHuman)
-//        val fileResources = File(path, fileNameSaveResources)
-//        val fileIndicators = File(path, fileNameSaveOtherIndicators)
-//
-//        try {
-//            println(Files.toString(fileIndicators, StandardCharsets.UTF_8))
-//            val humanData = gson.fromJson(Files.toString(fileHuman, StandardCharsets.UTF_8), HumanJson::class.java)
-//            val resourcesData = gson.fromJson(Files.toString(fileResources, StandardCharsets.UTF_8), ResourceJson::class.java)
-//            val otherIndicators = gson.fromJson(Files.toString(fileIndicators, StandardCharsets.UTF_8), com.example.ibuilder.OtherIndicators::class.java)
-//
-//            IndicatorService.resetValueIndicators()
-//
-//            Human.totalWorkers = humanData.totalWorkers
-//            Human.hiredWorkers = humanData.hiredWorkers
-//            Human.freeWorkers = humanData.freeWorkers
-//            Resource.gold = resourcesData.gold
-//            Resource.food = resourcesData.food
-//            Resource.stone = resourcesData.stone
-//            Resource.wood = resourcesData.wood
-//            OtherIndicators.currentDay = otherIndicators.currentDay
-//
-//        } catch (ex: Exception) {
-//            Toast.makeText(this, "Ошибка при загрузке данных, попробуйте снова!", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
+    fun showDescriptionGame(view: View) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Описание игры:")
+        builder.setMessage(
+            "Вы предводитель поселения, которое избрало путь экономического развития. " +
+                    "Вокруг множество кочевников, от которых каждые 10 ходов необходимо откупаться " +
+                    "(начиная с 100 хода откупаться придеться каждые 5 ходов). " +
+                    "Если не заплатить им дань (100 золота), то они уведут половину жителей деревни. " +
+                    "При отсутствии золота и поселенцев - игрок проигрывает."
+        )
+        builder.show()
+    }
 }
-
-data class HumanJson(val totalWorkers: Int, val hiredWorkers: Int, var freeWorkers: Int)
-
-data class ResourceJson(val gold: Int, val food: Int, val wood: Int, val stone: Int)
-
-data class OtherIndicators(val currentDay: Int)
