@@ -6,6 +6,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ibuilder.model.building.TypeBuilding
 import service.BuildingService
@@ -17,6 +18,9 @@ class BuildingMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_building_main)
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
         findViewById<RadioGroup>(R.id.radios_building).clearCheck()
         findViewById<RadioGroup>(R.id.radios_consumer_buildings).clearCheck()
         showWorkingBuildings()
@@ -90,14 +94,33 @@ class BuildingMainActivity : AppCompatActivity() {
 
     fun addWorkersInBuilding(view: View) {
         if(isInitTypeBuilding(view)) {
-            Toast.makeText(this, BuildingService.addWorkersInBuilding(typeBuilding!!), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                BuildingService.addWorkersInBuilding(typeBuilding!!),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     fun removeWorkersInBuilding(view: View) {
-        if(isInitTypeBuilding(view)) {
-            Toast.makeText(this, BuildingService.removeWorkersInBuilding(typeBuilding!!), Toast.LENGTH_SHORT).show()
+        if (isInitTypeBuilding(view)) {
+            Toast.makeText(
+                this,
+                BuildingService.removeWorkersInBuilding(typeBuilding!!),
+                Toast.LENGTH_SHORT
+            ).show()
         }
+    }
+
+    fun showInformationBuilding(view: View) {
+        if (typeBuilding == null) {
+            Toast.makeText(this, "Выберите тип здания", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Информация о постройке:")
+        builder.setMessage(BuildingService.showInformationBuilding(typeBuilding!!))
+        builder.show()
     }
 
     private fun showWorkingBuildings() {

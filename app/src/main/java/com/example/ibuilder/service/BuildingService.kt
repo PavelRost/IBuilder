@@ -210,4 +210,17 @@ object BuildingService {
                 "Церковь: ${
                     getAllWorkingConsumerBuilding().filter { it.typeBuild == TypeBuilding.CONSUMER_CHURCH }.size
                 }"
+
+    fun showInformationBuilding(typeBuildings: TypeBuilding): String {
+        return when (typeBuildings) {
+            TypeBuilding.PRODUCER_GOLD -> GoldMine(serialNumber = 0).showInformation()
+            TypeBuilding.PRODUCER_WOOD -> WoodMine(serialNumber = 0).showInformation()
+            TypeBuilding.PRODUCER_FOOD -> FoodMine(serialNumber = 0).showInformation()
+            TypeBuilding.PRODUCER_STONE -> StoneMine(serialNumber = 0).showInformation()
+            TypeBuilding.PRODUCER_WORKER -> HouseWorker(serialNumber = 0).showInformation()
+            TypeBuilding.CONSUMER_TAVERN -> Tavern(serialNumber = 0).showInformation() + "1 ${TypeResources.GOLD.name}"
+            TypeBuilding.CONSUMER_CIRCUS -> Circus(serialNumber = 0).showInformation() + "2 ${TypeResources.GOLD.name}"
+            TypeBuilding.CONSUMER_CHURCH -> Church(serialNumber = 0).showInformation() + "3 ${TypeResources.GOLD.name}"
+        }
+    }
 }

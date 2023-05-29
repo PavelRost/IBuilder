@@ -52,4 +52,15 @@ abstract class AbstractBuilding {
         isProfitActivate = false
         return "$name №$serialNumber не производит ресурсов, рабочие распущены по домам"
     }
+
+    fun showInformation(): String {
+        var rsl = "Наименование: $name\n" +
+                "Время постройки: $constructionTime\n" +
+                "Необходимо работников: $needWorkers\n" +
+                "Доход за ход: $profit ${typeResources.name}\n"
+        if (typeResources == TypeResources.SATISFACTION) {
+            rsl += "Потребляет за ход: "
+        }
+        return rsl
+    }
 }

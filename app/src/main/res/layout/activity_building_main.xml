@@ -15,7 +15,7 @@
             android:id="@+id/header_building_notice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -85,8 +85,8 @@
             <RadioGroup
                 android:id="@+id/radios_building"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="parent">
@@ -94,35 +94,35 @@
                 <RadioButton
                     android:id="@+id/radiobutton_building_gold"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:onClick="selectTypeBuilding"
                     android:text="@string/building_gold" />
 
                 <RadioButton
                     android:id="@+id/radiobutton_building_stone"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:onClick="selectTypeBuilding"
                     android:text="@string/building_stone" />
 
                 <RadioButton
                     android:id="@+id/radiobutton_building_wood"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:onClick="selectTypeBuilding"
                     android:text="@string/building_wood" />
 
                 <RadioButton
                     android:id="@+id/radiobutton_building_food"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:onClick="selectTypeBuilding"
                     android:text="@string/building_food" />
 
                 <RadioButton
                     android:id="@+id/radiobutton_building_house"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:onClick="selectTypeBuilding"
                     android:text="@string/building_house_workers" />
 
@@ -131,8 +131,8 @@
             <RadioGroup
                 android:id="@+id/radios_consumer_buildings"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="parent">
@@ -140,21 +140,21 @@
                 <RadioButton
                     android:id="@+id/radiobutton_building_tavern"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:onClick="selectTypeBuilding"
                     android:text="@string/building_tavern" />
 
                 <RadioButton
                     android:id="@+id/radiobutton_building_circus"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:onClick="selectTypeBuilding"
                     android:text="@string/building_circus" />
 
                 <RadioButton
                     android:id="@+id/radiobutton_building_church"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:onClick="selectTypeBuilding"
                     android:text="@string/building_church" />
 
@@ -202,6 +202,14 @@
                 android:layout_weight="1"
                 android:onClick="removeWorkersInBuilding"
                 android:text="@string/button_remove_workers" />
+
+            <Button
+                android:id="@+id/button_building_information"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:onClick="showInformationBuilding"
+                android:text="@string/button_building_information" />
 
         </LinearLayout>
 
