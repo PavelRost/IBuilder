@@ -1,223 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <TextView
         android:id="@+id/header_main_notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/header_notice"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/header_notice"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_main_notice"
+    <TextView
+        android:id="@+id/textView_main_notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header_main_notice"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal"
+        android:text="@string/textview_notice"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_main_notice" />
 
-        <TextView
-            android:id="@+id/textView_main_notice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/textview_notice"
-            android:textSize="11sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_main_header_indicators"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView_indicators_resources"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_main_notice"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal"
+        android:text="@string/header_indicators_resources"
+        android:textSize="15sp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/textView_indicators_citizens"
+        app:layout_constraintTop_toBottomOf="@+id/textView_main_notice" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/header_indicators_resources"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/header_indicators_citizens"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/header_indicators_buildings"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_main_number_indicators"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView_indicators_citizens"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_main_header_indicators"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal"
+        android:text="@string/header_indicators_citizens"
+        android:textSize="15sp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/textView_indicators_resources"
+        app:layout_constraintRight_toLeftOf="@+id/textView_indicators_buildings"
+        app:layout_constraintTop_toBottomOf="@+id/textView_main_notice" />
 
-        <TextView
-            android:id="@+id/textView_main_count_resources"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/textView_main_count_citizens"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/textView_main_count_built"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:textSize="11sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_main_buttons"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView_indicators_buildings"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal"
+        android:text="@string/header_indicators_buildings"
+        android:textSize="15sp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/textView_indicators_citizens"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_main_notice" />
 
-        <Button
-            android:id="@+id/button_main_exchange"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:onClick="switchActivityToExchangeResources"
-            android:text="@string/button_resources"
-            android:textSize="11sp" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:onClick="switchActivityCitizens"
-            android:text="@string/button_citizen"
-            android:textSize="11sp" />
-
-        <Button
-            android:id="@+id/button_main_construction"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:onClick="switchActivityToBuilding"
-            android:text="@string/button_buildings"
-            android:textSize="11sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView_main_count_resources"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textSize="11sp"
+        android:padding="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/textView_main_count_citizens"
+        app:layout_constraintTop_toBottomOf="@+id/textView_indicators_resources" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/header_current_era"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView_main_current_era"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text=""
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:onClick="updateEra"
-            android:text="@string/button_next_era" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView_main_count_citizens"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textSize="11sp"
+        android:padding="5dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView_main_count_resources"
+        app:layout_constraintRight_toLeftOf="@+id/textView_main_count_built"
+        app:layout_constraintTop_toBottomOf="@+id/textView_indicators_citizens" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="startNextMove"
-            android:text="@string/button_move_next" />
+    <TextView
+        android:id="@+id/textView_main_count_built"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textSize="11sp"
+        android:padding="5dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView_main_count_citizens"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_indicators_buildings" />
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/button_main_exchange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="switchActivityToExchangeResources"
+        android:text="@string/button_resources"
+        android:textSize="11sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/button_main_citizens"
+        app:layout_constraintTop_toBottomOf="@+id/textView_main_count_resources" />
 
+    <Button
+        android:id="@+id/button_main_citizens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="switchActivityCitizens"
+        android:text="@string/button_citizen"
+        android:textSize="11sp"
+        app:layout_constraintLeft_toRightOf="@+id/button_main_exchange"
+        app:layout_constraintRight_toLeftOf="@+id/button_main_construction"
+        app:layout_constraintTop_toBottomOf="@+id/textView_main_count_citizens" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/button_main_construction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="switchActivityToBuilding"
+        android:text="@string/button_buildings"
+        android:textSize="11sp"
+        app:layout_constraintLeft_toRightOf="@+id/button_main_citizens"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_main_count_built" />
+
+    <TextView
+        android:id="@+id/textView_main_header_era"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="@string/header_current_era"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/textView_main_current_era"
+        app:layout_constraintTop_toBottomOf="@+id/button_main_citizens" />
+
+    <TextView
+        android:id="@+id/textView_main_current_era"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/textView_main_header_era"
+        app:layout_constraintRight_toLeftOf="@+id/button_main_next_era"
+        app:layout_constraintTop_toBottomOf="@+id/button_main_citizens" />
+
+    <Button
+        android:id="@+id/button_main_next_era"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="updateEra"
+        android:text="@string/button_next_era"
+        app:layout_constraintLeft_toRightOf="@+id/textView_main_current_era"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_main_citizens" />
+
+    <Button
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="startNextMove"
+        android:text="@string/button_move_next"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_main_next_era" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
