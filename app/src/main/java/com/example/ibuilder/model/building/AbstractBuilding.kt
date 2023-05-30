@@ -48,8 +48,10 @@ abstract class AbstractBuilding {
         hiredWorkers = 0
         human.freeWorkers = needWorkers
         human.hiredWorkers = -needWorkers
-        OtherIndicators.satisfactionCitizens = -profit
-        isProfitActivate = false
+        if (typeResources == TypeResources.SATISFACTION) {
+            OtherIndicators.satisfactionCitizens = -profit
+            isProfitActivate = false
+        }
         return "$name №$serialNumber не производит ресурсов, рабочие распущены по домам"
     }
 
