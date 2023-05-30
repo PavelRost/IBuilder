@@ -20,7 +20,7 @@ object IndicatorService {
             .forEach { it.createResources() }
 
         // налоги
-        if (OtherIndicators.taxRate > 0) {
+        if (OtherIndicators.satisfactionCitizens >= 0 && OtherIndicators.taxRate > 0 && Human.totalWorkers > 0) {
             Resource.allResources[TypeResources.GOLD] =
                 Resource.allResources[TypeResources.GOLD]!! + TaxService.getTotalTax()
         }
