@@ -23,10 +23,6 @@
 ___
 #### Скриншоты:
 
-![Главный экран](https://github.com/PavelRost/IBuilder/assets/92044501/712f7cd7-3fdb-476a-ad32-7225f88f249d)  
+![Главный экран](https://github.com/PavelRost/IBuilder/assets/92044501/1794c353-f072-4bc9-b521-4f44c0732f07) ![Экран построек](https://github.com/PavelRost/IBuilder/assets/92044501/8f4641ef-b109-4477-bd4f-8fe61bd8208d)
 
-![Постройки](https://github.com/PavelRost/IBuilder/assets/92044501/8a6f18c1-ac6b-4f5d-bb1a-0f5751fc3436)  
-
-![Население](https://github.com/PavelRost/IBuilder/assets/92044501/eb10fb03-af60-44d3-877c-577dc782b1d2)  
-
-![Ресурсы](https://github.com/PavelRost/IBuilder/assets/92044501/3f3b7241-72a0-4377-8034-55daecb44a52)
+![Экран торговли](https://github.com/PavelRost/IBuilder/assets/92044501/c5f15791-234d-4173-9fdb-1d1673d6af4d) ![Население](https://github.com/PavelRost/IBuilder/assets/92044501/bcf2137f-056f-4caf-9410-54a8e603e153)
