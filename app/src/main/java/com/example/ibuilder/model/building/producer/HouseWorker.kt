@@ -1,8 +1,9 @@
 package com.example.ibuilder.model.building.producer
 
+import com.example.ibuilder.model.Indicators
+import com.example.ibuilder.model.TypeResources
 import com.example.ibuilder.model.building.AbstractBuilding
 import com.example.ibuilder.model.building.TypeBuilding
-import com.example.ibuilder.model.indicatorsDB.TypeResources
 
 data class HouseWorker(
     override var name: String = "Жилище работников",
@@ -17,14 +18,18 @@ data class HouseWorker(
 
     override fun createResources() {
         if (capacityHouse > 0) {
-            human.totalWorkers = profit
-            human.freeWorkers = profit
+            Indicators.totalWorkers = Indicators.totalWorkers + profit
+            Indicators.freeWorkers = Indicators.freeWorkers + profit
             capacityHouse--
         }
     }
 
     fun getCapacityHouse(): Int {
         return capacityHouse
+    }
+
+    fun setCapacityHouseZero() {
+        capacityHouse = 0
     }
 
     fun addCapacity() {

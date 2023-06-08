@@ -1,4 +1,4 @@
-package com.example.ibuilder.model.indicatorsDB
+package com.example.ibuilder.model
 
 enum class TypeResources {
     FOOD,

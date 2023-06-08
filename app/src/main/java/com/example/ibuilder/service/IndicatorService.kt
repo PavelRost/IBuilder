@@ -1,18 +1,17 @@
 package com.example.ibuilder.service
 
+import com.example.ibuilder.model.Indicators
+import com.example.ibuilder.model.TypeResources
 import com.example.ibuilder.model.building.TypeBuilding
 import com.example.ibuilder.model.building.producer.HouseWorker
-import com.example.ibuilder.model.indicatorsDB.*
 import service.BuildingService
 import kotlin.math.abs
 
 object IndicatorService {
 
-    private val buildingSer = BuildingService
-    private val resources = Resource
-    private val human = Human
-    private val costConstruction = Building
+    private const val HUMAN_USE_FOOD: Int = 2
 
+    private val buildingSer = BuildingService
 
     fun addResources() {
         BuildingService.getAllBuildingsBuilt()
@@ -20,92 +19,92 @@ object IndicatorService {
             .forEach { it.createResources() }
 
         // налоги
-        if (OtherIndicators.satisfactionCitizens >= 0 && OtherIndicators.taxRate > 0 && Human.totalWorkers > 0) {
-            Resource.allResources[TypeResources.GOLD] =
-                Resource.allResources[TypeResources.GOLD]!! + TaxService.getTotalTax()
+        if (Indicators.satisfactionCitizens >= 0 && Indicators.taxRate > 0 && Indicators.totalWorkers > 0) {
+            Indicators.allResources[TypeResources.GOLD] =
+                Indicators.allResources[TypeResources.GOLD]!! + TaxService.getTotalTax()
         }
     }
 
     fun deleteResources() {
-        if (human.totalWorkers > 0) {
+        if (Indicators.totalWorkers > 0) {
 
             // При низком уровне удовлетворенности жители поселения уходят
-            if (OtherIndicators.satisfactionCitizens < 0 && human.freeWorkers > 0) {
-                val workersForRemove = abs(OtherIndicators.satisfactionCitizens)
+            if (Indicators.satisfactionCitizens < 0 && Indicators.freeWorkers > 0) {
+                val workersForRemove = abs(Indicators.satisfactionCitizens)
                 buildingSer.convertHiredInFreeWorkers(workersForRemove)
-                if (workersForRemove > human.freeWorkers) {
-                    val currentFreeWorkers = human.freeWorkers
-                    human.totalWorkers = -currentFreeWorkers
-                    human.freeWorkers = -currentFreeWorkers
+                if (workersForRemove > Indicators.freeWorkers) {
+                    val currentFreeWorkers = Indicators.freeWorkers
+                    Indicators.totalWorkers = Indicators.totalWorkers - currentFreeWorkers
+                    Indicators.freeWorkers = Indicators.freeWorkers - currentFreeWorkers
                     BuildingService.changeCapacityHouse(currentFreeWorkers)
                 } else {
-                    human.totalWorkers = -workersForRemove
-                    human.freeWorkers = -workersForRemove
+                    Indicators.totalWorkers = Indicators.totalWorkers - workersForRemove
+                    Indicators.freeWorkers = Indicators.freeWorkers - workersForRemove
                     BuildingService.changeCapacityHouse(workersForRemove)
                 }
             }
 
             // При недостатке еды уходит такое количество, которое мы не способны прокормить
-            if (resources.allResources[TypeResources.FOOD]!! < human.totalWorkers * human.useFood) {
-                val workersForRemove = if (resources.allResources[TypeResources.FOOD]!! == 0) {
-                    human.totalWorkers
+            if (Indicators.allResources[TypeResources.FOOD]!! < Indicators.totalWorkers * HUMAN_USE_FOOD) {
+                val workersForRemove = if (Indicators.allResources[TypeResources.FOOD]!! == 0) {
+                    Indicators.totalWorkers
                 } else {
-                    (human.totalWorkers * human.useFood - resources.allResources[TypeResources.FOOD]!!) / human.useFood
+                    (Indicators.totalWorkers * HUMAN_USE_FOOD - Indicators.allResources[TypeResources.FOOD]!!) / HUMAN_USE_FOOD
                 }
                 buildingSer.convertHiredInFreeWorkers(workersForRemove)
-                human.totalWorkers = -workersForRemove
-                human.freeWorkers = -workersForRemove
+                Indicators.totalWorkers = Indicators.totalWorkers - workersForRemove
+                Indicators.freeWorkers = Indicators.freeWorkers - workersForRemove
                 buildingSer.changeCapacityHouse(workersForRemove)
             }
 
             // Изменение количества еды с учетом оставшихся жителей
-            if (resources.allResources[TypeResources.FOOD]!! - human.useFood * human.totalWorkers <= 0) {
-                resources.allResources[TypeResources.FOOD] = 0
+            if (Indicators.allResources[TypeResources.FOOD]!! - HUMAN_USE_FOOD * Indicators.totalWorkers <= 0) {
+                Indicators.allResources[TypeResources.FOOD] = 0
             } else {
-                resources.allResources[TypeResources.FOOD] =
-                    resources.allResources[TypeResources.FOOD]!! - (human.useFood * human.totalWorkers)
+                Indicators.allResources[TypeResources.FOOD] =
+                    Indicators.allResources[TypeResources.FOOD]!! - (HUMAN_USE_FOOD * Indicators.totalWorkers)
             }
         }
 
         val workingConsBuilding = BuildingService.getAllWorkingConsumerBuilding()
         if (workingConsBuilding.isNotEmpty()) {
             workingConsBuilding.forEach {
-                val costWork = Building.costWork[it.typeBuild]
+                val costWork = BuildingService.costWork[it.typeBuild]
                 for (resource in costWork?.keys!!) {
                     when (resource) {
                         TypeResources.GOLD -> {
-                            if (resources.allResources[TypeResources.GOLD]!! >= costWork[resource]!!) {
-                                resources.allResources[TypeResources.GOLD] =
-                                    resources.allResources[TypeResources.GOLD]!! - costWork[resource]!!
+                            if (Indicators.allResources[TypeResources.GOLD]!! >= costWork[resource]!!) {
+                                Indicators.allResources[TypeResources.GOLD] =
+                                    Indicators.allResources[TypeResources.GOLD]!! - costWork[resource]!!
                             } else {
-                                resources.allResources[TypeResources.GOLD] = 0
+                                Indicators.allResources[TypeResources.GOLD] = 0
                                 it.removeWorkers()
                             }
                         }
                         TypeResources.WOOD -> {
-                            if (resources.allResources[TypeResources.WOOD]!! >= costWork[resource]!!) {
-                                resources.allResources[TypeResources.WOOD] =
-                                    resources.allResources[TypeResources.WOOD]!! - costWork[resource]!!
+                            if (Indicators.allResources[TypeResources.WOOD]!! >= costWork[resource]!!) {
+                                Indicators.allResources[TypeResources.WOOD] =
+                                    Indicators.allResources[TypeResources.WOOD]!! - costWork[resource]!!
                             } else {
-                                resources.allResources[TypeResources.WOOD] = 0
+                                Indicators.allResources[TypeResources.WOOD] = 0
                                 it.removeWorkers()
                             }
                         }
                         TypeResources.FOOD -> {
-                            if (resources.allResources[TypeResources.FOOD]!! >= costWork[resource]!!) {
-                                resources.allResources[TypeResources.FOOD] =
-                                    resources.allResources[TypeResources.FOOD]!! - costWork[resource]!!
+                            if (Indicators.allResources[TypeResources.FOOD]!! >= costWork[resource]!!) {
+                                Indicators.allResources[TypeResources.FOOD] =
+                                    Indicators.allResources[TypeResources.FOOD]!! - costWork[resource]!!
                             } else {
-                                resources.allResources[TypeResources.FOOD] = 0
+                                Indicators.allResources[TypeResources.FOOD] = 0
                                 it.removeWorkers()
                             }
                         }
                         TypeResources.STONE -> {
-                            if (resources.allResources[TypeResources.STONE]!! >= costWork[resource]!!) {
-                                resources.allResources[TypeResources.STONE] =
-                                    resources.allResources[TypeResources.STONE]!! - costWork[resource]!!
+                            if (Indicators.allResources[TypeResources.STONE]!! >= costWork[resource]!!) {
+                                Indicators.allResources[TypeResources.STONE] =
+                                    Indicators.allResources[TypeResources.STONE]!! - costWork[resource]!!
                             } else {
-                                resources.allResources[TypeResources.STONE] = 0
+                                Indicators.allResources[TypeResources.STONE] = 0
                                 it.removeWorkers()
                             }
                         }
@@ -117,29 +116,45 @@ object IndicatorService {
     }
 
     fun checkResourceBeforeConstruction(typeBuildings: TypeBuilding): Boolean {
-        val mapCost = costConstruction.costConstruction[typeBuildings]
-        for (resource in mapCost?.keys!!) {
+        val costConstruction = BuildingService.costConstruction[typeBuildings]
+        for (resource in costConstruction?.keys!!) {
             when (resource) {
-                TypeResources.WOOD -> if (resources.allResources[TypeResources.WOOD]!! < mapCost[resource]!!) return false
-                TypeResources.FOOD -> if (resources.allResources[TypeResources.FOOD]!! < mapCost[resource]!!) return false
-                TypeResources.GOLD -> if (resources.allResources[TypeResources.GOLD]!! < mapCost[resource]!!) return false
-                TypeResources.STONE -> if (resources.allResources[TypeResources.STONE]!! < mapCost[resource]!!) return false
+                TypeResources.WOOD -> if (Indicators.allResources[TypeResources.WOOD]!! >= costConstruction[resource]!!) {
+                    Indicators.allResources[TypeResources.WOOD] =
+                        Indicators.allResources[TypeResources.WOOD]!! - costConstruction[resource]!!
+                    return true
+                }
+                TypeResources.FOOD -> if (Indicators.allResources[TypeResources.FOOD]!! >= costConstruction[resource]!!) {
+                    Indicators.allResources[TypeResources.FOOD] =
+                        Indicators.allResources[TypeResources.FOOD]!! - costConstruction[resource]!!
+                    return true
+                }
+                TypeResources.GOLD -> if (Indicators.allResources[TypeResources.GOLD]!! >= costConstruction[resource]!!) {
+                    Indicators.allResources[TypeResources.GOLD] =
+                        Indicators.allResources[TypeResources.GOLD]!! - costConstruction[resource]!!
+                    return true
+                }
+                TypeResources.STONE -> if (Indicators.allResources[TypeResources.STONE]!! >= costConstruction[resource]!!) {
+                    Indicators.allResources[TypeResources.STONE] =
+                        Indicators.allResources[TypeResources.STONE]!! - costConstruction[resource]!!
+                    return true
+                }
                 else -> {}
             }
         }
-        return true
+        return false
     }
 
     fun showDisplayResources() =
-        "Еда: ${Resource.allResources[TypeResources.FOOD]}\n" +
-                "Золото: ${Resource.allResources[TypeResources.GOLD]}\n" +
-                "Камень: ${Resource.allResources[TypeResources.STONE]}\n" +
-                "Древесина: ${Resource.allResources[TypeResources.WOOD]}"
+        "Еда: ${Indicators.allResources[TypeResources.FOOD]}\n" +
+                "Золото: ${Indicators.allResources[TypeResources.GOLD]}\n" +
+                "Камень: ${Indicators.allResources[TypeResources.STONE]}\n" +
+                "Древесина: ${Indicators.allResources[TypeResources.WOOD]}"
 
     fun showDisplayCitizens() =
-        "Всего рабочих: ${Human.totalWorkers}\n" +
-                "Своб. рабочих: ${Human.freeWorkers}\n" +
-                "Зан. рабочих: ${Human.hiredWorkers}\n" +
+        "Всего рабочих: ${Indicators.totalWorkers}\n" +
+                "Своб. рабочих: ${Indicators.freeWorkers}\n" +
+                "Зан. рабочих: ${Indicators.hiredWorkers}\n" +
                 "Cвоб. мест: ${BuildingService.getRealCapacityHouse()}\n" +
                 "Всего мест: ${
                     (BuildingService.getAllBuildingsBuilt()

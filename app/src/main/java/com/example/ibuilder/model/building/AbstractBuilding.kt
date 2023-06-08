@@ -1,9 +1,7 @@
 package com.example.ibuilder.model.building
 
-import com.example.ibuilder.model.indicatorsDB.Human
-import com.example.ibuilder.model.indicatorsDB.OtherIndicators
-import com.example.ibuilder.model.indicatorsDB.Resource
-import com.example.ibuilder.model.indicatorsDB.TypeResources
+import com.example.ibuilder.model.Indicators
+import com.example.ibuilder.model.TypeResources
 
 abstract class AbstractBuilding {
     abstract val name: String
@@ -15,8 +13,6 @@ abstract class AbstractBuilding {
     open var hiredWorkers: Int = 0
     open var isProfitActivate: Boolean = false
     abstract val typeResources: TypeResources
-    val resource = Resource
-    val human = Human
 
     fun constructionStatus(): String {
         if (constructionTime == 0) {
@@ -35,21 +31,21 @@ abstract class AbstractBuilding {
     abstract fun createResources()
 
     fun addWorkers(): String {
-        if (human.freeWorkers < needWorkers) {
+        if (Indicators.freeWorkers < needWorkers) {
             return "Недостаточно свободных рабочих, требуется: $needWorkers"
         }
         hiredWorkers = needWorkers
-        human.freeWorkers = -needWorkers
-        human.hiredWorkers = needWorkers
+        Indicators.freeWorkers = Indicators.freeWorkers - needWorkers
+        Indicators.hiredWorkers = Indicators.hiredWorkers + needWorkers
         return "На $name №$serialNumber рабочии приступили к производству."
     }
 
     fun removeWorkers(): String {
         hiredWorkers = 0
-        human.freeWorkers = needWorkers
-        human.hiredWorkers = -needWorkers
+        Indicators.freeWorkers = Indicators.freeWorkers + needWorkers
+        Indicators.hiredWorkers = Indicators.hiredWorkers - needWorkers
         if (typeResources == TypeResources.SATISFACTION) {
-            OtherIndicators.satisfactionCitizens = -profit
+            Indicators.satisfactionCitizens = Indicators.satisfactionCitizens - profit
             isProfitActivate = false
         }
         return "$name №$serialNumber не производит ресурсов, рабочие распущены по домам"

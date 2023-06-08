@@ -1,26 +1,24 @@
 package com.example.ibuilder.service
 
-import com.example.ibuilder.model.indicatorsDB.Human
-import com.example.ibuilder.model.indicatorsDB.OtherIndicators
-import com.example.ibuilder.model.indicatorsDB.Resource
-import com.example.ibuilder.model.indicatorsDB.TypeResources
+import com.example.ibuilder.model.Indicators
+import com.example.ibuilder.model.TypeResources
 import service.BuildingService
 
 object NomadService {
 
     fun nomadAttack(): String {
-        if (Resource.allResources[TypeResources.GOLD]!! >= 100) {
-            Resource.allResources[TypeResources.GOLD] =
-                Resource.allResources[TypeResources.GOLD]!! - 100
+        if (Indicators.allResources[TypeResources.GOLD]!! >= 100) {
+            Indicators.allResources[TypeResources.GOLD] =
+                Indicators.allResources[TypeResources.GOLD]!! - 100
             return "Вы заплатили дань кочевникам: 100 золотых монет\n"
-        } else if (Human.totalWorkers > 0) {
+        } else if (Indicators.totalWorkers > 0) {
             var workersForRemove = 1
-            if (Human.totalWorkers > 1) {
-                workersForRemove = Human.totalWorkers / 2
+            if (Indicators.totalWorkers > 1) {
+                workersForRemove = Indicators.totalWorkers / 2
             }
             BuildingService.convertHiredInFreeWorkers(workersForRemove)
-            Human.totalWorkers = -workersForRemove
-            Human.freeWorkers = -workersForRemove
+            Indicators.totalWorkers = Indicators.totalWorkers - workersForRemove
+            Indicators.freeWorkers = Indicators.freeWorkers - workersForRemove
             BuildingService.changeCapacityHouse(workersForRemove)
             return "Кочевники увели в рабство $workersForRemove жителей"
         }
@@ -28,6 +26,6 @@ object NomadService {
     }
 
     fun checkDayForAttackNomad(): Boolean {
-        return OtherIndicators.currentDay > 9 && OtherIndicators.currentDay % OtherIndicators.frequencyAttackNomad == 0
+        return Indicators.currentDay > 9 && Indicators.currentDay % Indicators.frequencyAttackNomad == 0
     }
 }

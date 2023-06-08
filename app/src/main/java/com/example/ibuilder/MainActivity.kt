@@ -3,10 +3,11 @@ package com.example.ibuilder
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ibuilder.model.indicatorsDB.ExchangeIndicators
-import com.example.ibuilder.model.indicatorsDB.OtherIndicators
+import androidx.lifecycle.ViewModelProvider
+import com.example.ibuilder.model.Indicators
 import com.example.ibuilder.service.*
 import service.BuildingService
 
@@ -17,12 +18,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textViewCountCitizens: TextView
     private lateinit var textViewCountBuilt: TextView
     private lateinit var textViewCurrentEra: TextView
+    private lateinit var databaseService: DatabaseService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (supportActionBar != null) supportActionBar!!.hide()
         initViews()
+        databaseService = ViewModelProvider(this)[DatabaseService::class.java]
+        databaseService.initAllIndicators()
         updateIndicatorsWithoutView()
         if (!isShowDescription) {
             val builder = AlertDialog.Builder(this)
@@ -32,7 +36,9 @@ class MainActivity : AppCompatActivity() {
                         "Вокруг множество кочевников, от которых каждые 10 ходов необходимо откупаться " +
                         "(начиная с 100 хода откупаться придеться каждые 5 ходов). " +
                         "Если не заплатить им дань (100 золота), то они уведут половину жителей деревни. " +
-                        "При отсутствии золота и поселенцев - игрок проигрывает."
+                        "При отсутствии золота и поселенцев - игрок проигрывает." +
+                        "\n\nИгра сохраняется автоматически при изменении игровых показателей. " +
+                        "Здания, находящиеся на этапе строительства, не сохраняются! Ресурсы не возвращаются!"
             )
             builder.show()
         }
@@ -55,6 +61,11 @@ class MainActivity : AppCompatActivity() {
         isShowDescription = savedInstanceState.getBoolean("isShowDescription")
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateIndicatorsWithoutView()
+    }
+
     private fun updateIndicatorsPlayer(view: View) {
         textViewCountResources.text = IndicatorService.showDisplayResources()
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
@@ -70,14 +81,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startNextMove(view: View) {
-        OtherIndicators.currentDay++
-        val rsl = StringBuilder("Наступил ${OtherIndicators.currentDay} день!\n")
+        Indicators.currentDay = Indicators.currentDay + 1
+        val rsl = StringBuilder("Наступил ${Indicators.currentDay} день!\n")
         val textViewNotice = findViewById<TextView>(R.id.textView_main_notice)
         rsl.append(BuildingService.continueBuild())
         IndicatorService.addResources()
         IndicatorService.deleteResources()
-        if (OtherIndicators.frequencyAttackNomad != 5 && OtherIndicators.currentDay >= 100) {
-            OtherIndicators.frequencyAttackNomad = 5
+        if (Indicators.frequencyAttackNomad != 5 && Indicators.currentDay >= 100) {
+            Indicators.frequencyAttackNomad = 5
         }
         if (NomadService.checkDayForAttackNomad()) {
             val tmp = NomadService.nomadAttack()
@@ -89,14 +100,20 @@ class MainActivity : AppCompatActivity() {
             }
             rsl.append(tmp)
         }
-        if (ExchangeIndicators.availableCountOperations == 0) {
+        if (Indicators.availableOperationExchange == 0) {
             ExchangeResourcesService.incrementCountOperations()
         }
-        if (OtherIndicators.availableUpdateTaxRate == 0) {
+        if (Indicators.availableUpdateTaxRate == 0) {
             TaxService.incrementCountUpdateTaxRate()
         }
         textViewNotice.text = rsl
         updateIndicatorsPlayer(view)
+        databaseService.saveAllIndicators()
+    }
+
+    fun saveGame(view: View) {
+        databaseService.saveAllIndicators()
+        Toast.makeText(this, "Игра успешно сохранена!", Toast.LENGTH_SHORT).show()
     }
 
     fun updateEra(view: View) {
@@ -110,6 +127,7 @@ class MainActivity : AppCompatActivity() {
             EraService.updateEra()
             updateIndicatorsPlayer(view)
             textViewNotice.text = "Наступила новая эпоха, поздравляем!"
+            databaseService.saveAllIndicators()
             return
         }
         textViewNotice.text = "Недостаточно средств для перехода в следующую эпоху"
@@ -135,7 +153,9 @@ class MainActivity : AppCompatActivity() {
                     "Вокруг множество кочевников, от которых каждые 10 ходов необходимо откупаться " +
                     "(начиная с 100 хода откупаться придеться каждые 5 ходов). " +
                     "Если не заплатить им дань (100 золота), то они уведут половину жителей деревни. " +
-                    "При отсутствии золота и поселенцев - игрок проигрывает."
+                    "При отсутствии золота и поселенцев - игрок проигрывает." +
+                    "\n\nИгра сохраняется автоматически при изменении игровых показателей. " +
+                    "Здания, находящиеся на этапе строительства, не сохраняются! Ресурсы не возвращаются!"
         )
         builder.show()
     }

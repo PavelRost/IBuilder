@@ -9,8 +9,10 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ibuilder.model.indicatorsDB.ExchangeIndicators
-import com.example.ibuilder.model.indicatorsDB.TypeResources
+import androidx.lifecycle.ViewModelProvider
+import com.example.ibuilder.model.Indicators
+import com.example.ibuilder.model.TypeResources
+import com.example.ibuilder.service.DatabaseService
 import com.example.ibuilder.service.ExchangeResourcesService
 import com.example.ibuilder.service.IndicatorService
 
@@ -30,7 +32,7 @@ class ExchangeResourcesActivity : AppCompatActivity() {
         initViews()
         if (supportActionBar != null) supportActionBar!!.hide()
         findViewById<RadioGroup>(R.id.radios_exchange).clearCheck()
-        textViewExchangeOperations.text = ExchangeIndicators.availableCountOperations.toString()
+        textViewExchangeOperations.text = Indicators.availableOperationExchange.toString()
         showCountResources()
     }
 
@@ -68,9 +70,9 @@ class ExchangeResourcesActivity : AppCompatActivity() {
             }
         }
         textViewExchangeBuyPrice.text =
-            ExchangeIndicators.exchangeRate[typeResource]!!["buy"].toString()
+            ExchangeResourcesService.exchangeRate[typeResource]!!["buy"].toString()
         textViewExchangeSellPrice.text =
-            ExchangeIndicators.exchangeRate[typeResource]!!["sell"].toString()
+            ExchangeResourcesService.exchangeRate[typeResource]!!["sell"].toString()
     }
 
     fun incrementQuantity(view: View) {
@@ -105,7 +107,7 @@ class ExchangeResourcesActivity : AppCompatActivity() {
             ExchangeResourcesService.buyResources(typeResource!!, quantity)
             showCountResources()
             ExchangeResourcesService.decrementCountOperations()
-            textViewExchangeOperations.text = ExchangeIndicators.availableCountOperations.toString()
+            textViewExchangeOperations.text = Indicators.availableOperationExchange.toString()
             Toast.makeText(this, "Сделка завершена успешно!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -123,8 +125,9 @@ class ExchangeResourcesActivity : AppCompatActivity() {
             ExchangeResourcesService.sellResource(typeResource!!, quantity)
             showCountResources()
             ExchangeResourcesService.decrementCountOperations()
-            textViewExchangeOperations.text = ExchangeIndicators.availableCountOperations.toString()
+            textViewExchangeOperations.text = Indicators.availableOperationExchange.toString()
             Toast.makeText(this, "Сделка завершена успешно!", Toast.LENGTH_SHORT).show()
+            ViewModelProvider(this)[DatabaseService::class.java].saveAllIndicators()
         }
     }
 
