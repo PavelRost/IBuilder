@@ -20,10 +20,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="?android:attr/windowSplashScreenBackground"
             android:onClick="showDescriptionGame"
             app:srcCompat="@android:drawable/sym_action_email"
-            app:tint="@color/design_default_color_error" />
+            app:tint="@color/design_default_color_error"
+            tools:targetApi="s" />
 
         <TextView
             android:layout_width="0dp"
@@ -38,10 +39,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="?android:attr/windowSplashScreenBackground"
             android:onClick="saveGame"
             app:srcCompat="@android:drawable/ic_menu_save"
-            app:tint="@color/purple_200" />
+            app:tint="@color/purple_200"
+            tools:targetApi="s" />
 
     </LinearLayout>
 
@@ -197,10 +199,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="?android:attr/windowSplashScreenBackground"
             android:onClick="showCostNextEra"
             app:srcCompat="@android:drawable/ic_dialog_info"
-            app:tint="@color/purple_200" />
+            app:tint="@color/purple_200"
+            tools:targetApi="s" />
 
         <TextView
             android:layout_width="0dp"
