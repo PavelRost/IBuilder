@@ -6,7 +6,7 @@ import com.example.ibuilder.model.building.AbstractBuilding
 import com.example.ibuilder.model.building.TypeBuilding
 
 data class Church(
-    override var name: String = "Церковь",
+    override var name: String = "Храм",
     override val serialNumber: Int,
     override val typeBuild: TypeBuilding = TypeBuilding.CONSUMER_CHURCH,
     override var constructionTime: Int = 5,

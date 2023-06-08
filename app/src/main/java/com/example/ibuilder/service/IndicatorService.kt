@@ -186,11 +186,11 @@ object IndicatorService {
                     BuildingService.getAllBuildingByType(TypeBuilding.CONSUMER_TAVERN)
                         ?.filter { it.constructionTime == 0 }?.size
                 }\n" +
-                "Цирк: ${
+                "Ярмарка: ${
                     BuildingService.getAllBuildingByType(TypeBuilding.CONSUMER_CIRCUS)
                         ?.filter { it.constructionTime == 0 }?.size
                 }\n" +
-                "Церковь: ${
+                "Храм: ${
                     BuildingService.getAllBuildingByType(TypeBuilding.CONSUMER_CHURCH)
                         ?.filter { it.constructionTime == 0 }?.size
                 }"

@@ -22,8 +22,8 @@ object BuildingService {
         TypeBuilding.PRODUCER_FOOD to mapOf(TypeResources.WOOD to 2),
         TypeBuilding.PRODUCER_WORKER to mapOf(TypeResources.WOOD to 2),
         TypeBuilding.CONSUMER_TAVERN to mapOf(TypeResources.WOOD to 15),
-        TypeBuilding.CONSUMER_CIRCUS to mapOf(TypeResources.STONE to 20),
-        TypeBuilding.CONSUMER_CHURCH to mapOf(TypeResources.WOOD to 40)
+        TypeBuilding.CONSUMER_CIRCUS to mapOf(TypeResources.WOOD to 30),
+        TypeBuilding.CONSUMER_CHURCH to mapOf(TypeResources.STONE to 40)
     )
 
     val costWork = mapOf(
@@ -208,10 +208,10 @@ object BuildingService {
         "Таверна: ${
             getAllWorkingConsumerBuilding().filter { it.typeBuild == TypeBuilding.CONSUMER_TAVERN }.size
         }\n" +
-                "Цирк: ${
+                "Ярмарка: ${
                     getAllWorkingConsumerBuilding().filter { it.typeBuild == TypeBuilding.CONSUMER_CIRCUS }.size
                 }\n" +
-                "Церковь: ${
+                "Храм: ${
                     getAllWorkingConsumerBuilding().filter { it.typeBuild == TypeBuilding.CONSUMER_CHURCH }.size
                 }"
 

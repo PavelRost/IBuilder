@@ -6,7 +6,7 @@ import com.example.ibuilder.model.building.AbstractBuilding
 import com.example.ibuilder.model.building.TypeBuilding
 
 data class Circus(
-    override var name: String = "Цирк",
+    override var name: String = "Ярмарка",
     override val serialNumber: Int,
     override val typeBuild: TypeBuilding = TypeBuilding.CONSUMER_CIRCUS,
     override var constructionTime: Int = 3,
