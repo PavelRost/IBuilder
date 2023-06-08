@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.ibuilder.model.Indicators
+import com.example.ibuilder.model.TypeResources
 import com.example.ibuilder.service.*
 import service.BuildingService
 
@@ -156,6 +157,26 @@ class MainActivity : AppCompatActivity() {
                     "При отсутствии золота и поселенцев - игрок проигрывает." +
                     "\n\nИгра сохраняется автоматически при изменении игровых показателей. " +
                     "Здания, находящиеся на этапе строительства, не сохраняются! Ресурсы не возвращаются!"
+        )
+        builder.show()
+    }
+
+    fun showCostNextEra(view: View) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Стоимость смены эпохи:")
+        builder.setMessage(
+            "1 эпоха:\n" +
+                    "Еда: ${EraService.costNextEra["1"]?.get(TypeResources.FOOD)}\n" +
+                    "Древесина: ${EraService.costNextEra["1"]?.get(TypeResources.WOOD)}\n\n" +
+                    "2 эпоха:\n" +
+                    "Еда: ${EraService.costNextEra["2"]?.get(TypeResources.FOOD)}\n" +
+                    "Древесина: ${EraService.costNextEra["2"]?.get(TypeResources.WOOD)}\n" +
+                    "Золото: ${EraService.costNextEra["2"]?.get(TypeResources.GOLD)}\n\n" +
+                    "3 эпоха:\n" +
+                    "Еда: ${EraService.costNextEra["3"]?.get(TypeResources.FOOD)}\n" +
+                    "Древесина: ${EraService.costNextEra["3"]?.get(TypeResources.WOOD)}\n" +
+                    "Золото: ${EraService.costNextEra["3"]?.get(TypeResources.GOLD)}\n" +
+                    "Камень: ${EraService.costNextEra["3"]?.get(TypeResources.STONE)}\n"
         )
         builder.show()
     }

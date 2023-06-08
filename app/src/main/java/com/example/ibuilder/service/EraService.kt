@@ -5,7 +5,7 @@ import com.example.ibuilder.model.TypeResources
 
 object EraService {
 
-    private val costNextEra = mapOf(
+    val costNextEra = mapOf(
         "1" to mapOf(TypeResources.FOOD to 50, TypeResources.WOOD to 50),
         "2" to mapOf(
             TypeResources.FOOD to 100,
