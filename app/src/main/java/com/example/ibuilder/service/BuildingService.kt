@@ -1,78 +1,82 @@
 package service
 
+import com.example.ibuilder.model.Indicators
+import com.example.ibuilder.model.TypeResources
 import com.example.ibuilder.model.building.AbstractBuilding
 import com.example.ibuilder.model.building.TypeBuilding
 import com.example.ibuilder.model.building.consumer.Church
 import com.example.ibuilder.model.building.consumer.Circus
 import com.example.ibuilder.model.building.consumer.Tavern
 import com.example.ibuilder.model.building.producer.*
-import com.example.ibuilder.model.indicatorsDB.Human
-import com.example.ibuilder.model.indicatorsDB.TypeResources
 import com.example.ibuilder.service.EraService
 import com.example.ibuilder.service.IndicatorService
 
 object BuildingService {
 
-    private val building = mutableMapOf<TypeBuilding, ArrayList<AbstractBuilding>>()
     private val indicatorService = IndicatorService
-    private val human = Human
 
-    init {
-        building[TypeBuilding.PRODUCER_GOLD] = ArrayList()
-        building[TypeBuilding.PRODUCER_WOOD] = ArrayList()
-        building[TypeBuilding.PRODUCER_STONE] = ArrayList()
-        building[TypeBuilding.PRODUCER_FOOD] = ArrayList()
-        building[TypeBuilding.PRODUCER_WORKER] = ArrayList()
-        building[TypeBuilding.CONSUMER_TAVERN] = ArrayList()
-        building[TypeBuilding.CONSUMER_CIRCUS] = ArrayList()
-        building[TypeBuilding.CONSUMER_CHURCH] = ArrayList()
-    }
+    val costConstruction = mapOf(
+        TypeBuilding.PRODUCER_GOLD to mapOf(TypeResources.GOLD to 5),
+        TypeBuilding.PRODUCER_WOOD to mapOf(TypeResources.WOOD to 3),
+        TypeBuilding.PRODUCER_STONE to mapOf(TypeResources.GOLD to 3),
+        TypeBuilding.PRODUCER_FOOD to mapOf(TypeResources.WOOD to 2),
+        TypeBuilding.PRODUCER_WORKER to mapOf(TypeResources.WOOD to 2),
+        TypeBuilding.CONSUMER_TAVERN to mapOf(TypeResources.WOOD to 15),
+        TypeBuilding.CONSUMER_CIRCUS to mapOf(TypeResources.STONE to 20),
+        TypeBuilding.CONSUMER_CHURCH to mapOf(TypeResources.WOOD to 40)
+    )
+
+    val costWork = mapOf(
+        TypeBuilding.CONSUMER_TAVERN to mapOf(TypeResources.GOLD to 1),
+        TypeBuilding.CONSUMER_CIRCUS to mapOf(TypeResources.GOLD to 2),
+        TypeBuilding.CONSUMER_CHURCH to mapOf(TypeResources.GOLD to 3)
+    )
 
     fun createBuilding(typeBuildings: TypeBuilding): String {
         if (typeBuildings.requiredEra > EraService.getCurrentEra()) return "Недоступно в текущей эпохе"
         var rsl = "Недостаточно ресурсов для постройки здания"
         if (indicatorService.checkResourceBeforeConstruction(typeBuildings)) {
-            val numberBuildings = building[typeBuildings]?.size?.plus(1)
+            val numberBuildings = Indicators.building[typeBuildings]?.size?.plus(1)
             val buildingNew: AbstractBuilding?
-            when(typeBuildings) {
+            when (typeBuildings) {
                 TypeBuilding.PRODUCER_GOLD -> {
                     buildingNew = GoldMine(serialNumber = numberBuildings!!)
-                    building[TypeBuilding.PRODUCER_GOLD]?.add(buildingNew)
+                    Indicators.building[TypeBuilding.PRODUCER_GOLD]?.add(buildingNew)
                     rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
                 }
                 TypeBuilding.PRODUCER_WOOD -> {
                     buildingNew = WoodMine(serialNumber = numberBuildings!!)
-                    building[TypeBuilding.PRODUCER_WOOD]?.add(buildingNew)
+                    Indicators.building[TypeBuilding.PRODUCER_WOOD]?.add(buildingNew)
                     rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
                 }
                 TypeBuilding.PRODUCER_FOOD -> {
                     buildingNew = FoodMine(serialNumber = numberBuildings!!)
-                    building[TypeBuilding.PRODUCER_FOOD]?.add(buildingNew)
+                    Indicators.building[TypeBuilding.PRODUCER_FOOD]?.add(buildingNew)
                     rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
                 }
                 TypeBuilding.PRODUCER_STONE -> {
                     buildingNew = StoneMine(serialNumber = numberBuildings!!)
-                    building[TypeBuilding.PRODUCER_STONE]?.add(buildingNew)
+                    Indicators.building[TypeBuilding.PRODUCER_STONE]?.add(buildingNew)
                     rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
                 }
                 TypeBuilding.PRODUCER_WORKER -> {
                     buildingNew = HouseWorker(serialNumber = numberBuildings!!)
-                    building[TypeBuilding.PRODUCER_WORKER]?.add(buildingNew)
+                    Indicators.building[TypeBuilding.PRODUCER_WORKER]?.add(buildingNew)
                     rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
                 }
                 TypeBuilding.CONSUMER_TAVERN -> {
                     buildingNew = Tavern(serialNumber = numberBuildings!!)
-                    building[TypeBuilding.CONSUMER_TAVERN]?.add(buildingNew)
+                    Indicators.building[TypeBuilding.CONSUMER_TAVERN]?.add(buildingNew)
                     rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
                 }
                 TypeBuilding.CONSUMER_CIRCUS -> {
                     buildingNew = Circus(serialNumber = numberBuildings!!)
-                    building[TypeBuilding.CONSUMER_CIRCUS]?.add(buildingNew)
+                    Indicators.building[TypeBuilding.CONSUMER_CIRCUS]?.add(buildingNew)
                     rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
                 }
                 TypeBuilding.CONSUMER_CHURCH -> {
                     buildingNew = Church(serialNumber = numberBuildings!!)
-                    building[TypeBuilding.CONSUMER_CHURCH]?.add(buildingNew)
+                    Indicators.building[TypeBuilding.CONSUMER_CHURCH]?.add(buildingNew)
                     rsl = "Строители возводят ${buildingNew.name} №${buildingNew.serialNumber}"
                 }
             }
@@ -98,12 +102,12 @@ object BuildingService {
     }
 
     fun getAllBuildingByType(typeBuildings: TypeBuilding): ArrayList<AbstractBuilding>? {
-        return building[typeBuildings]
+        return Indicators.building[typeBuildings]
     }
 
     private fun getAllBuildingsUnderConstruction(): MutableList<AbstractBuilding> {
         val rsl = mutableListOf<AbstractBuilding>()
-        for (buildingsSameType in building.values) {
+        for (buildingsSameType in Indicators.building.values) {
             for (buildings in buildingsSameType) {
                 if (buildings.constructionTime > 0) {
                     rsl.add(buildings)
@@ -115,7 +119,7 @@ object BuildingService {
 
     fun getAllBuildingsBuilt(): MutableList<AbstractBuilding> {
         val rsl = mutableListOf<AbstractBuilding>()
-        for (buildingsSameType in building.values) {
+        for (buildingsSameType in Indicators.building.values) {
             for (buildings in buildingsSameType) {
                 if (buildings.constructionTime == 0) {
                     rsl.add(buildings)
@@ -177,11 +181,11 @@ object BuildingService {
     }
 
     fun convertHiredInFreeWorkers(needConvertWorkers: Int) {
-        if (human.freeWorkers >= needConvertWorkers) return
+        if (Indicators.freeWorkers >= needConvertWorkers) return
         val workingBuildings = getAllBuildingsBuilt().filter { it.hiredWorkers > 0 }
         if (workingBuildings.isEmpty()) return
         workingBuildings.forEach {
-            if (human.freeWorkers >= needConvertWorkers) return
+            if (Indicators.freeWorkers >= needConvertWorkers) return
             it.removeWorkers()
         }
     }

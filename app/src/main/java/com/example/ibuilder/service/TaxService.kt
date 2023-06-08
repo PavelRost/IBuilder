@@ -1,25 +1,26 @@
 package com.example.ibuilder.service
 
-import com.example.ibuilder.model.indicatorsDB.Human
-import com.example.ibuilder.model.indicatorsDB.OtherIndicators
+import com.example.ibuilder.model.Indicators
 
 object TaxService {
 
     fun incrementCountUpdateTaxRate() {
-        OtherIndicators.availableUpdateTaxRate = 1
+        Indicators.availableUpdateTaxRate = Indicators.availableUpdateTaxRate + 1
     }
 
     fun decrementCountUpdateTaxRate() {
-        OtherIndicators.availableUpdateTaxRate = -1
+        Indicators.availableUpdateTaxRate = Indicators.availableUpdateTaxRate - 1
     }
 
-    fun getTotalTax() = OtherIndicators.taxRate * Human.totalWorkers
+    fun getTotalTax() = Indicators.taxRate * Indicators.totalWorkers
 
     fun updateSatisfaction(newTaxRate: Int) {
-        if (newTaxRate > OtherIndicators.taxRate) {
-            OtherIndicators.satisfactionCitizens = -(newTaxRate - OtherIndicators.taxRate)
+        if (newTaxRate > Indicators.taxRate) {
+            Indicators.satisfactionCitizens =
+                Indicators.satisfactionCitizens - (newTaxRate - Indicators.taxRate)
         } else {
-            OtherIndicators.satisfactionCitizens = OtherIndicators.taxRate - newTaxRate
+            Indicators.satisfactionCitizens =
+                Indicators.satisfactionCitizens + (Indicators.taxRate - newTaxRate)
         }
     }
 }

@@ -1,9 +1,9 @@
 package com.example.ibuilder.model.building.consumer
 
+import com.example.ibuilder.model.Indicators
+import com.example.ibuilder.model.TypeResources
 import com.example.ibuilder.model.building.AbstractBuilding
 import com.example.ibuilder.model.building.TypeBuilding
-import com.example.ibuilder.model.indicatorsDB.OtherIndicators
-import com.example.ibuilder.model.indicatorsDB.TypeResources
 
 data class Circus(
     override var name: String = "Цирк",
@@ -17,7 +17,7 @@ data class Circus(
 
     override fun createResources() {
         if (!isProfitActivate) {
-            OtherIndicators.satisfactionCitizens = profit
+            Indicators.satisfactionCitizens = Indicators.satisfactionCitizens + profit
             isProfitActivate = true
         }
     }

@@ -1,8 +1,9 @@
 package com.example.ibuilder.model.building.producer
 
+import com.example.ibuilder.model.Indicators
+import com.example.ibuilder.model.TypeResources
 import com.example.ibuilder.model.building.AbstractBuilding
 import com.example.ibuilder.model.building.TypeBuilding
-import com.example.ibuilder.model.indicatorsDB.TypeResources
 
 data class WoodMine(
     override var name: String = "Лесопилка",
@@ -15,6 +16,6 @@ data class WoodMine(
 ): AbstractBuilding() {
 
     override fun createResources() {
-        resource.allResources[typeResources] = resource.allResources[typeResources]!! + profit
+        Indicators.allResources[typeResources] = Indicators.allResources[typeResources]!! + profit
     }
 }
