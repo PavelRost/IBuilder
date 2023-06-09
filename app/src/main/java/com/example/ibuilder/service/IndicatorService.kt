@@ -19,15 +19,14 @@ object IndicatorService {
     }
 
     private fun addResources() {
-        BuildingService.getAllBuildingsBuilt()
-            .filter { it.hiredWorkers > 0 || it.typeBuild == TypeBuilding.PRODUCER_WORKER }
-            .forEach { it.createResources() }
-
-        // налоги
-        if (Indicators.satisfactionCitizens >= 0 && Indicators.taxRate > 0 && Indicators.totalWorkers > 0) {
+        if (Indicators.taxRate > 0 && Indicators.totalWorkers > 0) {
             Indicators.allResources[TypeResources.GOLD] =
                 Indicators.allResources[TypeResources.GOLD]!! + TaxService.getTotalTax()
         }
+
+        BuildingService.getAllBuildingsBuilt()
+            .filter { it.hiredWorkers > 0 || it.typeBuild == TypeBuilding.PRODUCER_WORKER }
+            .forEach { it.createResources() }
     }
 
     private fun deleteResources() {
