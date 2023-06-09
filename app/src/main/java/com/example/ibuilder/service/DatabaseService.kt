@@ -27,6 +27,7 @@ class DatabaseService(
                 Indicators.currentDay = players[0].currentDay
                 Indicators.availableUpdateTaxRate = players[0].availableUpdateTaxRate
                 Indicators.taxRate = players[0].taxRate
+                Indicators.tmpTaxRate = players[0].taxRate
                 Indicators.satisfactionCitizens = players[0].satisfactionCitizens
                 Indicators.frequencyAttackNomad = players[0].frequencyAttackNomad
                 Indicators.currentEra = players[0].currentEra

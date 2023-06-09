@@ -14,7 +14,6 @@ import com.example.ibuilder.service.TaxService
 
 class CitizensActivity : AppCompatActivity() {
 
-    private var taxRate = Indicators.taxRate
     private lateinit var textViewCitizensTax: TextView
     private lateinit var textViewCitizensCountWorkers: TextView
     private lateinit var textViewCitizensTaxRate: TextView
@@ -26,11 +25,7 @@ class CitizensActivity : AppCompatActivity() {
         setContentView(R.layout.activity_citizens)
         initViews()
         if (supportActionBar != null) supportActionBar!!.hide()
-        textViewCitizensTax.text = taxRate.toString()
-        textViewCitizensCountWorkers.text = Indicators.totalWorkers.toString()
-        textViewCitizensTaxRate.text = Indicators.taxRate.toString()
-        textViewCitizensTotalRate.text = (Indicators.taxRate * Indicators.totalWorkers).toString()
-        textViewCitizensSatisfaction.text = Indicators.satisfactionCitizens.toString()
+        updateIndicatorPlayer()
     }
 
     companion object {
@@ -47,44 +42,36 @@ class CitizensActivity : AppCompatActivity() {
         textViewCitizensSatisfaction = findViewById(R.id.textView_citizens_satisfaction)
     }
 
+    private fun updateIndicatorPlayer() {
+        textViewCitizensTax.text = Indicators.tmpTaxRate.toString()
+        textViewCitizensCountWorkers.text = Indicators.totalWorkers.toString()
+        textViewCitizensTaxRate.text = Indicators.taxRate.toString()
+        textViewCitizensTotalRate.text = TaxService.getTotalTax().toString()
+        textViewCitizensSatisfaction.text = Indicators.satisfactionCitizens.toString()
+    }
+
     fun incrementTaxRate(view: View) {
-        taxRate++
+        Indicators.tmpTaxRate++
         displayTaxRate()
     }
 
 
     fun decrementTaxRate(view: View) {
-        if (taxRate == 0) {
+        if (Indicators.tmpTaxRate == 0) {
             Toast.makeText(this, "Ставка не может быть отрицательной", Toast.LENGTH_SHORT).show()
             return
         }
-        taxRate--
+        Indicators.tmpTaxRate--
         displayTaxRate()
     }
 
     private fun displayTaxRate() {
-        textViewCitizensTax.text = taxRate.toString()
+        textViewCitizensTax.text = Indicators.tmpTaxRate.toString()
     }
 
     fun updateTaxRate(view: View) {
-        if (Indicators.taxRate == taxRate) {
-            Toast.makeText(this, "Сначала измените налоговую ставку", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-        if (Indicators.availableUpdateTaxRate == 0) {
-            Toast.makeText(this, "Ставку можно обновить только 1 раз за ход", Toast.LENGTH_SHORT)
-                .show()
-            textViewCitizensTax.text = Indicators.taxRate.toString()
-            taxRate = Indicators.taxRate
-            return
-        }
-        TaxService.decrementCountUpdateTaxRate()
-        TaxService.updateSatisfaction(taxRate)
-        Indicators.taxRate = taxRate
-        textViewCitizensTaxRate.text = Indicators.taxRate.toString()
-        textViewCitizensTotalRate.text = TaxService.getTotalTax().toString()
-        textViewCitizensSatisfaction.text = Indicators.satisfactionCitizens.toString()
-        ViewModelProvider(this)[DatabaseService::class.java].saveAllIndicators()
+        val dbService = ViewModelProvider(this)[DatabaseService::class.java]
+        TaxService.updateTaxRate(this@CitizensActivity, dbService)
+        updateIndicatorPlayer()
     }
 }

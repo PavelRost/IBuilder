@@ -14,6 +14,7 @@ object Indicators {
     var currentDay: Int = 1
     var availableUpdateTaxRate: Int = 1
     var taxRate: Int = 0
+    var tmpTaxRate: Int = 0
     var satisfactionCitizens: Int = 2
     var frequencyAttackNomad: Int = 10
     var currentEra: Int = 0
