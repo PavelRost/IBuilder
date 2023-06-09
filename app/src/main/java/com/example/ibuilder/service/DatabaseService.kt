@@ -72,10 +72,17 @@ class DatabaseService(
                     }
                 }
                 if (buildings[0].PRODUCER_WORKER > 0) {
+                    var totalWorkers = Indicators.totalWorkers
                     repeat(buildings[0].PRODUCER_WORKER) {
                         val buildingNew = HouseWorker(serialNumber = it)
                         buildingNew.constructionTime = 0
-                        buildingNew.setCapacityHouseZero()
+                        if (totalWorkers >= 2) {
+                            buildingNew.setCapacityHouse(0)
+                            totalWorkers -= 2
+                        } else if (totalWorkers == 1) {
+                            buildingNew.setCapacityHouse(1)
+                            totalWorkers = 0
+                        }
                         Indicators.building[TypeBuilding.PRODUCER_WORKER]?.add(buildingNew)
                     }
                 }

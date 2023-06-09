@@ -28,8 +28,8 @@ data class HouseWorker(
         return capacityHouse
     }
 
-    fun setCapacityHouseZero() {
-        capacityHouse = 0
+    fun setCapacityHouse(capacity: Int) {
+        capacityHouse = capacity
     }
 
     fun addCapacity() {
