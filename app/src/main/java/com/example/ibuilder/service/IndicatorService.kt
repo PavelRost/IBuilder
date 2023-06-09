@@ -13,7 +13,12 @@ object IndicatorService {
 
     private val buildingSer = BuildingService
 
-    fun addResources() {
+    fun calculationResourcesPlayer() {
+        addResources()
+        deleteResources()
+    }
+
+    private fun addResources() {
         BuildingService.getAllBuildingsBuilt()
             .filter { it.hiredWorkers > 0 || it.typeBuild == TypeBuilding.PRODUCER_WORKER }
             .forEach { it.createResources() }
@@ -25,7 +30,7 @@ object IndicatorService {
         }
     }
 
-    fun deleteResources() {
+    private fun deleteResources() {
         if (Indicators.totalWorkers > 0) {
 
             // При низком уровне удовлетворенности жители поселения уходят

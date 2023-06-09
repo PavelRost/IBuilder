@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.ibuilder.model.Indicators
-import com.example.ibuilder.model.TypeResources
 import com.example.ibuilder.service.*
 import service.BuildingService
 
@@ -30,18 +28,7 @@ class MainActivity : AppCompatActivity() {
         databaseService.initAllIndicators()
         updateIndicatorsWithoutView()
         if (!isShowDescription) {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Описание игры:")
-            builder.setMessage(
-                "Вы предводитель поселения, которое избрало путь экономического развития. " +
-                        "Вокруг множество кочевников, от которых каждые 10 ходов необходимо откупаться " +
-                        "(начиная с 100 хода откупаться придеться каждые 5 ходов). " +
-                        "Если не заплатить им дань (100 золота), то они уведут половину жителей деревни. " +
-                        "При отсутствии золота и поселенцев - игрок проигрывает." +
-                        "\n\nИгра сохраняется автоматически при изменении игровых показателей. " +
-                        "Здания, находящиеся на этапе строительства, не сохраняются! Ресурсы не возвращаются!"
-            )
-            builder.show()
+            DialogService.showDescriptionGame(this)
         }
     }
 
@@ -71,42 +58,27 @@ class MainActivity : AppCompatActivity() {
         textViewCountResources.text = IndicatorService.showDisplayResources()
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
         textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
-        textViewCurrentEra.text = EraService.showCurrentEra()
+        textViewCurrentEra.text = EraService.getCurrentEra().toString()
     }
 
     private fun updateIndicatorsWithoutView() {
         textViewCountResources.text = IndicatorService.showDisplayResources()
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
         textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
-        textViewCurrentEra.text = EraService.showCurrentEra()
+        textViewCurrentEra.text = EraService.getCurrentEra().toString()
     }
 
     fun startNextMove(view: View) {
         Indicators.currentDay = Indicators.currentDay + 1
         val rsl = StringBuilder("Наступил ${Indicators.currentDay} день!\n")
-        val textViewNotice = findViewById<TextView>(R.id.textView_main_notice)
         rsl.append(BuildingService.continueBuild())
-        IndicatorService.addResources()
-        IndicatorService.deleteResources()
-        if (Indicators.frequencyAttackNomad != 5 && Indicators.currentDay >= 100) {
-            Indicators.frequencyAttackNomad = 5
-        }
-        if (NomadService.checkDayForAttackNomad()) {
-            val tmp = NomadService.nomadAttack()
-            if (tmp == "Игра проиграна!") {
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle("Внимание!")
-                builder.setMessage("Игра проиграна! Можете играть дальше, конечно... но лучше начните сначала.")
-                builder.show()
-            }
-            rsl.append(tmp)
-        }
-        if (Indicators.availableOperationExchange == 0) {
-            ExchangeResourcesService.incrementCountOperations()
-        }
-        if (Indicators.availableUpdateTaxRate == 0) {
-            TaxService.incrementCountUpdateTaxRate()
-        }
+
+        IndicatorService.calculationResourcesPlayer()
+        NomadService.nomadAttack(this@MainActivity)
+        ExchangeResourcesService.incrementCountOperations()
+        TaxService.incrementCountUpdateTaxRate()
+
+        val textViewNotice = findViewById<TextView>(R.id.textView_main_notice)
         textViewNotice.text = rsl
         updateIndicatorsPlayer(view)
         databaseService.saveAllIndicators()
@@ -118,20 +90,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateEra(view: View) {
-        val textViewNotice = findViewById<TextView>(R.id.textView_main_notice)
-        if (EraService.showCurrentEra() == "3") {
-            textViewNotice.text = "Достигнута максимальная технологическая эпоха!"
-            return
-        }
-        if (EraService.isAvailableNextEra()) {
-            EraService.deleteResourcesForUpdateEra()
-            EraService.updateEra()
-            updateIndicatorsPlayer(view)
-            textViewNotice.text = "Наступила новая эпоха, поздравляем!"
-            databaseService.saveAllIndicators()
-            return
-        }
-        textViewNotice.text = "Недостаточно средств для перехода в следующую эпоху"
+        EraService.updateEra(this@MainActivity, databaseService)
+        updateIndicatorsPlayer(view)
     }
 
     fun switchActivityToBuilding(view: View) {
@@ -147,37 +107,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showDescriptionGame(view: View) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Описание игры:")
-        builder.setMessage(
-            "Вы предводитель поселения, которое избрало путь экономического развития. " +
-                    "Вокруг множество кочевников, от которых каждые 10 ходов необходимо откупаться " +
-                    "(начиная с 100 хода откупаться придеться каждые 5 ходов). " +
-                    "Если не заплатить им дань (100 золота), то они уведут половину жителей деревни. " +
-                    "При отсутствии золота и поселенцев - игрок проигрывает." +
-                    "\n\nИгра сохраняется автоматически при изменении игровых показателей. " +
-                    "Здания, находящиеся на этапе строительства, не сохраняются! Ресурсы не возвращаются!"
-        )
-        builder.show()
+        DialogService.showDescriptionGame(this)
     }
 
     fun showCostNextEra(view: View) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Стоимость смены эпохи:")
-        builder.setMessage(
-            "1 эпоха:\n" +
-                    "Еда: ${EraService.costNextEra["1"]?.get(TypeResources.FOOD)}\n" +
-                    "Древесина: ${EraService.costNextEra["1"]?.get(TypeResources.WOOD)}\n\n" +
-                    "2 эпоха:\n" +
-                    "Еда: ${EraService.costNextEra["2"]?.get(TypeResources.FOOD)}\n" +
-                    "Древесина: ${EraService.costNextEra["2"]?.get(TypeResources.WOOD)}\n" +
-                    "Золото: ${EraService.costNextEra["2"]?.get(TypeResources.GOLD)}\n\n" +
-                    "3 эпоха:\n" +
-                    "Еда: ${EraService.costNextEra["3"]?.get(TypeResources.FOOD)}\n" +
-                    "Древесина: ${EraService.costNextEra["3"]?.get(TypeResources.WOOD)}\n" +
-                    "Золото: ${EraService.costNextEra["3"]?.get(TypeResources.GOLD)}\n" +
-                    "Камень: ${EraService.costNextEra["3"]?.get(TypeResources.STONE)}\n"
-        )
-        builder.show()
+        DialogService.showCostNextEra(this)
     }
 }

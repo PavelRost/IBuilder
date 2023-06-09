@@ -33,10 +33,14 @@ object ExchangeResourcesService {
 
 
     fun incrementCountOperations() {
-        Indicators.availableOperationExchange += 1
+        if (Indicators.availableOperationExchange == 0) {
+            Indicators.availableOperationExchange += 1
+        }
     }
 
     fun decrementCountOperations() {
-        Indicators.availableOperationExchange -= 1
+        if (Indicators.availableOperationExchange != 0) {
+            Indicators.availableOperationExchange -= 1
+        }
     }
 }

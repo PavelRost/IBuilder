@@ -1,5 +1,7 @@
 package com.example.ibuilder.service
 
+import android.content.Context
+import android.widget.Toast
 import com.example.ibuilder.model.Indicators
 import com.example.ibuilder.model.TypeResources
 
@@ -20,19 +22,15 @@ object EraService {
         )
     )
 
-    fun showCurrentEra(): String {
-        return Indicators.currentEra.toString()
-    }
-
     fun getCurrentEra(): Int {
         return Indicators.currentEra
     }
 
-    fun updateEra() {
+    private fun incrementValueEra() {
         Indicators.currentEra += 1
     }
 
-    fun isAvailableNextEra(): Boolean {
+    private fun isAvailableNextEra(): Boolean {
         val mapCostNextEra = costNextEra[(getCurrentEra() + 1).toString()]
         for (resource in mapCostNextEra?.keys!!) {
             when (resource) {
@@ -46,7 +44,7 @@ object EraService {
         return true
     }
 
-    fun deleteResourcesForUpdateEra() {
+    private fun deleteResourcesForUpdateEra() {
         val mapCostNextEra = costNextEra[(getCurrentEra() + 1).toString()]
         for (resource in mapCostNextEra?.keys!!) {
             when (resource) {
@@ -61,5 +59,29 @@ object EraService {
                 else -> {}
             }
         }
+    }
+
+    fun updateEra(context: Context, dbService: DatabaseService) {
+        if (getCurrentEra() == 3) {
+            Toast.makeText(
+                context,
+                "Достигнута максимальная технологическая эпоха!",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        if (isAvailableNextEra()) {
+            deleteResourcesForUpdateEra()
+            incrementValueEra()
+            Toast.makeText(context, "Наступила новая эпоха, поздравляем!", Toast.LENGTH_SHORT)
+                .show()
+            dbService.saveAllIndicators()
+            return
+        }
+        Toast.makeText(
+            context,
+            "Недостаточно средств для перехода в следующую эпоху!",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

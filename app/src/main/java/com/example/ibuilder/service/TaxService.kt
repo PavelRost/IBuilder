@@ -5,11 +5,15 @@ import com.example.ibuilder.model.Indicators
 object TaxService {
 
     fun incrementCountUpdateTaxRate() {
-        Indicators.availableUpdateTaxRate = Indicators.availableUpdateTaxRate + 1
+        if (Indicators.availableUpdateTaxRate == 0) {
+            Indicators.availableUpdateTaxRate = Indicators.availableUpdateTaxRate + 1
+        }
     }
 
     fun decrementCountUpdateTaxRate() {
-        Indicators.availableUpdateTaxRate = Indicators.availableUpdateTaxRate - 1
+        if (Indicators.availableUpdateTaxRate != 0) {
+            Indicators.availableUpdateTaxRate = Indicators.availableUpdateTaxRate - 1
+        }
     }
 
     fun getTotalTax() = Indicators.taxRate * Indicators.totalWorkers
