@@ -150,7 +150,7 @@ object BuildingService {
 
     fun continueBuild(): String {
         val rsl = StringBuilder("")
-        getAllBuildingsUnderConstruction().forEach { rsl.append(it.build()).append("\n") } // TODO доработать лишний пробел
+        getAllBuildingsUnderConstruction().forEach { rsl.append(it.build()).append("\n") }
         return rsl.toString()
     }
 
@@ -162,7 +162,7 @@ object BuildingService {
             return "Постройки данного типа отсутствуют, возможно, строительство было завершено"
         }
         allBuildingsByType.forEach {
-            rsl.append(it.constructionStatus()).append("\n") // TODO лишний переход на новую строку
+            rsl.append(it.constructionStatus()).append("\n")
         }
         return rsl.toString()
     }

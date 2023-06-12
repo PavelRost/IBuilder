@@ -8,13 +8,13 @@ object TaxService {
 
     fun incrementCountUpdateTaxRate() {
         if (Indicators.availableUpdateTaxRate == 0) {
-            Indicators.availableUpdateTaxRate = Indicators.availableUpdateTaxRate + 1
+            Indicators.availableUpdateTaxRate += 1
         }
     }
 
     private fun decrementCountUpdateTaxRate() {
         if (Indicators.availableUpdateTaxRate != 0) {
-            Indicators.availableUpdateTaxRate = Indicators.availableUpdateTaxRate - 1
+            Indicators.availableUpdateTaxRate -= 1
         }
     }
 
@@ -22,11 +22,9 @@ object TaxService {
 
     private fun updateSatisfaction(newTaxRate: Int) {
         if (newTaxRate > Indicators.taxRate) {
-            Indicators.satisfactionCitizens =
-                Indicators.satisfactionCitizens - (newTaxRate - Indicators.taxRate)
+            Indicators.satisfactionCitizens -= (newTaxRate - Indicators.taxRate)
         } else {
-            Indicators.satisfactionCitizens =
-                Indicators.satisfactionCitizens + (Indicators.taxRate - newTaxRate)
+            Indicators.satisfactionCitizens += (Indicators.taxRate - newTaxRate)
         }
     }
 

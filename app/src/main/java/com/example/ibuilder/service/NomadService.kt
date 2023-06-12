@@ -21,8 +21,8 @@ object NomadService {
                     workersForRemove = Indicators.totalWorkers / 2
                 }
                 BuildingService.convertHiredInFreeWorkers(workersForRemove)
-                Indicators.totalWorkers = Indicators.totalWorkers - workersForRemove
-                Indicators.freeWorkers = Indicators.freeWorkers - workersForRemove
+                Indicators.totalWorkers -= workersForRemove
+                Indicators.freeWorkers -= workersForRemove
                 BuildingService.changeCapacityHouse(workersForRemove)
                 DialogService.showNomadTookCitizens(context, workersForRemove)
                 return

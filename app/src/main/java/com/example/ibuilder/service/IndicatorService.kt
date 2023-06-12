@@ -38,12 +38,12 @@ object IndicatorService {
                 buildingSer.convertHiredInFreeWorkers(workersForRemove)
                 if (workersForRemove > Indicators.freeWorkers) {
                     val currentFreeWorkers = Indicators.freeWorkers
-                    Indicators.totalWorkers = Indicators.totalWorkers - currentFreeWorkers
-                    Indicators.freeWorkers = Indicators.freeWorkers - currentFreeWorkers
+                    Indicators.totalWorkers -= currentFreeWorkers
+                    Indicators.freeWorkers -= currentFreeWorkers
                     BuildingService.changeCapacityHouse(currentFreeWorkers)
                 } else {
-                    Indicators.totalWorkers = Indicators.totalWorkers - workersForRemove
-                    Indicators.freeWorkers = Indicators.freeWorkers - workersForRemove
+                    Indicators.totalWorkers -= workersForRemove
+                    Indicators.freeWorkers -= workersForRemove
                     BuildingService.changeCapacityHouse(workersForRemove)
                 }
             }
@@ -56,8 +56,8 @@ object IndicatorService {
                     (Indicators.totalWorkers * HUMAN_USE_FOOD - Indicators.allResources[TypeResources.FOOD]!!) / HUMAN_USE_FOOD
                 }
                 buildingSer.convertHiredInFreeWorkers(workersForRemove)
-                Indicators.totalWorkers = Indicators.totalWorkers - workersForRemove
-                Indicators.freeWorkers = Indicators.freeWorkers - workersForRemove
+                Indicators.totalWorkers -= workersForRemove
+                Indicators.freeWorkers -= workersForRemove
                 buildingSer.changeCapacityHouse(workersForRemove)
             }
 

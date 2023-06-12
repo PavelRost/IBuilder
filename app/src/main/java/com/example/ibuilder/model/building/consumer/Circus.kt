@@ -17,7 +17,7 @@ data class Circus(
 
     override fun createResources() {
         if (!isProfitActivate) {
-            Indicators.satisfactionCitizens = Indicators.satisfactionCitizens + profit
+            Indicators.satisfactionCitizens += profit
             isProfitActivate = true
         }
     }

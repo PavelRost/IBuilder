@@ -18,8 +18,8 @@ data class HouseWorker(
 
     override fun createResources() {
         if (capacityHouse > 0) {
-            Indicators.totalWorkers = Indicators.totalWorkers + profit
-            Indicators.freeWorkers = Indicators.freeWorkers + profit
+            Indicators.totalWorkers += profit
+            Indicators.freeWorkers += profit
             capacityHouse--
         }
     }

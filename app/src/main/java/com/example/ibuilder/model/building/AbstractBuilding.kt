@@ -35,17 +35,17 @@ abstract class AbstractBuilding {
             return "Недостаточно свободных рабочих, требуется: $needWorkers"
         }
         hiredWorkers = needWorkers
-        Indicators.freeWorkers = Indicators.freeWorkers - needWorkers
-        Indicators.hiredWorkers = Indicators.hiredWorkers + needWorkers
+        Indicators.freeWorkers -= needWorkers
+        Indicators.hiredWorkers += needWorkers
         return "На $name №$serialNumber рабочии приступили к производству."
     }
 
     fun removeWorkers(): String {
         hiredWorkers = 0
-        Indicators.freeWorkers = Indicators.freeWorkers + needWorkers
-        Indicators.hiredWorkers = Indicators.hiredWorkers - needWorkers
+        Indicators.freeWorkers += needWorkers
+        Indicators.hiredWorkers -= needWorkers
         if (typeResources == TypeResources.SATISFACTION) {
-            Indicators.satisfactionCitizens = Indicators.satisfactionCitizens - profit
+            Indicators.satisfactionCitizens -= profit
             isProfitActivate = false
         }
         return "$name №$serialNumber не производит ресурсов, рабочие распущены по домам"
