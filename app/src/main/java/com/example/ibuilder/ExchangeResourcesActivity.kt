@@ -42,14 +42,6 @@ class ExchangeResourcesActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViews() {
-        textViewExchangeOperations = findViewById(R.id.textView_exchange_resource_operations)
-        textViewExchangeBuyPrice = findViewById(R.id.textView_exchange_buy_price)
-        textViewExchangeSellPrice = findViewById(R.id.textView_exchange_sell_price)
-        textViewExchangeQuantity = findViewById(R.id.textView_exchange_quantity)
-        textViewExchangeCountResources = findViewById(R.id.textView_exchange_count_resources)
-    }
-
     fun selectTypeResources(view: View) {
         val isChecked = (view as RadioButton).isChecked
         when (view.id) {
@@ -88,10 +80,6 @@ class ExchangeResourcesActivity : AppCompatActivity() {
         }
         quantity--
         displayQuantity()
-    }
-
-    private fun displayQuantity() {
-        textViewExchangeQuantity.text = quantity.toString()
     }
 
     fun buyResources(view: View) {
@@ -135,11 +123,23 @@ class ExchangeResourcesActivity : AppCompatActivity() {
         textViewExchangeCountResources.text = IndicatorService.showDisplayResources()
     }
 
-    private fun isInitTypeResource(view: View) : Boolean {
+    private fun displayQuantity() {
+        textViewExchangeQuantity.text = quantity.toString()
+    }
+
+    private fun isInitTypeResource(view: View): Boolean {
         if (typeResource == null) {
             Toast.makeText(this, "Выберите тип ресурса", Toast.LENGTH_SHORT).show()
             return false
         }
         return true
+    }
+
+    private fun initViews() {
+        textViewExchangeOperations = findViewById(R.id.textView_exchange_resource_operations)
+        textViewExchangeBuyPrice = findViewById(R.id.textView_exchange_buy_price)
+        textViewExchangeSellPrice = findViewById(R.id.textView_exchange_sell_price)
+        textViewExchangeQuantity = findViewById(R.id.textView_exchange_quantity)
+        textViewExchangeCountResources = findViewById(R.id.textView_exchange_count_resources)
     }
 }

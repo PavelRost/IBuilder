@@ -32,13 +32,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViews() {
-        textViewCountResources = findViewById(R.id.textView_main_count_resources)
-        textViewCountCitizens = findViewById(R.id.textView_main_count_citizens)
-        textViewCountBuilt = findViewById(R.id.textView_main_count_built)
-        textViewCurrentEra = findViewById(R.id.textView_main_current_era)
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean("isShowDescription", isShowDescription)
@@ -52,20 +45,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         updateIndicatorsWithoutView()
-    }
-
-    private fun updateIndicatorsPlayer(view: View) {
-        textViewCountResources.text = IndicatorService.showDisplayResources()
-        textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
-        textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
-        textViewCurrentEra.text = EraService.getCurrentEra().toString()
-    }
-
-    private fun updateIndicatorsWithoutView() {
-        textViewCountResources.text = IndicatorService.showDisplayResources()
-        textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
-        textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
-        textViewCurrentEra.text = EraService.getCurrentEra().toString()
     }
 
     fun startNextMove(view: View) {
@@ -112,5 +91,26 @@ class MainActivity : AppCompatActivity() {
 
     fun showCostNextEra(view: View) {
         DialogService.showCostNextEra(this)
+    }
+
+    private fun updateIndicatorsPlayer(view: View) {
+        textViewCountResources.text = IndicatorService.showDisplayResources()
+        textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
+        textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
+        textViewCurrentEra.text = EraService.getCurrentEra().toString()
+    }
+
+    private fun updateIndicatorsWithoutView() {
+        textViewCountResources.text = IndicatorService.showDisplayResources()
+        textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
+        textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
+        textViewCurrentEra.text = EraService.getCurrentEra().toString()
+    }
+
+    private fun initViews() {
+        textViewCountResources = findViewById(R.id.textView_main_count_resources)
+        textViewCountCitizens = findViewById(R.id.textView_main_count_citizens)
+        textViewCountBuilt = findViewById(R.id.textView_main_count_built)
+        textViewCurrentEra = findViewById(R.id.textView_main_current_era)
     }
 }

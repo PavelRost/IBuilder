@@ -34,6 +34,27 @@ class CitizensActivity : AppCompatActivity() {
         }
     }
 
+    fun incrementTaxRate(view: View) {
+        Indicators.tmpTaxRate++
+        displayTaxRate()
+    }
+
+
+    fun decrementTaxRate(view: View) {
+        if (Indicators.tmpTaxRate == 0) {
+            Toast.makeText(this, "Ставка не может быть отрицательной", Toast.LENGTH_SHORT).show()
+            return
+        }
+        Indicators.tmpTaxRate--
+        displayTaxRate()
+    }
+
+    fun updateTaxRate(view: View) {
+        val dbService = ViewModelProvider(this)[DatabaseService::class.java]
+        TaxService.updateTaxRate(this@CitizensActivity, dbService)
+        updateIndicatorPlayer()
+    }
+
     private fun initViews() {
         textViewCitizensTax = findViewById(R.id.textView_citizens_tax)
         textViewCitizensCountWorkers = findViewById(R.id.textView_citizens_count_workers)
@@ -50,28 +71,7 @@ class CitizensActivity : AppCompatActivity() {
         textViewCitizensSatisfaction.text = Indicators.satisfactionCitizens.toString()
     }
 
-    fun incrementTaxRate(view: View) {
-        Indicators.tmpTaxRate++
-        displayTaxRate()
-    }
-
-
-    fun decrementTaxRate(view: View) {
-        if (Indicators.tmpTaxRate == 0) {
-            Toast.makeText(this, "Ставка не может быть отрицательной", Toast.LENGTH_SHORT).show()
-            return
-        }
-        Indicators.tmpTaxRate--
-        displayTaxRate()
-    }
-
     private fun displayTaxRate() {
         textViewCitizensTax.text = Indicators.tmpTaxRate.toString()
-    }
-
-    fun updateTaxRate(view: View) {
-        val dbService = ViewModelProvider(this)[DatabaseService::class.java]
-        TaxService.updateTaxRate(this@CitizensActivity, dbService)
-        updateIndicatorPlayer()
     }
 }

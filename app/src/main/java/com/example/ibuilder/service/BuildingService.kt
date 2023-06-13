@@ -133,10 +133,6 @@ object BuildingService {
         return getAllBuildingsBuilt().filter { it.hiredWorkers > 0 && it.typeResources == TypeResources.SATISFACTION }
     }
 
-    fun getAllWorkingProducerBuilding(): List<AbstractBuilding> {
-        return getAllBuildingsBuilt().filter { it.hiredWorkers > 0 && it.typeResources != TypeResources.SATISFACTION }
-    }
-
     // Получить количество свободных мест во всех домах в городе
     fun getRealCapacityHouse(): Int {
         var rsl = 0
@@ -226,5 +222,9 @@ object BuildingService {
             TypeBuilding.CONSUMER_CIRCUS -> Circus(serialNumber = 0).showInformation() + "2 ${TypeResources.GOLD.name}"
             TypeBuilding.CONSUMER_CHURCH -> Church(serialNumber = 0).showInformation() + "3 ${TypeResources.GOLD.name}"
         }
+    }
+
+    private fun getAllWorkingProducerBuilding(): List<AbstractBuilding> {
+        return getAllBuildingsBuilt().filter { it.hiredWorkers > 0 && it.typeResources != TypeResources.SATISFACTION }
     }
 }

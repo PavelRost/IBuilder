@@ -12,21 +12,7 @@ object TaxService {
         }
     }
 
-    private fun decrementCountUpdateTaxRate() {
-        if (Indicators.availableUpdateTaxRate != 0) {
-            Indicators.availableUpdateTaxRate -= 1
-        }
-    }
-
     fun getTotalTax() = Indicators.taxRate * Indicators.totalWorkers
-
-    private fun updateSatisfaction(newTaxRate: Int) {
-        if (newTaxRate > Indicators.taxRate) {
-            Indicators.satisfactionCitizens -= (newTaxRate - Indicators.taxRate)
-        } else {
-            Indicators.satisfactionCitizens += (Indicators.taxRate - newTaxRate)
-        }
-    }
 
     fun updateTaxRate(context: Context, dbService: DatabaseService) {
         if (Indicators.taxRate == Indicators.tmpTaxRate) {
@@ -45,5 +31,19 @@ object TaxService {
         Indicators.taxRate = Indicators.tmpTaxRate
         Toast.makeText(context, "Ставка успешно обновлена", Toast.LENGTH_SHORT).show()
         dbService.saveAllIndicators()
+    }
+
+    private fun decrementCountUpdateTaxRate() {
+        if (Indicators.availableUpdateTaxRate != 0) {
+            Indicators.availableUpdateTaxRate -= 1
+        }
+    }
+
+    private fun updateSatisfaction(newTaxRate: Int) {
+        if (newTaxRate > Indicators.taxRate) {
+            Indicators.satisfactionCitizens -= (newTaxRate - Indicators.taxRate)
+        } else {
+            Indicators.satisfactionCitizens += (Indicators.taxRate - newTaxRate)
+        }
     }
 }

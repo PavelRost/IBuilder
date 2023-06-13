@@ -37,21 +37,6 @@ class BuildingMainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViews() {
-        radiosBuilding = findViewById(R.id.radios_building)
-        radiosConsumerBuildings = findViewById(R.id.radios_consumer_buildings)
-        textViewCountProducer = findViewById(R.id.textView_building_producing_buildings)
-        textViewCountConsumer = findViewById(R.id.textView_building_consuming_buildings)
-    }
-
-    private fun clearProducerBuilding() {
-        radiosBuilding.clearCheck()
-    }
-
-    private fun clearConsumerBuilding() {
-        radiosConsumerBuildings.clearCheck()
-    }
-
     fun selectTypeBuilding(view: View) {
         val isChecked = (view as RadioButton).isChecked
         when (view.id) {
@@ -151,12 +136,27 @@ class BuildingMainActivity : AppCompatActivity() {
         textViewCountConsumer.text = BuildingService.showWorkingConsumerBuilding()
     }
 
-    private fun isInitTypeBuilding(view: View) : Boolean {
+    private fun isInitTypeBuilding(view: View): Boolean {
         if (typeBuilding == null) {
             Toast.makeText(this, "Выберите тип здания", Toast.LENGTH_SHORT).show()
             return false
         }
         return true
+    }
+
+    private fun initViews() {
+        radiosBuilding = findViewById(R.id.radios_building)
+        radiosConsumerBuildings = findViewById(R.id.radios_consumer_buildings)
+        textViewCountProducer = findViewById(R.id.textView_building_producing_buildings)
+        textViewCountConsumer = findViewById(R.id.textView_building_consuming_buildings)
+    }
+
+    private fun clearProducerBuilding() {
+        radiosBuilding.clearCheck()
+    }
+
+    private fun clearConsumerBuilding() {
+        radiosConsumerBuildings.clearCheck()
     }
 
 }

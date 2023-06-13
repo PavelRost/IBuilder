@@ -26,6 +26,30 @@ object EraService {
         return Indicators.currentEra
     }
 
+    fun updateEra(context: Context, dbService: DatabaseService) {
+        if (getCurrentEra() == 3) {
+            Toast.makeText(
+                context,
+                "Достигнута максимальная технологическая эпоха!",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        if (isAvailableNextEra()) {
+            deleteResourcesForUpdateEra()
+            incrementValueEra()
+            Toast.makeText(context, "Наступила новая эпоха, поздравляем!", Toast.LENGTH_SHORT)
+                .show()
+            dbService.saveAllIndicators()
+            return
+        }
+        Toast.makeText(
+            context,
+            "Недостаточно средств для перехода в следующую эпоху!",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
     private fun incrementValueEra() {
         Indicators.currentEra += 1
     }
@@ -59,29 +83,5 @@ object EraService {
                 else -> {}
             }
         }
-    }
-
-    fun updateEra(context: Context, dbService: DatabaseService) {
-        if (getCurrentEra() == 3) {
-            Toast.makeText(
-                context,
-                "Достигнута максимальная технологическая эпоха!",
-                Toast.LENGTH_SHORT
-            ).show()
-            return
-        }
-        if (isAvailableNextEra()) {
-            deleteResourcesForUpdateEra()
-            incrementValueEra()
-            Toast.makeText(context, "Наступила новая эпоха, поздравляем!", Toast.LENGTH_SHORT)
-                .show()
-            dbService.saveAllIndicators()
-            return
-        }
-        Toast.makeText(
-            context,
-            "Недостаточно средств для перехода в следующую эпоху!",
-            Toast.LENGTH_SHORT
-        ).show()
     }
 }
