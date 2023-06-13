@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.ibuilder.model.Indicators
@@ -21,10 +18,10 @@ class ExchangeResourcesActivity : AppCompatActivity() {
     private lateinit var textViewExchangeOperations: TextView
     private lateinit var textViewExchangeBuyPrice: TextView
     private lateinit var textViewExchangeSellPrice: TextView
-    private lateinit var textViewExchangeQuantity: TextView
     private lateinit var textViewExchangeCountResources: TextView
+    private lateinit var editTextExchangeQuantity: EditText
     private var typeResource: TypeResources? = null
-    private var quantity = 1
+    private var quantity = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,27 +64,22 @@ class ExchangeResourcesActivity : AppCompatActivity() {
             ExchangeResourcesService.exchangeRate[typeResource]!!["sell"].toString()
     }
 
-    fun incrementQuantity(view: View) {
-        quantity++
-        displayQuantity()
-    }
-
-
-    fun decrementQuantity(view: View) {
-        if (quantity == 1) {
-            Toast.makeText(this, "Можно обменять только >= 1 единицы ресурсов", Toast.LENGTH_SHORT).show()
-            return
-        }
-        quantity--
-        displayQuantity()
-    }
-
     fun buyResources(view: View) {
         if (!ExchangeResourcesService.isAvailableExchangeOperations()) {
             Toast.makeText(this, "Исчерпаны доступные на данном ходу операции купли-продажи", Toast.LENGTH_SHORT).show()
             return
         }
         if (isInitTypeResource(view)) {
+            if (editTextExchangeQuantity.editableText.toString().isEmpty()) {
+                Toast.makeText(this, "Укажите количество для обмена", Toast.LENGTH_SHORT).show()
+                return
+            }
+            quantity = editTextExchangeQuantity.editableText.toString().toInt()
+            if (quantity == 0) {
+                Toast.makeText(this, "Обмен доступен от 1 единицы ресурсов", Toast.LENGTH_SHORT)
+                    .show()
+                return
+            }
             if (!ExchangeResourcesService.isEnoughGold(typeResource!!, quantity)) {
                 Toast.makeText(this, "У вас не хватает золота!", Toast.LENGTH_SHORT).show()
                 return
@@ -97,6 +89,7 @@ class ExchangeResourcesActivity : AppCompatActivity() {
             ExchangeResourcesService.decrementCountOperations()
             textViewExchangeOperations.text = Indicators.availableOperationExchange.toString()
             Toast.makeText(this, "Сделка завершена успешно!", Toast.LENGTH_SHORT).show()
+            ViewModelProvider(this)[DatabaseService::class.java].saveAllIndicators()
         }
     }
 
@@ -106,8 +99,22 @@ class ExchangeResourcesActivity : AppCompatActivity() {
             return
         }
         if (isInitTypeResource(view)) {
+            if (editTextExchangeQuantity.editableText.toString().isEmpty()) {
+                Toast.makeText(this, "Укажите количество для обмена", Toast.LENGTH_SHORT).show()
+                return
+            }
+            quantity = editTextExchangeQuantity.editableText.toString().toInt()
+            if (quantity == 0) {
+                Toast.makeText(this, "Обмен доступен от 1 единицы ресурсов", Toast.LENGTH_SHORT)
+                    .show()
+                return
+            }
             if (!ExchangeResourcesService.isEnoughResourceForSell(typeResource!!, quantity)) {
-                Toast.makeText(this, "У вас не хватает выбранного ресурса для продажи!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "У вас не хватает выбранного ресурса для продажи!",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return
             }
             ExchangeResourcesService.sellResource(typeResource!!, quantity)
@@ -123,10 +130,6 @@ class ExchangeResourcesActivity : AppCompatActivity() {
         textViewExchangeCountResources.text = IndicatorService.showDisplayResources()
     }
 
-    private fun displayQuantity() {
-        textViewExchangeQuantity.text = quantity.toString()
-    }
-
     private fun isInitTypeResource(view: View): Boolean {
         if (typeResource == null) {
             Toast.makeText(this, "Выберите тип ресурса", Toast.LENGTH_SHORT).show()
@@ -139,7 +142,7 @@ class ExchangeResourcesActivity : AppCompatActivity() {
         textViewExchangeOperations = findViewById(R.id.textView_exchange_resource_operations)
         textViewExchangeBuyPrice = findViewById(R.id.textView_exchange_buy_price)
         textViewExchangeSellPrice = findViewById(R.id.textView_exchange_sell_price)
-        textViewExchangeQuantity = findViewById(R.id.textView_exchange_quantity)
         textViewExchangeCountResources = findViewById(R.id.textView_exchange_count_resources)
+        editTextExchangeQuantity = findViewById(R.id.editText_exchange_quantity)
     }
 }

@@ -40,12 +40,13 @@
     <string name="button_sell_resources">Продать</string>
     <string name="resource_gold">Золото</string>
     <string name="resource_wood">Лес</string>
-    <string name="resource_food">Продовольствие</string>
+    <string name="resource_food">Еда</string>
     <string name="resource_stone">Камень</string>
     <string name="header_buy">Цена покупки:</string>
     <string name="currency">золотых</string>
     <string name="header_cell">Цена продажи:</string>
     <string name="header_count_operations_exchange">Количество доступных операций:</string>
+    <string name="hint_edit_resourse">Введите количество ресурсов</string>
 
     <!-- Экран Население (CitizensActivity.kt)   -->
     <string name="header_total_workers">Всего рабочих:</string>
@@ -55,6 +56,5 @@
     <string name="button_update_tax_rate">Обновить налоговую ставку</string>
     <string name="decrement">-</string>
     <string name="increment">+</string>
-
 
 </resources>

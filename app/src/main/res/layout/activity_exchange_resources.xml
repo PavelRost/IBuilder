@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical">
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -141,83 +142,55 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_exchange_radios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <RadioGroup
-                android:id="@+id/radios_exchange"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="parent">
-
-                <RadioButton
-                    android:id="@+id/radiobutton_exchange_stone"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:onClick="selectTypeResources"
-                    android:text="@string/resource_stone" />
-
-                <RadioButton
-                    android:id="@+id/radiobutton_exchange_wood"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:onClick="selectTypeResources"
-                    android:text="@string/resource_wood" />
-
-                <RadioButton
-                    android:id="@+id/radiobutton_exchange_food"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:onClick="selectTypeResources"
-                    android:text="@string/resource_food" />
-
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_exchange_quantity"
+        <RadioGroup
+            android:id="@+id/radios_exchange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="parent">
 
-            <Button
-                android:id="@+id/button_exchange_decrement_quantity"
+            <RadioButton
+                android:id="@+id/radiobutton_exchange_stone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="decrementQuantity"
-                android:text="@string/decrement" />
-
-            <TextView
-                android:id="@+id/textView_exchange_quantity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="1"
-                android:textSize="20sp" />
+                android:onClick="selectTypeResources"
+                android:text="@string/resource_stone" />
 
-            <Button
-                android:id="@+id/button_exchange_increment_quantity"
+            <RadioButton
+                android:id="@+id/radiobutton_exchange_wood"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="incrementQuantity"
-                android:text="@string/increment" />
+                android:gravity="center"
+                android:onClick="selectTypeResources"
+                android:text="@string/resource_wood" />
 
-        </LinearLayout>
+            <RadioButton
+                android:id="@+id/radiobutton_exchange_food"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="selectTypeResources"
+                android:text="@string/resource_food" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/editText_exchange_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/hint_edit_resourse"
+            android:inputType="number" />
 
         <LinearLayout
             android:id="@+id/layout_exchange_buttons_resources"
