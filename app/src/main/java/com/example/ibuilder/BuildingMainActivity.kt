@@ -8,9 +8,9 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ibuilder.model.building.TypeBuilding
+import com.example.ibuilder.service.DialogService
 import service.BuildingService
 
 class BuildingMainActivity : AppCompatActivity() {
@@ -143,10 +143,7 @@ class BuildingMainActivity : AppCompatActivity() {
             Toast.makeText(this, "Выберите тип здания", Toast.LENGTH_SHORT).show()
             return
         }
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Информация о постройке:")
-        builder.setMessage(BuildingService.showInformationBuilding(typeBuilding!!))
-        builder.show()
+        DialogService.showInformationBuilding(this, typeBuilding!!)
     }
 
     private fun showWorkingBuildings() {

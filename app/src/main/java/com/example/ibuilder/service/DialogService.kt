@@ -3,6 +3,8 @@ package com.example.ibuilder.service
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.example.ibuilder.model.TypeResources
+import com.example.ibuilder.model.building.TypeBuilding
+import service.BuildingService
 
 object DialogService {
 
@@ -59,6 +61,13 @@ object DialogService {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Набег кочевников!")
         builder.setMessage("Кочевники увели в рабство $citizensSlave жителей!")
+        builder.show()
+    }
+
+    fun showInformationBuilding(context: Context, typeBuilding: TypeBuilding) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Информация о постройке:")
+        builder.setMessage(BuildingService.showInformationBuilding(typeBuilding))
         builder.show()
     }
 }
