@@ -36,7 +36,7 @@
             android:id="@+id/textView_citizens_count_workers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="19dp"
             android:text=""
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -63,7 +63,7 @@
             android:id="@+id/textView_citizens_tax_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="19dp"
             android:text=""
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -122,42 +122,53 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/editText_citizens_new_tax"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
+        android:hint="@string/hint_edit_new_tax"
+        android:inputType="number"
+        android:minHeight="48dp" />
 
-        <Button
-            android:id="@+id/button_citizens_decrement_tax"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="decrementTaxRate"
-            android:text="@string/decrement" />
 
-        <TextView
-            android:id="@+id/textView_citizens_tax"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="20sp"
-            tools:text="0" />
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="10dp"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:layout_marginEnd="10dp"-->
+    <!--        android:orientation="horizontal">-->
 
-        <Button
-            android:id="@+id/button_citizens_increment_tax"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="incrementTaxRate"
-            android:text="@string/increment" />
+    <!--        <Button-->
+    <!--            android:id="@+id/button_citizens_decrement_tax"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:onClick="decrementTaxRate"-->
+    <!--            android:text="@string/decrement" />-->
 
-    </LinearLayout>
+    <!--        <TextView-->
+    <!--            android:id="@+id/textView_citizens_tax"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:gravity="center"-->
+    <!--            android:textSize="20sp"-->
+    <!--            tools:text="0" />-->
+
+    <!--        <Button-->
+    <!--            android:id="@+id/button_citizens_increment_tax"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:onClick="incrementTaxRate"-->
+    <!--            android:text="@string/increment" />-->
+
+    <!--    </LinearLayout>-->
 
     <Button
         android:id="@+id/button_citizens_change_tax"

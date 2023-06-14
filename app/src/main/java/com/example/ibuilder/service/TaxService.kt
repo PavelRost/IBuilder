@@ -14,21 +14,10 @@ object TaxService {
 
     fun getTotalTax() = Indicators.taxRate * Indicators.totalWorkers
 
-    fun updateTaxRate(context: Context, dbService: DatabaseService) {
-        if (Indicators.taxRate == Indicators.tmpTaxRate) {
-            Toast.makeText(context, "Сначала измените налоговую ставку", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-        if (Indicators.availableUpdateTaxRate == 0) {
-            Toast.makeText(context, "Ставку можно обновить только 1 раз за ход", Toast.LENGTH_SHORT)
-                .show()
-            Indicators.tmpTaxRate = Indicators.taxRate
-            return
-        }
+    fun updateTaxRate(context: Context, newTaxRate: Int, dbService: DatabaseService) {
         decrementCountUpdateTaxRate()
-        updateSatisfaction(Indicators.tmpTaxRate)
-        Indicators.taxRate = Indicators.tmpTaxRate
+        updateSatisfaction(newTaxRate)
+        Indicators.taxRate = newTaxRate
         Toast.makeText(context, "Ставка успешно обновлена", Toast.LENGTH_SHORT).show()
         dbService.saveAllIndicators()
     }

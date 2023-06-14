@@ -56,5 +56,18 @@
     <string name="button_update_tax_rate">Обновить налоговую ставку</string>
     <string name="decrement">-</string>
     <string name="increment">+</string>
+    <string name="hint_edit_new_tax">Введите новую налоговую ставку</string>
+
+    <string-array name="buildings">
+        <item>Выберите здание:</item>
+        <item>Золотой рудник (5 золота)</item>
+        <item>Каменный рудник (3 золота)</item>
+        <item>Лесопилка (3 леса)</item>
+        <item>Ферма (2 леса)</item>
+        <item>Дом работника (2 леса)</item>
+        <item>Таверна (15 леса)</item>
+        <item>Ярмарка (30 леса)</item>
+        <item>Храм (40 камня)</item>
+    </string-array>
 
 </resources>
