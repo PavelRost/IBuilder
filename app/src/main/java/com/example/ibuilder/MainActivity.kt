@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         rsl.append(BuildingService.continueBuild())
 
         IndicatorService.calculationResourcesPlayer()
-        NomadService.nomadAttack(this@MainActivity)
+        NomadService.nomadAttack(this@MainActivity, databaseService)
         ExchangeResourcesService.incrementCountOperations()
         TaxService.incrementCountUpdateTaxRate()
 

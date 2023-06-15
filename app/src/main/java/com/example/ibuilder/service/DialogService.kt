@@ -44,10 +44,13 @@ object DialogService {
         builder.show()
     }
 
-    fun showGameOver(context: Context) {
-        val builder = AlertDialog.Builder(context)
+    fun showGameOver(context: Context, databaseService: DatabaseService) {
+        val builder = AlertDialog.Builder(context).setCancelable(false)
         builder.setTitle("Внимание!")
         builder.setMessage("Игра проиграна! Можете играть дальше, конечно... но лучше начните сначала.")
+        builder.setPositiveButton("Начать сначала") { _, _ ->
+            databaseService.restartGame()
+        }
         builder.show()
     }
 

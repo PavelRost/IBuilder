@@ -212,4 +212,33 @@ class DatabaseService(
             databaseApp.BuildingsWorkingDAO().addBuildingsWorking(buildingsWorking)
         }
     }
+
+    fun restartGame() {
+        thread {
+            databaseApp.clearAllTables()
+        }
+        Indicators.idPlayer = 0
+        Indicators.currentDay = 1
+        Indicators.availableUpdateTaxRate = 1
+        Indicators.taxRate = 0
+        Indicators.satisfactionCitizens = 2
+        Indicators.frequencyAttackNomad = 10
+        Indicators.currentEra = 0
+        Indicators.availableOperationExchange = 1
+        Indicators.allResources[TypeResources.GOLD] = 20
+        Indicators.allResources[TypeResources.WOOD] = 10
+        Indicators.allResources[TypeResources.FOOD] = 20
+        Indicators.allResources[TypeResources.STONE] = 0
+        Indicators.totalWorkers = 0
+        Indicators.hiredWorkers = 0
+        Indicators.freeWorkers = 0
+        Indicators.building[TypeBuilding.PRODUCER_GOLD]?.clear()
+        Indicators.building[TypeBuilding.PRODUCER_FOOD]?.clear()
+        Indicators.building[TypeBuilding.PRODUCER_STONE]?.clear()
+        Indicators.building[TypeBuilding.PRODUCER_WOOD]?.clear()
+        Indicators.building[TypeBuilding.PRODUCER_WORKER]?.clear()
+        Indicators.building[TypeBuilding.CONSUMER_TAVERN]?.clear()
+        Indicators.building[TypeBuilding.CONSUMER_CIRCUS]?.clear()
+        Indicators.building[TypeBuilding.CONSUMER_CHURCH]?.clear()
+    }
 }

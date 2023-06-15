@@ -7,7 +7,7 @@ import service.BuildingService
 
 object NomadService {
 
-    fun nomadAttack(context: Context) {
+    fun nomadAttack(context: Context, databaseService: DatabaseService) {
         incrementFrequencyAttackNomad()
         if (checkDayForAttackNomad()) {
             if (Indicators.allResources[TypeResources.GOLD]!! >= 100) {
@@ -27,7 +27,7 @@ object NomadService {
                 DialogService.showNomadTookCitizens(context, workersForRemove)
                 return
             }
-            DialogService.showGameOver(context)
+            DialogService.showGameOver(context, databaseService)
         }
     }
 
