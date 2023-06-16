@@ -27,4 +27,4 @@ ___
 
 ![Ресурсы (Мелкое)](https://github.com/PavelRost/IBuilder/assets/92044501/d47bea3e-bd35-4b23-9250-ab4bccc7136a) ![Население](https://github.com/PavelRost/IBuilder/assets/92044501/1fb0af0c-c285-430b-b608-3e47b2173da3)
 
-![Nomad alert (Мелкое)](https://github.com/PavelRost/IBuilder/assets/92044501/780c0294-ceb8-40a9-88c1-5b4d4cceacf0)
+![Nomad alert (Мелкое)](https://github.com/PavelRost/IBuilder/assets/92044501/780c0294-ceb8-40a9-88c1-5b4d4cceacf0) ![Проигрыш (Мелкое)](https://github.com/PavelRost/IBuilder/assets/92044501/d03ae4df-0997-4524-b5c0-4e0318a8c285)
