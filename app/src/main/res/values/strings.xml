@@ -14,8 +14,9 @@
     <string name="button_citizen">Население</string>
     <string name="button_move_next">Следующий ход</string>
     <string name="button_exchange_resources">Обмен ресурсов</string>
-    <string name="button_next_era">Переход в следующую эпоху</string>
+    <string name="button_next_era">Следующая эпоха</string>
     <string name="header_current_era">Текущая эпоха:</string>
+    <string name="header_current_day">Текущий ход:</string>
 
     <!-- Экран Постройки (BuildingMainActivity.kt)   -->
     <string name="textview_radio_building">Здание не выбрано</string>
@@ -43,7 +44,6 @@
     <string name="resource_food">Еда</string>
     <string name="resource_stone">Камень</string>
     <string name="header_buy">Цена покупки:</string>
-    <string name="currency">золотых</string>
     <string name="header_cell">Цена продажи:</string>
     <string name="header_count_operations_exchange">Количество доступных операций:</string>
     <string name="hint_edit_resourse">Введите количество ресурсов</string>

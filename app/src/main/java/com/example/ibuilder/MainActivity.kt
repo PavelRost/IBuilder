@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textViewCountCitizens: TextView
     private lateinit var textViewCountBuilt: TextView
     private lateinit var textViewCurrentEra: TextView
+    private lateinit var textViewCurrentDay: TextView
+    private lateinit var textViewNotice: TextView
     private lateinit var databaseService: DatabaseService
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,16 +51,11 @@ class MainActivity : AppCompatActivity() {
 
     fun startNextMove(view: View) {
         Indicators.currentDay = Indicators.currentDay + 1
-        val rsl = StringBuilder("Наступил ${Indicators.currentDay} день!\n")
-        rsl.append(BuildingService.continueBuild())
-
         IndicatorService.calculationResourcesPlayer()
         NomadService.nomadAttack(this@MainActivity, databaseService)
         ExchangeResourcesService.incrementCountOperations()
         TaxService.incrementCountUpdateTaxRate()
-
-        val textViewNotice = findViewById<TextView>(R.id.textView_main_notice)
-        textViewNotice.text = rsl
+        textViewNotice.text = BuildingService.continueBuild()
         updateIndicatorsPlayer(view)
         databaseService.saveAllIndicators()
     }
@@ -98,6 +95,7 @@ class MainActivity : AppCompatActivity() {
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
         textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
         textViewCurrentEra.text = EraService.getCurrentEra().toString()
+        textViewCurrentDay.text = Indicators.currentDay.toString()
     }
 
     private fun updateIndicatorsWithoutView() {
@@ -105,6 +103,8 @@ class MainActivity : AppCompatActivity() {
         textViewCountCitizens.text = IndicatorService.showDisplayCitizens()
         textViewCountBuilt.text = IndicatorService.showDisplayBuilt()
         textViewCurrentEra.text = EraService.getCurrentEra().toString()
+        textViewCurrentDay.text = Indicators.currentDay.toString()
+        textViewNotice = findViewById(R.id.textView_main_notice)
     }
 
     private fun initViews() {
@@ -112,5 +112,7 @@ class MainActivity : AppCompatActivity() {
         textViewCountCitizens = findViewById(R.id.textView_main_count_citizens)
         textViewCountBuilt = findViewById(R.id.textView_main_count_built)
         textViewCurrentEra = findViewById(R.id.textView_main_current_era)
+        textViewCurrentDay = findViewById(R.id.textView_main_current_day)
+        textViewNotice = findViewById(R.id.textView_main_notice)
     }
 }
