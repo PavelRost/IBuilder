@@ -58,10 +58,14 @@ class ExchangeResourcesActivity : AppCompatActivity() {
                 }
             }
         }
-        textViewExchangeBuyPrice.text =
+        textViewExchangeBuyPrice.text = String.format(
+            "%s золотых",
             ExchangeResourcesService.exchangeRate[typeResource]!!["buy"].toString()
-        textViewExchangeSellPrice.text =
+        )
+        textViewExchangeSellPrice.text = String.format(
+            "%s золотых",
             ExchangeResourcesService.exchangeRate[typeResource]!!["sell"].toString()
+        )
     }
 
     fun buyResources(view: View) {
